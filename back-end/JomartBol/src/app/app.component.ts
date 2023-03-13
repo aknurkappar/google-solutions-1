@@ -19,7 +19,7 @@ export class AppComponent {
   public data: any = []
   constructor(public firestore: Firestore) {
     this.getData()
-  }
+  } 
 
   addData(value: any){
     const dbInstance = collection(this.firestore, 'posts')

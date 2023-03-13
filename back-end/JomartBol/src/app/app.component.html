@@ -2,8 +2,8 @@
 <a routerLink="/registration">Register</a>
 
 <form #postForm="ngForm" (ngSubmit)="addData(postForm.value)">
-    <input name="name" ngModel  placeholder="Name" type="text"  />
-    <input name="description" ngModel placeholder="Description" type="text" />
+  <input name="name" ngModel  placeholder="Name" type="text"  />
+  <input name="description" ngModel placeholder="Description" type="text" />
   <input name="image" ngModel type="file" accept="image/*" />
   <button>Add Data </button>
 </form>
