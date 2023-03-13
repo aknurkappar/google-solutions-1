@@ -1,4 +1,21 @@
 <h1>Home</h1>
 <a routerLink="/registration">Register</a>
 
+<form #postForm="ngForm" (ngSubmit)="addData(postForm.value)">
+    <input name="name" ngModel  placeholder="Name" type="text"  />
+    <input name="description" ngModel placeholder="Description" type="text" />
+  <input name="image" ngModel type="file" accept="image/*" />
+  <button>Add Data </button>
+</form>
+
+
+<ul>
+  <li *ngFor="let item of data">
+    {{item.name}}
+    {{item.description}}
+    <button (click)="updateData(item.id)">Update</button>
+    <button (click)="deleteData(item.id)">Delete</button>
+  </li>
+</ul>
+
 <router-outlet></router-outlet>
