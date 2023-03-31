@@ -13,6 +13,7 @@ Specify the path to the folder where you unpacked the ZIP archive in the command
 
 #### 3. The path in the command prompt
 Specify the path to the folder where you unpacked the ZIP archive in the command prompt:
+
       npm install
 
 Please make sure the release file is unpacked under a Web-accessible
