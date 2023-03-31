@@ -18,6 +18,7 @@ Since the ZIP archive goes without the necessary libraries and modules, you will
 To do this, you need to enter the following command:
 
       npm install
+⠀
 ### 4. Project start
 You need to enter the following command:
 
