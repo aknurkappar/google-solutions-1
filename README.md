@@ -19,9 +19,9 @@ To do this, you need to enter the following command:
 
       npm install
       
-Project start
+PROJECT START
 -------------
-You need to enter the following command:
+After completing all the steps in the instructions, you can start the project using the following command:
 
       ng serve --open
 
