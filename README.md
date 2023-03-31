@@ -42,10 +42,3 @@ PROJECT START
 After completing all the steps in the instructions, you can start the project using the following command:
 
       ng serve --open
-
-Это начальная строка
-
-Эта строка отделена от предыдущей двумя новыми строками и станет *отдельным абзацем*.
-
-Это тоже отдельный абзац, но...⋅⋅
-Эта строка отделена одной новой строкой, поэтому она находится в *том же абзаце*.
