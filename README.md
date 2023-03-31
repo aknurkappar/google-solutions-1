@@ -13,7 +13,8 @@ Download our ZIP archive and unpack it to the folder you want.
 Specify the path to the folder where you unpacked the ZIP archive in the command prompt.
 ㅤ  
 ㅤ
-
+ 
+ ㅤ
 #### 3. Installing libraries and modules
 Since the ZIP archive goes without the necessary libraries and modules, you will need to install them.
 
