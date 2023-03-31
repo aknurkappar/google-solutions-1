@@ -8,7 +8,7 @@ IMPORTING
 Step-by-step instructions for importing the `BeJomart` project.
 
 
-#### 1. Download ZIP and unpacking
+#### **1. Download ZIP and unpacking**
 Download our ZIP archive and unpack it to the folder you want. You will see the following files and directories:
 
       src/                     source folder
