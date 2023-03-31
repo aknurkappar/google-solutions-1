@@ -10,7 +10,7 @@ Step-by-step instructions for importing the `BeJomart` project.
 
 #### **1. Download ZIP and unpacking**
 Download our ZIP archive and unpack it to the folder you want.  
-[![Download ZIP](https://github.com/aknurkappar/google-solutions-1/download.svg)](https://github.com/aknurkappar/google-solutions-1/archive/refs/heads/main.zip)  
+[![Download ZIP](https://github.com/aknurkappar/google-solutions-1/blob/main/download.svg)](https://github.com/aknurkappar/google-solutions-1/archive/refs/heads/main.zip)  
 You will see the following files and directories:
 
       src/                     source folder
