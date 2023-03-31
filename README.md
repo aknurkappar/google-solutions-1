@@ -1,8 +1,8 @@
 BeJomart
 ========
 
-INSTALLATION
-------------
+INSTALLATION Instructions
+-------------------------
 Step-by-step instructions for importing the **BeJomart** project.
 
 Please make sure the release file is unpacked under a Web-accessible
