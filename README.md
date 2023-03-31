@@ -9,7 +9,6 @@ Step-by-step instructions for importing the `BeJomart` project.
   
 #### 1. Download ZIP and unpacking
 Download our ZIP archive and unpack it to the folder you want.
-
  
  ㅤ
 #### 2. The path in the command prompt
