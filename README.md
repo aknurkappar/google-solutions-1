@@ -3,7 +3,7 @@ BeJomart
 
 IMPORTING
 ---------
-Step-by-step instructions for importing the **BeJomart** project.
+Step-by-step instructions for importing the **BeJomart** `project`.
 ⠀
 ⠀
 #### 1. Download ZIP and unpacking
