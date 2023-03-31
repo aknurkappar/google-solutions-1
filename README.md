@@ -3,7 +3,7 @@ BeJomart
 
 INSTALLATION
 ------------
-Step-by-step instructions for importing the **BeJomart** project.
+Step-by-step instructions for importing the **BeJomart (bold)** project.
 
 Please make sure the release file is unpacked under a Web-accessible
 directory. You shall see the following files and directories:
