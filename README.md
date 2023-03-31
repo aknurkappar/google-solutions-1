@@ -9,13 +9,13 @@ Step-by-step instructions for importing the `BeJomart` project.
 #### 1. Download ZIP and unpacking
 Download our ZIP archive and unpack it to the folder you want. You will see the following files and directories:
 
-      src                 /  source folder
-      angular.json
-      firebase.json
+      src/                     source folder
+      angular.json             main configuration file
+      firebase.json            for firebase using       
       package.json
       package.json
       package-lock.json
-      README.md              (Optional)
+      README.md                (Optional)
       tsconfig.app.json
       tsconfig.json
       tsconfig.spec.json
