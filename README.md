@@ -48,5 +48,6 @@ After completing all the steps in the instructions, you can start the project us
 ADMIN
 -----
 To log in to the system for Admins, you must enter the following email and password:  
-:email: Email: `admin@bejomart.kz`  
-:lock: Password: `jomartBol`  
+
+      Email: `admin@bejomart.kz`  
+      Password: `jomartBol`  
