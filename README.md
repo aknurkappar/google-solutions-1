@@ -31,6 +31,12 @@ To do this, you need to enter the following command:
 
       npm install
       
+After that, your directory will be replenished with the following folders:
+
+      .angular/                
+      node_modules/            folder with all necessary libraries
+      
+      
 PROJECT START
 -------------
 After completing all the steps in the instructions, you can start the project using the following command:
