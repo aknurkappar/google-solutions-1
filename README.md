@@ -1,7 +1,7 @@
 BeJomart
 ========
 
-INSTALLATION Instructions
+IMPORTING
 -------------------------
 Step-by-step instructions for importing the **BeJomart** project.
 
