@@ -15,7 +15,7 @@ Download our ZIP archive and unpack it to the folder you want. You will see the 
       package.json
       package.json
       package-lock.json
-      README.md                `Optional`
+      README.md                [Optional]
       tsconfig.app.json
       tsconfig.json
       tsconfig.spec.json
