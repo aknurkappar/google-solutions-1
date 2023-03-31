@@ -33,6 +33,8 @@ To do this, you need to enter the following command:
 
       npm install
       
+---
+      
 After that, your directory will be replenished with the following folders:
 
       .angular/                
