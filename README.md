@@ -15,12 +15,22 @@ This project was generated with `Angular CLI version 15.2.0`
 
 ---
 
+PREPARING FOR IMPORTING
+-----------------------
+#### To start the project, you need:
+* [NodeJS](https://nodejs.org/en) version 18.15.0 LTS and more.
+* [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0 and more.
+
 IMPORTING
 ---------
 Step-by-step instructions for importing the `BeJomart` project.
 
-#### Preparing for importing
-* Hello
+---
+
+### 
+
+
+---
 
 #### 1. Download ZIP and unpacking
 [Download our ZIP](https://github.com/aknurkappar/google-solutions-1/archive/refs/heads/main.zip) archive and unpack it to the folder you want. You will see the following files and directories:
