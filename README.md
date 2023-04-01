@@ -3,7 +3,8 @@ BeJomart
 
 ![BeJomart](https://github.com/aknurkappar/google-solutions-1/blob/main/bejomart.jpg)
 
-> BeJomart is a platform that bridges the gap between people in need of help and people who want to do a good deed, uniting them with a common goal of achieving sustainable development.
+> BeJomart is a platform that bridges the gap between people in need of help and people who want to do a good deed, uniting them with a common goal of achieving sustainable development.  
+> The platform brings together individuals, organizations and communities around the world, providing them with a space to collaborate and work to create positive change.
 
 This project was generated with *Angular CLI version 15.2.0*.
 
