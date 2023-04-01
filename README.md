@@ -19,7 +19,7 @@ IMPORTING
 ---------
 Step-by-step instructions for importing the `BeJomart` project.
 
-#### 0.Preparing for importing
+0 .Preparing for importing
 
 ⋅⋅⋅sdasdasdas
 
