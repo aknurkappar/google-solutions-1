@@ -17,7 +17,7 @@ This project was generated with `Angular CLI version 15.2.0`
 
 PREPARING FOR IMPORTING
 -----------------------
-#### To start the project, you need:
+#### To start importing a project, you need to:
 * [NodeJS](https://nodejs.org/en) version 18.15.0 LTS and more.
 * [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0 and more.
 
