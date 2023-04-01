@@ -62,7 +62,7 @@ After completing all the steps in the instructions, you can start the project us
 
       ng serve --open
   ⠀  
-  ⠀
+ 
 ADMIN
 -----
 To `sign-in` to the system for Admins, you must enter the following email and password:  
