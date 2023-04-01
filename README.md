@@ -74,10 +74,7 @@ To `sign-in` to the system for Admins, you must enter the following email and pa
 
 PROJECT TEAM
 ------------
-**Back-End Developers** of our team:
-* Kabdrakhmanov Altair
-* Kazieva Dina  
-
-**Front-End Developers** of our team:
-* Amen Azat
-* Kapparova Aknur
+* Kabdrakhmanov Altair — Back-End Developer
+* Kazieva Dina — Back-End Developer
+* Amen Azat — Front-End Developer
+* Kapparova Aknur — Front-End Developer
