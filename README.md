@@ -2,7 +2,8 @@ BeJomart
 ========
 
 > BeJomart bridges the gap between people who need help and people who want to do a good deed by uniting them with a common goal of achieving sustainable development.
-> This project was generated with Angular CLI version 15.2.0.
+
+This project was generated with Angular CLI version 15.2.0.
 
 IMPORTING
 ---------
