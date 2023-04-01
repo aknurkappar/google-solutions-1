@@ -61,7 +61,8 @@ PROJECT START
 After completing all the steps in the instructions, you can start the project using the following command:
 
       ng serve --open
-      
+  ⠀  
+  ⠀
 ADMIN
 -----
 To `sign-in` to the system for Admins, you must enter the following email and password:  
