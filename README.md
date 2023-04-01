@@ -69,4 +69,8 @@ To `sign-in` to the system for Admins, you must enter the following email and pa
 
       Email: admin@bejomart.kz  
       Password: jomartBol  
-
+  ⠀  
+ 
+ ---
+   ⠀  
+ 
