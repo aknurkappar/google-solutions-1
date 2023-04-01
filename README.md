@@ -19,8 +19,7 @@ IMPORTING
 ---------
 Step-by-step instructions for importing the `BeJomart` project.
 
-0 .Preparing for importing
-
+1. Preparing for importing
 ⋅⋅⋅sdasdasdas
 
 #### 1. Download ZIP and unpacking
