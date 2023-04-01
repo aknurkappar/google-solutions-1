@@ -3,7 +3,7 @@ BeJomart
 
 ![BeJomart](https://github.com/aknurkappar/google-solutions-1/blob/main/bejomart.jpg)
 
-#### What is BeJomart?
+### What is BeJomart?
 > BeJomart is a platform that bridges the gap between people in need of help and people who want to do a good deed, uniting them with a common goal of achieving sustainable development.  
 #### What we do?
 > The platform brings together individuals, organizations and communities around the world, providing them with a space to collaborate and work to create positive change.  
