@@ -76,7 +76,8 @@ PROJECT TEAM
 ------------
 `Back-End Developers` of our team:
 * Kabdrakhmanov Altair
-* Kazieva Dina
+* Kazieva Dina  
+
 `Front-End Developers` of our team:
 * Amen Azat
 * Kapparova Aknur
