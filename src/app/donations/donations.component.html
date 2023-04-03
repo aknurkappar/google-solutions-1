@@ -1,0 +1,114 @@
+<div class="container">
+    <div class="top">
+        <div class="search_input">
+            <input type="text" (keyup)="search($event)" placeholder="Search by title">
+            <img src="../../assets/search.svg" alt="">
+        </div>
+        <button class="add_donation" (click)="applyApp($event)">Apply</button>
+        <div class="apply_back" (click)="applyApp($event)">
+            <form #appForm="ngForm" (ngSubmit)="addData(appForm.value, $event)" class="apply_form">
+                <div class="error_mess alert">To upload, first fill in all the fields !</div>
+                <div class="apply_top">
+                    <span>Apply application</span>
+                    <div class="close_apply">
+                        <img src="../../assets/close.svg" alt="">
+                    </div>
+                </div>
+                <div class="apply_center">
+                    <div class="center_block">
+                        <div class="input_block">
+                            <label>Title</label>
+                            <input name="title" ngModel type="text" placeholder="Enter title">
+                        </div>
+                        <div class="input_block">
+                            <label>Uploading</label>
+                            <div class="file">
+                                <input (change)="uploadImg($event)" type="file" accept="image/*" class="input input_file" id="input_file" />
+                                <label for="input_file">
+                                    <p>Upload image</p>
+                                    <img src="../../assets/don_add_file.svg" alt="">
+                                </label>
+                            </div>
+                            <div class="baska">
+                                <input (change)="uploadDoc($event)" multiple type="file" accept="application/pdf, image/*, .doc,.docx, .pdf" class="input baska_file" id="baska_file" />
+                                <label for="baska_file">
+                                    <p>Upload file</p>
+                                    <img src="../../assets/don_add_file.svg" alt="">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_block">
+                        <label>Your reason</label>
+                        <textarea name="reason" ngModel placeholder="Write down why we should accept your application"></textarea>
+                    </div>
+                </div>
+                <div class="apply_bottom">
+                    <label>Requisites</label>
+                    <div class="block">
+                        <input class="input_requisites" (keyup)="cardTyping($event)" type="tel" placeholder="#### #### #### ####" />
+                        <input name="name" ngModel type="text" placeholder="Enter name" />
+                        <input name="surname" ngModel type="text" placeholder="Enter surname" />
+                    </div>
+                    <div class="block">
+                        <input name="phone" ngModel type="tel" placeholder="Your phone" class="your_phone" />
+                        <button type="submit">Apply application</button>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress_bar"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="loading">
+        <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
+    </div>
+    <div *ngIf="loaded" class="list">
+        <div *ngFor="let don of donations"  class="item_cont">
+            <div class="item">
+                <div class="left">
+                    <div class="image">
+                        <img src="{{don.file}}" alt="">
+                    </div>
+                    <div class="info_ad">
+                        <div class="top_info">
+                            <div class="title">{{don.title}}</div>
+                        </div>
+                        <div class="location">Kazakhstan, Almaty</div>
+                    </div>
+                </div>
+                <div class="right" (click)="openHelp($event)">
+                    <button class="help">Help</button>
+                    <p class="timer">{{getDiff(don.expiredDate, don.id)}} days left</p>
+                    <div class="help_back">
+                        <div class="help_card">
+                            <img src="../../assets/card_back.png" alt="">
+                            <div class="help_owner">BeJomart</div>
+                            <div class="needs_requisites">
+                                <p *ngFor="let req of don.requisites">{{req}}</p>
+                            </div>
+                            <div class="needs_contacts">
+                                <div class="contact">
+                                    <p>Recipient</p>
+                                    {{don.name}} {{don.surname}}
+                                </div>
+                                <div class="contact">
+                                    <p>Phone number</p>
+                                    {{don.phone}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="open_reason" (click)="showReason($event)">
+                <img src="../../assets/arrow.svg" class="reason_more" alt="">
+            </div>
+            <div class="item_reason">
+                <span>Help {{don.name}} for this reason:</span>
+                <p>{{don.reason}}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+<!--<div class="favorites">-->
+<!--    <div class="favorites-posts-header">-->
+<!--        <div class="favorites-post-category">-->
+<!--            <div class="favorites-post-category-background"></div>-->
+<!--            <div class="favorites-post-category-content">-->
+<!--                <ul>-->
+<!--                    <li (click)="selectCategory($event, category)" *ngFor="let category of categories" [ngClass]="category.selected ? 'selected-category' : ''" class="favorites-category">-->
+<!--                        {{category.name}}  <img class ="selector" src="assets/selector-gray.png"/>-->
+<!--                        <ul *ngIf="category.subCategories" class="favorites-subcategory-container">-->
+<!--                            <li (click)="selectCategory($event, category)" *ngFor="let subCategory of category.subCategories" [ngClass]="category.selected ? 'selected-category' : ''" class="favorites-subcategory">-->
+<!--                                {{subCategory.name}} <img class ="selector" src="assets/selector-gray.png"/>-->
+<!--                                <ul *ngIf="subCategory.subCategories" class="favorites-subcategory-subcategory-container">-->
+<!--                                    <li (click)="selectCategory($event, category)" *ngFor="let subCategorySub of subCategory.subCategories" [ngClass]="category.selected ? 'selected-category' : ''" class="favorites-subcategory-subcategory">-->
+<!--                                        {{subCategorySub.name}} <img class ="selector" src="assets/selector-gray.png"/>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="favorites-posts">-->
+<!--        <div class="favorites-posts-search">-->
+<!--            <div>-->
+<!--                All-->
+<!--                <img class="selector" alt="selector" src="../../assets/selector.png"/>-->
+<!--            </div>-->
+<!--            <input placeholder="Search" />-->
+<!--            <img alt="search" src="assets/search.png"/>-->
+<!--        </div>-->
+<!--        <div class="favorites-posts-sort">-->
+<!--            <div class="line"></div>-->
+<!--            <p>Sort by:-->
+<!--                <select>-->
+<!--                    <option>Recent</option>-->
+<!--                    <option>Top</option>-->
+<!--                </select>-->
+<!--            </p>-->
+<!--        </div>-->
+<!--        <div *ngFor="let fav of myFavorites">-->
+<!--            <div class="item chosen" *ngIf="fav.visibility === 'active'">-->
+<!--                <a href="/postdetails/{{fav.id}}}" class="left">-->
+<!--                    <div class="image">-->
+<!--                        <img src="{{fav.mainIMG}}" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="info_ad">-->
+<!--                        <div class="top_info">-->
+<!--                            <div class="title">{{fav.title}}</div>-->
+<!--                            <div class="category_type">{{fav.category}}</div>-->
+<!--                        </div>-->
+<!--                        <div class="location">Kazakhstan, {{fav.location}}</div>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--                <div class="right">-->
+<!--                    <div class="count">{{fav.amount}}</div>-->
+<!--                    <div class="add_to_fav">-->
+<!--                        <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, fav)" alt="">-->
+<!--                        <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, fav)" alt="">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="ad">
+    <div class="catalog">
+        <span>Catalog</span>
+        <ul class="catalog_item">
+            <li *ngFor="let category of categories">
+                <div class="catalog_top main" (click)="filterByCategory($event)">
+                    <p>{{category.name}}</p>
+                    <img class ="sub_selector" [ngClass]="category.subCategories && category.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+                </div>
+                <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="sub_catalog">
+                    <li *ngFor="let subCategory of category.subCategories">
+                        <div class="catalog_top middle" (click)="filterByCategory($event)">
+                            <p>{{subCategory.name}}</p>
+                            <img class="sub_selector" [ngClass]="subCategory.subCategories && subCategory.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+                        </div>
+                        <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="sub_sub_catalog">
+                            <li *ngFor="let subCategorySub of subCategory.subCategories">
+                                <div class="catalog_top child" (click)="filterByCategory($event)">
+                                    <p>{{subCategorySub.name}}</p>
+                                    <img class="sub_selector" src="../../assets/arrow.svg"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="favorites_back">
+        <div class="search_input">
+            <input type="text" (keyup)="search($event)" placeholder="Search by title">
+            <img src="../../assets/search.svg" alt="">
+        </div>
+        <div class="sort">
+            <div class="sorting_btn">
+                Sort by:
+                <select class="sort_type">
+                    <option>Top</option>
+                    <option>Recent</option>
+                </select>
+            </div>
+        </div>
+        <div class="loading">
+            <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
+        </div>
+        <div *ngIf="loaded" class="list">
+            <div class="item_back" *ngFor="let fav of myFavorites">
+                <div class="item chosen" *ngIf="fav.visibility === 'active'">
+                    <a href="/postdetails/{{fav.id}}}" class="left">
+                        <div class="image">
+                            <img src="{{fav.mainIMG}}" alt="">
+                        </div>
+                        <div class="info_ad">
+                            <div class="top_info">
+                                <div class="title">{{fav.title}}</div>
+                                <div class="category_type">
+                                    <p *ngFor="let category of fav.category">{{category}}<span>/</span></p>
+                                </div>
+                            </div>
+                            <div class="location">Kazakhstan, {{fav.location}}</div>
+                        </div>
+                    </a>
+                    <div class="right">
+                        <div class="count">{{fav.amount}}</div>
+                        <div class="add_to_fav">
+                            <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, fav)" alt="">
+                            <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, fav)" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

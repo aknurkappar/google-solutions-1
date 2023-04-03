@@ -1,0 +1,239 @@
+<script src="account.component.ts"></script>
+<link rel="stylesheet" href="account.component.css">
+
+<div class="account">
+    <div class="account-header">
+        <img class="edit-image" (click)="openEditProfileImage($event)" alt="edit account image" src="../../assets/edit-image.png"/>
+        <div class="modal-background" (click)="closeEditProfileImage($event)">
+            <div class="account-header-edit-image">
+                <p>Upload a new photo</p>
+                <input (change)="uploadNewAccountImage($event)" id="account-edit-image-input" type="file" accept="image/*" />
+                <div class="account-edit-image-input-label">
+                    <img src="{{user.avatar}}" alt="">
+                    <label for="account-edit-image-input"></label>
+                </div>
+                <div></div>
+                <button (click)="submitNewAccountImage($event)" type="submit">Save changes</button>
+            </div>
+        </div>
+        <div class="account-header-bottom">
+            <div class="account-header-bottom-left">
+                <div class="account-header-image">
+                    <img *ngIf="user.avatar != undefined" src="{{user.avatar}}" alt="">
+                    <div *ngIf="user.avatar == undefined" class="no-avatar">
+                        <img src="../assets/avatar.png" alt="">
+                    </div>
+                </div>
+                <p class="account-header-name">{{user.fName}} {{user.lName}}</p>
+            </div>
+            <div class="account-header-bottom-right">
+                <div class="account-header-bottom-left-content">
+                    <p (click)="openCertificateModal($event)">Get my certificate</p>
+                    <p [ngClass]="(!specialStatus) ? 'special_status show' : 'special_status'"> | </p>
+                    <p [ngClass]="(!specialStatus) ? 'special_status show' : 'special_status'" (click)="openApplyForStatus($event)">Apply for special status </p>
+                    <div class="certificate-modal-background" (click)="closeCertificateModal($event)">
+                        <div class="certificate-modal">
+                            <div id="certificate">
+                                <div class="certificate-content">
+                                    <div class="certificate-header">
+                                        <img src="./assets/logo.png"/>
+                                        <div class="text_block">
+                                            <p>This certificate is proudly presented to</p>
+                                            <p class="certificate-name">{{user.fName}} {{user.lName}}</p>
+                                            <p style="width: 340px;">for significant service to the community as a volunteer</p>
+                                        </div>
+                                    </div>
+                                    <div class="certificate-footer">
+                                        <img src="./assets/certificate-footer.png"/>
+                                        <p class="given_date">{{sertificatGivenDate | date:'dd.MM.yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button (click)="printCertificate($event)">Save as pdf</button>
+                        </div>
+                    </div>
+                    <div (click)="closeApplyForStatus($event)" class="apply-for-status-modal-background">
+                        <div class="apply-for-status">
+                            <form #SignInForm="ngForm" (ngSubmit)="applyToStatus(SignInForm.value)">
+                                <img src="assets/document.png"/>
+                                <p class="apply-for-status-header">Download official documents proving your special status. We'll check your application. Please, wait for the notification! </p>
+                                <p class="apply-for-status-description">
+                                    Please, collect your passport and documents in one file and upload here:
+                                </p>
+                                <label for="apply-for-status-input-doc" id="apply-for-status-label">
+                                    <div>
+                                        <p *ngIf="SocialImages.length != 0">{{SocialImages[0].name}}</p>
+                                        <p *ngIf="SocialImages.length == 0">Upload</p>
+                                    </div>
+                                    <div class="apply-for-status-label-progress">
+                                        <img *ngIf="!isLoading" src="assets/add.png"/>
+                                        <img [ngClass]="isLoading ? 'loading' : 'loader'" src="assets/loading.png"/>
+                                    </div>
+                                </label>
+                                <input (change)="uploadDoc($event)" multiple  id="apply-for-status-input-doc" type="file" accept="application/pdf, image/*, .doc,.docx, .pdf"/>
+                                <br>
+                                <button [ngClass]="SocialImages.length == 0 ? 'unavailable-button' : ''">Apply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-header-bottom-right-content">
+                    <div>
+                        <button class="edit-profile" (click)="openEditProfile($event)" ><img src="assets/edit.png"/>Edit profile</button>
+                        <div (click)="closeEditProfile($event)" class="edit-profile-modal">
+                            <div class="edit-profile-modal-content">
+                                <div class="edit-profile-modal-content-header">
+                                    <p class="edit-profile-modal-header">Edit profile</p>
+                                </div>
+                                <form #editProfileFrom="ngForm" (ngSubmit)="editProfile(editProfileFrom.value)">
+                                    <div class="edit-profile-modal-content-inputs">
+                                        <div class="input_block">
+                                            <label>
+                                                <img src="./assets/edit-name.png"/>
+                                                <span>User name</span>
+                                            </label>
+                                            <div class="block" style="display: flex; flex-direction: column;">
+                                                <input name="fName" ngModel type="text" class="user_name" placeholder="Your first name"/>
+                                                <input name="lName" ngModel type="text" class="user_surname" placeholder="Your last name"/>
+                                            </div>
+                                        </div>
+                                        <div class="input_block">
+                                            <label>
+                                                <img src="./assets/location.png"/>
+                                                <span>Location</span>
+                                            </label>
+                                            <input name="city" ngModel type="text" class="user_location" placeholder="Your location"/>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <button type="submit" class="edit-profile-submit">Save changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="account-logout"><img (click)="handleLogout($event)" src="assets/logout.png"/></button>
+                        <div class="logout-modal">
+                            <div class="logout-modal-content">
+                                <p>Do you want to log out?</p>
+                                <div>
+                                    <button (click)="cancelLogout($event)">Cancel</button>
+                                    <button class="button-success" (click)="logout($event)">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="account-post-filters">
+        <div class="account-post-category">
+            <div  class="account-post-category-content">
+                <p class="account-post-category-selected">{{selectedCategory}}<img class ="selector" src="assets/selector-gray.png"/></p>
+
+                <div class="account-post-category-modal-content">
+                    <ul>
+                        <li (click)="selectCategory($event, category)" *ngFor="let category of categories" [ngClass]="category.selected ? 'selected-category' : ''" class="category">
+                            {{category.name}}  <img [ngClass]="categories[0].name == category.name ? 'selector-all' : 'selector'" class ="selector" src="assets/selector-gray.png"/>
+
+                            <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="subcategory-container">
+                                <li (click)="selectCategory($event, subCategory)" *ngFor="let subCategory of category.subCategories" [ngClass]="subCategory.selected ? 'selected-category' : ''" class="subcategory">
+                                    {{subCategory.name}} <img class ="selector" src="assets/selector-gray.png"/>
+
+                                    <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="subcategory-subcategory-container">
+                                        <li (click)="selectCategory($event, subCategorySub)" *ngFor="let subCategorySub of subCategory.subCategories" [ngClass]="subCategorySub.selected ? 'selected-category' : ''" class="subcategory-subcategory">
+                                            {{subCategorySub.name}} <img class ="selector" src="assets/selector-gray.png"/>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="account-post-search">
+            <input (keyup)="search($event)" placeholder="Search by title" />
+            <img alt="search" src="assets/search.png"/>
+        </div>
+
+        <button (click)="handleAddPost($event)">Add post</button>
+
+        <div class="account-add-post-modal">
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="account-posts">
+
+        <div class="account-posts-sort">
+            <div class="line"></div>
+            <p (change)="showOnly($event)">Show only:
+                <select onChange=selectChange(this.value)>
+                    <option value="all">All</option>
+                    <option value="inProgress">In progress</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </p>
+        </div>
+
+        <p class="account-checkbox"><input type="checkbox"/> Select all ads from the list to apply the same actions to them</p>
+
+        <div class="account-posts-list-container" *ngFor="let post of myPost" [ngClass]="post.visibility === 'active' ? '' : 'inactive-post'">
+            <div class="account-posts-list">
+                <div class="post-left-side">
+                    <div class="post-main-image">
+                        <img src="{{post.mainIMG}}" />
+                    </div>
+
+                    <div class="post-text">
+                        <div>
+                            <p class="post-title">{{post.title}}</p>
+                            <p>{{post.category}}</p>
+                        </div>
+                        <p>{{post.location}}</p>
+                    </div>
+                </div>
+
+                <div class="post-right-side">
+                    <div class="post-item-amount">
+                        {{post.amount}}
+                    </div>
+                    <div class="post-info">
+                        <p><img style="margin-bottom: -3px" src="assets/likes.png"/> {{post.favorite.length}} </p>
+                        <span *ngIf="post.visibility == 'active' || post.visibility == 'inactive'" style="display: flex">
+                        <p class="post-deactivate-button" (click)="handleDeactivatePost(post)" *ngIf="post.visibility == 'active'">Deactivate</p>
+                        <p class="post-activate-button" (click)="handleActivatePost($event, post)" *ngIf="post.visibility == 'inactive'">Activate</p>
+                        </span>
+                        <p class="post-info-text" (click)="openCodeModal($event)">Give it right now</p>
+                    </div>
+
+                    <div class="edit-post-modal-background" (click)="closeEditPostModal($event)">
+                        <div class="edit-post-modal">
+
+                        </div>
+                    </div>
+                    <div class="account-otp-modal-background" (click)="closeCodeModal($event)">
+                        <div class="owner-otp-code-modal">
+                            <p>The future owner of this item must enter the following code to confirm:</p>
+                            <p class="otp-code-text">{{post.code}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-post-footer">
+                <img src="assets/selector-gray.png" />
+                Available: {{post.time.toDate() | date:'dd.MM.yyyy'}} -  {{post.expiredDate.toDate() | date:'dd.MM.yyyy'}}
+            </div>
+        </div>
+
+
+    </div>
+</div>

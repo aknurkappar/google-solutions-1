@@ -1,0 +1,268 @@
+
+.loading
+{
+    display: flex;
+    justify-content: center;
+}
+.loading img
+{
+    width: 40px;
+    margin-top: 35px;
+}
+
+
+.item_cont
+{
+    background: #fff;
+    border: 1px solid #E2E2E2;
+    border-radius: 15px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .25);
+    padding: 20px;
+
+    margin-bottom: 18px;
+    position: relative;
+}
+.item
+{
+    height: 100px;
+
+    display: flex;
+    justify-content: space-between;
+}
+.left
+{
+    display: flex;
+    color: #000;
+}
+.image
+{
+    height: 100%;
+    width: 130px;
+    object-fit: cover;
+
+    background: #E2E2E2;
+    border-radius: 10px;
+
+    margin-right: 20px;
+}
+.image img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    border-radius: 10px;
+}
+.info_ad
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 5px 0;
+}
+.top_info div:first-child
+{
+    font-size: 22px;
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+.owner
+{
+    font-size: 16.5px;
+    margin-left: 1px;
+}
+.owner span
+{
+    font-weight: 500;
+    text-decoration: underline;
+}
+.time
+{
+    color: #6B6B6B;
+    font-size: 15px;
+}
+.right
+{
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.download_file
+{
+    width: 35px;
+    height: 35px;
+    background: #3A47B9;
+    margin-right: 10px;
+    border-radius: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+.download_file img
+{
+    width: 21px;
+}
+.accept-button, .reject-button
+{
+    width: 100px;
+    height: 35px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 7px;
+    background: #ff5353;
+    color: #fff;
+}
+.accept-button
+{
+    margin-right: 10px;
+    background: #68b668;
+}
+.open_reason
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 27px;
+    height: 27px;
+
+    background: #fff;
+    border: 1px solid #E2E2E2;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .25);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 6px;
+    cursor: pointer;
+}
+.open_reason::after
+{
+    content: "";
+
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    display: block;
+}
+.open_reason img
+{
+    width: 13px;
+    margin-top: 3.5px;
+    transition: .2s;
+}
+.item_reason
+{
+    margin-top: 20px;
+    padding-top: 3px;
+    border-top: 1px solid #E2E2E2;
+    display: none;
+}
+.item_cont.open .item_reason
+{
+    display: block;
+}
+.item_cont.open .open_reason .reason_more
+{
+    transform: rotate(180deg);
+    margin-top: 0;
+}
+.double_block
+{
+    display: flex;
+}
+.block
+{
+    font-size: 17px;
+    font-weight: 500;
+    margin: 17px 50px 0 0;
+}
+.block p
+{
+    font-size: 15px;
+    margin: 5px 0 0 3px;
+    color: #6B6B6B;
+}
+.requisites
+{
+    display: flex;
+}
+.requisites p
+{
+    margin-right: 5px;
+}
+
+
+.modal-background, .modal-background-cancel
+{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+.modal-background.open, .modal-background-cancel.open
+{
+    display: flex;
+}
+.continue-button
+{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 38px 33px 28px;
+    font-size: 15px;
+}
+.modal-background p
+{
+    font-size: 16px;
+}
+.modal-background, .continue-button, .modal-background-cancel
+{
+    justify-content: center;
+    align-items: center;
+}
+.continue-button div
+{
+    display: flex;
+    margin-top: 20px;
+}
+.continue-button button
+{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    border-radius: 7px;
+    margin: 4px;
+    background: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+.continue-button button:hover
+{
+    border: 1px solid #3A47B9;
+    color: #3A47B9;
+}

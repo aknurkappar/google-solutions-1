@@ -1,0 +1,15 @@
+<div class="notification" *ngFor="let notify of notifications">
+
+    <div class="notification-left-side">
+        <img *ngIf="notify.sender == 'Admin'" class="notification-account-image" alt="account image" src="assets/admin.png" />
+        <div class="notification-text">
+            <p class="notification-account-name">{{notify.sender}}</p>
+            <p>{{notify.message}}</p>
+        </div>
+    </div>
+
+    <div class="notification-right-side">
+        <p>{{notify.time.toDate() | date:'HH:mm  dd.MM.yyyy'}}</p>
+    </div>
+
+</div>

@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="favorites-post-details">
+        <div (click)="closeOTPModal($event)" class="modal-background">
+            <div class="otp-modal">
+                <img src="./assets/otp.png"/>
+                <p class="post-otp-modal-header">The owner needs to give you a code!</p>
+                <p class="post_otp-model-subtitle">Enter the code here</p>
+                <div class="post-otp-modal-inputs">
+                    <input [(ngModel)]="OTPValues[0]" (keyup)="moveToNextInput($event)" type="text" maxlength="1" class="otp-first-input"/>
+                    <input [(ngModel)]="OTPValues[1]" (keyup)="moveToNextInput($event)" type="text" maxlength="1" class="disabled"/>
+                    <input [(ngModel)]="OTPValues[2]" (keyup)="moveToNextInput($event)" type="text" maxlength="1" class="disabled"/>
+                    <input [(ngModel)]="OTPValues[3]" (keyup)="moveToNextInput($event)" type="text" maxlength="1" class="disabled"/>
+                    <input [(ngModel)]="OTPValues[4]" (keyup)="moveToNextInput($event)" type="text" maxlength="1" class="disabled"/>
+                    <input [(ngModel)]="OTPValues[5]" (keyup)="moveToNextInput($event)" type="text" maxlength="1" class="disabled"/>
+                </div>
+                <p class="otp-incorrect-message" id="otp-incorrect-message">Incorrect code! Please, try again.</p>
+            </div>
+            <div class="otp-success-modal">
+                <img src="./assets/otp.png"/>
+                <p class="post-otp-success-text" >Everything was successful! Enjoy it!</p>
+            </div>
+        </div>
+        <div class="post-details-images">
+            <app-carousel [postDetailImages]="sliderImages" class="app-carousel"></app-carousel>
+        </div>
+        <div class="post-details-right-side">
+            <div class="post-details-top">
+                <div class="post-details-top-text">
+                    <div class="text-top">
+                        <p class="post-date">Published on {{post.time.toDate() | date:'dd.MM.yyyy'}} at {{post.time.toDate() | date:'HH:mm'}}</p>
+                        <div [ngClass]="(specialStatus && post.ownerId != this.user.userID) ? 'favorite_back show' : 'favorite_back'" class="favorite_back">
+                            <div [ngClass]="isFavorite() ? 'add_to_fav chosen' : 'add_to_fav'" class="add_to_fav">
+                                <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event)" alt="">
+                                <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event)" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="post-name">{{post.title}}</p>
+                    <div class="post-category">
+                        <p class="post-details-category-path" *ngFor="let category of post.category">{{category}}</p>
+                    </div>
+                    <div class="post-descr">
+                        Description:
+                        <p>{{post.description}}</p>
+                    </div>
+                </div>
+                <div class="text-bottom">
+                    <p class="post-amount"><span>Amount:</span> {{post.amount}}</p>
+                    <button [ngClass]="(specialStatus && post.ownerId != this.user.userID) ? 'post-details-get-button special' : 'post-details-get-button'" (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-details-bottom">
+        <div class="bottom-top">
+            <p id="title">Owner</p>
+            <p class="post_owner_info">
+                <!-- <span class="material-symbols-outlined">person</span> -->
+                <img src="{{owner.avatar}}" alt="">
+                {{owner.fName}} {{owner.lName}}
+            </p>
+        </div>
+        <div [ngClass]="specialStatus ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
+            <p id="subtitle">Owner contacts</p>
+            <p style="margin-bottom: 6px;">
+                <span class="material-symbols-outlined">call</span>
+                {{post.phone}}
+            </p>
+            <p>
+                <span class="material-symbols-outlined">location_on</span>
+                Kazakhstan, {{post.location}}
+            </p>
+            <p class="post-location"></p>
+        </div>
+    </div>
+</div>

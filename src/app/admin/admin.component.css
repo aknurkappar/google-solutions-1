@@ -1,0 +1,120 @@
+.admin
+{
+    display: flex;
+    justify-content: space-between;
+
+    margin: 0 auto;
+}
+.admin-menu
+{
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    height: fit-content;
+
+    background: #fff;
+    box-sizing: border-box;
+    border: 1px solid #E2E2E2;
+    border-radius: 10px;
+
+    padding: 12px;
+}
+.admin-menu a
+{
+    text-decoration: none;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    color: black;
+    font-weight: 600;
+    padding: 15px;
+}
+.admin-menu a:last-child
+{
+    margin-bottom: 0;
+}
+.admin-menu a:hover, .admin-menu-selected
+{
+    padding: 15px;
+    background: #f5f5f5
+}
+.admin-content
+{
+    width: calc(100% - 240px);
+}
+.search_input
+{
+    position: relative;
+    width: 100%;
+}
+.search_input input
+{
+    width: 100%;
+    height: 50px;
+
+    padding: 0 25px;
+
+    background: #fff;
+    box-sizing: border-box;
+    border: 1px solid #E2E2E2;
+    border-radius: 10px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+
+    color: #000;
+}
+.search_input img
+{
+    width: 19px;
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    margin-right: 23px;
+    cursor: pointer;
+}
+.container
+{
+    margin-top: 15px;
+}
+/*.admin .container{*/
+/*    margin: 20px 10px;*/
+/*    width: inherit;*/
+/*}*/
+/*.admin-search{*/
+/*    background: #fff;*/
+/*    width: 800px;*/
+/*    height: 50px;*/
+/*    border: 1px solid #E2E2E2;*/
+/*    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);*/
+/*    border-radius: 20px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    margin-left: 10px;*/
+/*}*/
+
+/*.admin-search input {*/
+/*    border: none;*/
+/*    width: inherit;*/
+/*    height: 13px;*/
+/*    padding: 15px;*/
+/*    margin-left: 10px;*/
+/*    font-family: 'Montserrat', sans-serif;*/
+/*}*/
+
+/*.admin-search input:focus {*/
+/*    outline: none;*/
+/*}*/
+
+/*.admin-search img{*/
+/*    width: 20px;*/
+/*    margin-right: 20px;*/
+/*}*/
+/*.admin-content*/
+/*{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/

@@ -1,0 +1,155 @@
+.carousel
+{
+    position: relative;
+    margin: auto;
+
+    text-align: center;
+
+    width: 100%;
+    height: 300px;
+
+    border-radius: 25px;
+}
+.carousel_post
+{
+    position: relative;
+    margin: auto;
+
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 550px;
+
+    border-radius: 25px;
+}
+.carousel img
+{
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    border-radius: 25px;
+
+    display: none;
+}
+.carousel_post img
+{
+    max-width: 88%;
+    max-height: 100%;
+    border-radius: 3px;
+
+    display: none;
+
+    position: relative;
+}
+.carousel img.image-active
+{
+    display: block;
+
+    width: 100%;
+    height: 300px;
+
+    object-fit: cover;
+}
+.carousel_post img.image-active
+{
+    display: block;
+    width: 100%;
+}
+.dots
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    width: 100%;
+}
+.carousel_post .dots
+{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 18px;
+}
+.dot 
+{
+    height: 8px;
+    width: 11px;
+
+    margin-right: 4px;
+
+    background: #A6A6A6;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+.carousel_post .dot 
+{
+    height: 9px;
+    width: 9px;
+
+    margin-right: 4px;
+
+    border: 1px solid #000;
+    background: transparent;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+.dot.dot-active
+{
+    width: 60px;
+    background: #000;
+}
+.carousel_post .dot.dot-active
+{
+    border-color: #dadada;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    background: #dadada;
+}
+.btns
+{
+    cursor: pointer;
+
+    background: #f3f3f3;
+    border: 1px solid #efefef;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    padding: 5.5px 5px;
+}
+.btns span
+{
+    color: #000;
+    font-size: 35px;
+    margin-bottom: -1px;
+}
+.btn-prev
+{
+    margin-right: 10px;
+}
+.btn-next
+{
+    margin-left: 10px;
+}
+
+.carousel_item
+{
+    animation: changing 2s;
+    transition: .3s;
+}
+
+@keyframes changing {
+    from {
+        opacity: .5;
+    }
+    to {
+        opacity: 1;
+    }
+}

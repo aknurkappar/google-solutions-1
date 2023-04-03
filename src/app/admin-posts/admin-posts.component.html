@@ -1,0 +1,155 @@
+<!-- <div class="admin-posts-list" *ngFor="let post of visiblePosts">
+    <div class="admin-post" *ngIf="post.visibility === 'inProgress'">
+        <div class="admin-post-mini">
+            <div class="admin-post-left-side">
+                <div class="admin-post-main-image">
+                    <img src="{{post.mainIMG}}"/>
+                </div>
+                <div>
+                    <p class="admin-post-title">{{post.title}}</p>
+                    <p> <b>Owner: </b> {{post.ownerUser.fName}} {{post.ownerUser.lName}}</p>
+                    <p>{{post.time.toDate() | date:'HH:mm  dd.MM.yyyy'}}</p>
+                </div>
+            </div>
+            <div class="admin-post-right-side">
+                <button class="accept-button" (click)="openContinueModal($event)">Accept</button>
+                <button class="reject-button" (click)="openContinueModal($event)">Reject</button>
+            </div>
+        </div>
+        <div class="display-none">
+            <div class="admin-post-top">
+                <div class="admin-post-top-left">
+                    <div class="admin-post-main-image">
+                        <img src="{{post.mainIMG}}"/>
+                    </div>
+                    <div class="admin-post-main-info">
+                        <p class="admin-post-title">{{post.title}}</p>
+                        <p class="post-info-title">Owner: <span> {{post.ownerUser.fName}} {{post.ownerUser.lName}}</span></p>
+                        <p class="post-info-title" >Phone: <span>{{post.phone}}</span></p>
+                    </div>
+                </div>
+                <div class="admin-post-top-right">
+                    <button class="accept-button" (click)="openContinueModal($event)">Accept</button>
+                    <button class="reject-button" (click)="openContinueModal($event)">Reject</button>
+                </div>
+            </div>
+            <div class="admin-post-bottom">
+                <p class="post-info"><b>Category:</b> {{post.category}}</p>
+                <p class="post-info-title">Description:
+                    <span>
+                        {{post.description}}
+                    </span>
+                </p>
+                <p class="post-info-title">Amount: <span>{{post.amount}}</span></p>
+                <p class="post-info-title">Photos: </p>
+                <div class="admin-post-images-list" *ngFor="let image of post.images" o>
+                    <div class="admin-post-images-container">
+                        <img src="{{image}}"/>
+                    </div>
+                </div>
+                <p> <b>Uploading data: </b>{{post.time.toDate() | date:'HH:mm  dd.MM.yyyy'}}</p>
+            </div>
+        </div>
+
+        <div class="admin-post-see-more-button" (click)="handleSeeMorePost($event)">
+            <img src="assets/selector-gray.png"/>
+        </div>
+
+        <div class="modal-background">
+            <div class="continue-button">
+                <p>You won't be able to return this action. Continue?</p>
+                <div>
+                    <button (click)="cancelAction($event)">Cancel</button>
+                    <button (click)="doAction($event, post.id, post.ownerUser)" >Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> -->
+<div class="loading">
+    <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
+</div>
+<div *ngIf="loaded" class="list">
+    <div *ngFor="let post of visiblePosts" class="list">
+        <div  *ngIf="post.visibility === 'inProgress'" class="item_cont">
+            <div class="item">
+                <div class="left">
+                    <div class="image">
+                        <img src="{{post.mainIMG}}" alt="">
+                    </div>
+                    <div class="info_ad">
+                        <div class="top_info">
+                            <div class="title">{{post.title}}</div>
+                            <div class="owner">from <span>{{post.ownerUser.fName}} {{post.ownerUser.lName}}</span></div>
+                        </div>
+                        <div class="time">
+                            Sent on {{post.time.toDate() | date:'dd.MM.yyyy'}}
+                            at {{post.time.toDate() | date:'HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <button class="accept-button" (click)="openContinueModal($event)">Accept</button>
+                    <button class="reject-button" (click)="openContinueModal($event)">Reject</button>
+                    <div class="modal-background">
+                        <div class="continue-button">
+                            <p>You won't be able to return this action. Continue?</p>
+                            <div>
+                                <button (click)="cancelAction($event)">Cancel</button>
+                                <button (click)="doAction($event, post.id, post.ownerUser, 'acceptpost')" >Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-background-cancel">
+                        <div class="continue-button">
+                            <p>You won't be able to return this action. Continue?</p>
+                            <div>
+                                <button (click)="cancelAction($event)">Cancel</button>
+                                <button (click)="doAction($event, post.id, post.ownerUser, 'rejectpost')" >Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="open_reason" (click)="showReason($event)">
+                <img src="../../assets/arrow.svg" class="reason_more" alt="">
+            </div>
+            <div class="item_reason">
+                <div class="block">
+                    Photos
+                    <div class="photos">
+                        <img src="{{post.mainIMG}}" alt="">
+                        <img *ngFor="let image of post.images" src="{{image}}" alt="">
+                    </div>
+                </div>
+                <div class="double_block">
+                    <div class="block">
+                        Category
+                        <div class="category_type">
+                            <p *ngFor="let category of post.category">{{category}}<span>/</span></p>
+                        </div>
+                    </div>
+                    <div class="block">
+                        Location:
+                        <p>Kazakhstan, {{post.location}}</p>
+                    </div>
+                </div>
+                <div class="block">
+                    Description:
+                    <p>{{post.description}}</p>
+                </div>
+                <div class="double_block">
+                    <div class="block">
+                        Amount:
+                        <p>{{post.amount}}</p>
+                    </div>
+                    <div class="block">
+                        Phone:
+                        <p>{{post.phone}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

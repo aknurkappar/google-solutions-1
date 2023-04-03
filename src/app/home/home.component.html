@@ -1,0 +1,269 @@
+<app-carousel [images]="sliderImages" [autoSlide]="true" [slideInterval]="4000" class="app-carousel"></app-carousel>
+<div class="ad">
+    <div class="catalog">
+        <span>Catalog</span>
+        <ul class="catalog_item">
+            <li on-click="selectCategory($event, category)" *ngFor="let category of categories">
+                <div class="catalog_top main" (click)="filterByCategory($event)">
+                    <p>{{category.name}}</p>
+                    <img class ="sub_selector" [ngClass]="category.subCategories && category.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+                </div>
+                <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="sub_catalog">
+                    <li on-click="selectCategory($event, subCategory)" *ngFor="let subCategory of category.subCategories">
+                        <div class="catalog_top middle" (click)="filterByCategory($event)">
+                            <p>{{subCategory.name}}</p>
+                            <img class="sub_selector" [ngClass]="subCategory.subCategories && subCategory.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+                        </div>
+                        <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="sub_sub_catalog">
+                            <li on-click="selectCategory($event, subCategorySub)" *ngFor="let subCategorySub of subCategory.subCategories">
+                                <div class="catalog_top child" (click)="filterByCategory($event)">
+                                    <p>{{subCategorySub.name}}</p>
+                                    <img class="sub_selector" src="../../assets/arrow.svg"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="filters">
+            <div class="searching">
+                <div class="city">
+                    <div class="selector" on-click="filterByLocation($event)">
+                        <span class="chosen_city">All</span>
+                        <img src="../../assets/arrow.svg" alt="">
+                    </div>
+                    <ul class="options" on-click="changeLocation($event)">
+                        <li>All</li>
+                        <li>Astana</li>
+                        <li>Aktobe</li>
+                        <li>Almaty</li>
+                        <li>Atyrau</li>
+                        <li>Aktau</li>
+                        <li>Semey</li>
+                        <li>Taraz</li>
+                        <li>Karaganda</li>
+                        <li>Kostanay</li>
+                        <li>Kokshetau</li>
+                        <li>Kyzylorda</li>
+                        <li>Mangystau</li>
+                        <li>Pavlodar</li>
+                        <li>Uralsk</li>
+                        <li>Ust-Kamenogorsk</li>
+                        <li>Shymkent</li>
+                        <li>Turkestan</li>
+                    </ul>
+                </div>
+                <div class="search_input">
+                    <input type="text" (keyup)="search($event)" placeholder="Search by title">
+                    <img src="../../assets/search.svg" alt="">
+                </div>
+            </div>
+            <button class="add_ad" (click)="createPost($event)">Add post</button>       
+            <div class="create_post_back" (click)="createPost($event)">
+                <form #postForm="ngForm" (ngSubmit)="addData(postForm.value, $event)" class="post_form">
+                    <div class="error_mess alert">To upload, first fill in all the fields !</div>
+                    <div class="img_limit alert">You can't upload more than 5 images !</div>
+                    <div class="post_top">
+                        <span>Create post</span>
+                        <div class="close_post">
+                            <img src="../../assets/close.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="post_container">
+                        <div class="post_center">
+                            <div class="block">
+                                <div class="input_block">
+                                    <label>Title</label>
+                                    <input name="title" ngModel type="text" placeholder="Enter title" />
+                                </div> 
+                                <div class="input_block">
+                                    <label>Selector</label>
+                                    <div class="choose_block" (click)="chooseCategory($event)">
+                                        <input name="category" ngModel type="text" placeholder="Choose category" disabled />
+                                        <img class="selected" src="../../assets/arrowcreatepost.svg" alt="">
+                                        <div>
+                                            <ul class="select_category">
+                                                <li on-click="selectCategory($event, category)" *ngFor="let category of categories">
+                                                    <div class="category_top main">
+                                                        <p>{{category.name}}</p>
+                                                        <img class ="sub_selector" [ngClass]="category.subCategories && category.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrowcreatepost.svg" alt=""/>
+                                                    </div>
+                                                    <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="sub_category">
+                                                        <li on-click="selectCategory($event, subCategory)" *ngFor="let subCategory of category.subCategories">
+                                                            <div class="category_top middle">
+                                                                <p>{{subCategory.name}}</p>
+                                                                <img class="sub_selector" [ngClass]="subCategory.subCategories && subCategory.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrowcreatepost.svg" alt=""/>
+                                                            </div>
+                                                            <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="sub_sub_category">
+                                                                <li on-click="selectCategory($event, subCategorySub)" *ngFor="let subCategorySub of subCategory.subCategories">
+                                                                    <div class="category_top child">
+                                                                        <p>{{subCategorySub.name}}</p>
+                                                                        <img class="sub_selector" src="../../assets/arrowcreatepost.svg" alt=""/>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choose_block" (click)="chooseCity($event)">
+                                        <input name="location" ngModel class="input_location" type="text" placeholder="Choose your city" disabled />
+                                        <img src="../../assets/arrowcreatepost.svg" alt="">
+                                        <ul class="select_city" (click)="setCityValue($event)">
+                                            <li>Astana</li>
+                                            <li>Aktobe</li>
+                                            <li>Almaty</li>
+                                            <li>Atyrau</li>
+                                            <li>Aktau</li>
+                                            <li>Semey</li>
+                                            <li>Taraz</li>
+                                            <li>Karaganda</li>
+                                            <li>Kostanay</li>
+                                            <li>Kokshetau</li>
+                                            <li>Kyzylorda</li>
+                                            <li>Mangystau</li>
+                                            <li>Pavlodar</li>
+                                            <li>Uralsk</li>
+                                            <li>Ust-Kamenogorsk</li>
+                                            <li>Shymkent</li>
+                                            <li>Turkestan</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input_block">
+                                <label>Description</label>
+                                <textarea name="description" ngModel placeholder="Write about your item"></textarea>
+                            </div>
+                        </div>
+                        <div class="post_pre_bottom">
+                            <div class="input_block for_photo">
+                                <label>Photos</label>
+                                <span>The first photo will be on the cover of the post.</span>
+                                <div class="photos" (click)="photosRedactor($event)">
+                                    <div class="file">
+                                        <input (change)="upload($event)" multiple type="file" accept="image/*" id="input_file" class="input input_file" />
+                                        <label for="input_file">    
+                                            <img src="../../assets/uploadphoto.svg" alt="">
+                                        </label>
+                                    </div>
+                                    <div class="post_images">
+                                        <img src="../../assets/postimg.svg" alt="">
+                                        <div *ngIf="postImages.length > 0" class="img_back">
+                                            <img [src]="postImages[0]" class="post_img" alt="0">
+                                            <div class="img_redactor">
+                                                <img src="../../assets/makemain.svg" class="makemain" alt="">
+                                                <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post_images">
+                                        <img src="../../assets/postimg.svg" alt="">
+                                        <div *ngIf="postImages.length > 1" class="img_back">
+                                            <img [src]="postImages[1]" class="post_img" alt="1">
+                                            <div class="img_redactor">
+                                                <img src="../../assets/makemain.svg" class="makemain" alt="">
+                                                <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post_images">
+                                        <img src="../../assets/postimg.svg" alt="">
+                                        <div *ngIf="postImages.length > 2" class="img_back">
+                                            <img [src]="postImages[2]" class="post_img" alt="2">
+                                            <div class="img_redactor">
+                                                <img src="../../assets/makemain.svg" class="makemain" alt="">
+                                                <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post_images">
+                                        <img src="../../assets/postimg.svg" alt="">
+                                        <div *ngIf="postImages.length > 3" class="img_back">
+                                            <img [src]="postImages[3]" class="post_img" alt="3">
+                                            <div class="img_redactor">
+                                                <img src="../../assets/makemain.svg" class="makemain" alt="">
+                                                <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post_images">
+                                        <img src="../../assets/postimg.svg" alt="">
+                                        <div *ngIf="postImages.length > 4" class="img_back">
+                                            <img [src]="postImages[4]" class="post_img" alt="4">
+                                            <div class="img_redactor">
+                                                <img src="../../assets/makemain.svg" class="makemain" alt="">
+                                                <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post_bottom">
+                            <div class="input_block">
+                                <label>Uploading</label>
+                                <div class="up_block">
+                                    <div class="amount">
+                                        <div class="text">Enter amount:</div>
+                                        <input name="amount" [(ngModel)]="amount" class="input_amount" type="number" min="1" max="500" />
+                                    </div>
+                                    <input name="phone" ngModel type="tel" placeholder="Your phone" class="your_phone" />
+                                    <button type="submit" class="post_button">Upload post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress_bar"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="sort">
+            <div class="sorting_btn">
+                Sort by:
+                <select class="sort_type">
+                    <option>Top</option>
+                    <option>Recent</option>
+                </select>
+            </div>
+        </div>
+        <div class="loading">
+            <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
+        </div>
+        <div *ngIf="loaded" class="list">
+            <div class="item_back" *ngFor="let ad of ads">
+                <div [ngClass]=" isFavorite(ad.id) ? 'item chosen' : 'item'" *ngIf="ad.visibility ==='active'" class="item">
+                    <a href="/postdetails/{{ad.id}}}" class="left">
+                        <div class="image">
+                            <img src="{{ad.mainIMG}}" alt="">
+                        </div>
+                        <div class="info_ad">
+                            <div class="top_info">
+                                <div class="title">{{ad.title}}</div>
+                                <div class="category_type">
+                                    <p *ngFor="let category of ad.category">{{category}}<span>/</span></p>
+                                </div>
+                            </div>
+                            <div class="location">Kazakhstan, {{ad.location}}</div>
+                        </div>
+                    </a>
+                    <div class="right">
+                        <div class="count">{{ad.amount}}</div>
+                        <div *ngIf="ad.ownerId != this.user.userID" class="add_to_fav">
+                            <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, ad)" alt="">
+                            <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, ad)" alt="">
+                        </div>
+                        <p *ngIf="ad.ownerId == this.user.userID" class="your_post">Your post</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="loading">
+    <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
+</div>
+<div *ngIf="loaded" class="list">
+    <div *ngFor="let don of donations" class="list">
+        <div  *ngIf="!don.visible" class="item_cont">
+            <div class="item">
+                <div class="left">
+                    <div class="image">
+                        <img src="{{don.file}}" alt="">
+                    </div>
+                    <div class="info_ad">
+                        <div class="top_info">
+                            <div class="title">{{don.title}}</div>
+                            <div class="owner">from <span>{{don.ownerName}}</span></div>
+                        </div>
+                        <div class="time">
+                            Sent on {{don.time.toDate() | date:'dd.MM.yyyy'}}
+                            at {{don.time.toDate() | date:'HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="download_file">
+                        <img (click)="openDocuments(don.files)" src="../../assets/download.png"/>
+                    </div>
+                    <button class="accept-button" (click)="openContinueModal($event)">Accept</button>
+                    <button class="reject-button" (click)="openContinueModal($event)">Reject</button>
+                    <div class="modal-background">
+                        <div class="continue-button">
+                            <p>You won't be able to return this action. Continue?</p>
+                            <div>
+                                <button (click)="cancelAction($event)">Cancel</button>
+                                <button (click)="doAction($event, don.id, don.ownerUser, 'acceptpost')" >Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-background-cancel">
+                        <div class="continue-button">
+                            <p>You won't be able to return this action. Continue?</p>
+                            <div>
+                                <button (click)="cancelAction($event)">Cancel</button>
+                                <button (click)="doAction($event, don.id, don.ownerUser, 'rejectpost')" >Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="open_reason" (click)="showReason($event)">
+                <img src="../../assets/arrow.svg" class="reason_more" alt="">
+            </div>
+            <div class="item_reason">
+                <div class="double_block">
+                    <div class="block">
+                        Name
+                        <p>{{don.name}} {{don.surname}}</p>
+                    </div>
+                    <div class="block">
+                        Location:
+                        <p>Kazakhstan, {{don.city}}</p>
+                    </div>
+                </div>
+                <div class="block">
+                    Reason:
+                    <p>{{don.reason}}</p>
+                </div>
+                <div class="double_block">
+                    <div class="block">
+                        Requisites:
+                        <div class="requisites">
+                            <p *ngFor="let card of don.requisites">{{card}}</p>
+                        </div>
+                    </div>
+                    <div class="block">
+                        Phone:
+                        <p>{{don.phone}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

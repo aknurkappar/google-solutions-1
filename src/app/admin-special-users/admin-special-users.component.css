@@ -1,0 +1,135 @@
+.modal-background{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.continue-button{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 450px;
+    height: 100px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 30px;
+    font-size: 15px;
+}
+
+.modal-background, .continue-button{
+    justify-content: center;
+    align-items: center;
+}
+
+
+.continue-button div{
+    display: flex;
+    margin-top: 20px;
+}
+
+.continue-button button{
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #DADADA;
+    border-radius: 10px;
+    margin-right: 10px;
+    background: none;
+    font-size: 12px;
+}
+
+.continue-button button:hover{
+    border: 1px solid #3A47B9;
+}
+
+.admin-special-users-list{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-special-user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: inherit;
+    background: white;
+    height: 100px;
+    border: 1px solid #E2E2E2;
+    border-radius: 25px;
+}
+
+.admin-special-user-name{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.admin-special-user-left-side, .admin-special-user-right-side{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.admin-special-user-right-side{
+    margin-right: 20px;
+}
+
+.admin-special-user-main-image{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0px 20px 0px 25px;
+}
+
+.admin-special-user-main-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.accept-button, .reject-button{
+    width: 100px;
+    font-size: 16px;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.accept-button{
+    background: #6ABF8C;
+}
+
+.reject-button{
+    background: #A14444;
+}
+
+
+.accept-button:hover{
+    background: #60b082;
+}
+
+.reject-button:hover{
+    background: #933d3d;
+}
+
+.admin-special-user-right-side img{
+    width: 23px;
+    background: #3A47B9;
+    padding: 7.7px;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.admin-special-user-right-side img:hover{
+    background: #2d388d;
+}
