@@ -25,7 +25,7 @@ IMPORTING
 ---------
 Step-by-step instructions for importing the `BeJomart` project.
 
-#### 1. Download ZIP and unpacking OR [git clone *'path to repository'*]
+#### 1. Download ZIP and unpacking
 [Download our ZIP](https://github.com/aknurkappar/google-solutions-1/archive/refs/heads/main.zip) archive and unpack it to the folder you want. You will see the following files and directories:
 
       src/                     source folder
@@ -39,6 +39,11 @@ Step-by-step instructions for importing the `BeJomart` project.
       tsconfig.json
       tsconfig.spec.json
       
+You can also import our project using the git clone command. To do this, you need to go to the command console and specify the path to the folder where you will import the project.  
+
+Next you will need to enter the following:
+      
+      git clone https://github.com/aknurkappar/google-solutions-1
 
 #### 2. The path in the command prompt
 Specify the path to the folder where you unpacked the ZIP archive in the command prompt.
