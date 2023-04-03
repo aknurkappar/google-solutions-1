@@ -35,6 +35,7 @@ Step-by-step instructions for importing the `BeJomart` project.
       package.json
       package-lock.json
       README.md                [Optional]
+      bejomart.jpg
       tsconfig.app.json
       tsconfig.json
       tsconfig.spec.json  
