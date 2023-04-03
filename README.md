@@ -38,6 +38,7 @@ Step-by-step instructions for importing the `BeJomart` project.
       tsconfig.app.json
       tsconfig.json
       tsconfig.spec.json  
+  
       
 You can also import our project using the git clone command. To do this, you need to go to the command console and specify the path to the folder where you will import the project.  
 
