@@ -74,6 +74,7 @@ export class AdminPostsComponent implements OnInit{
           }
         }
       }
+      this.loaded = true
     })
     onSnapshot(dbInstance, (response) => {
       console.log(response.docs.map((item) => {
