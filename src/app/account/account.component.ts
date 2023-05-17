@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "../user";
+import { User } from "../models/user";
 import { Router } from "@angular/router";
 import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, onSnapshot, query, updateDoc, where } from "@angular/fire/firestore";
 import { getDownloadURL, ref, Storage, uploadBytesResumable } from "@angular/fire/storage";
@@ -13,9 +13,10 @@ interface File {
 }
 
 class Category {
-  name : String;
-  subCategories? : Category[];
-  selected : boolean = false;
+  public name : String;
+  public subCategories? : Category[];
+  public selected : boolean = false;
+  public isActive : boolean = false
   constructor(name : String, subCategories : Category[]) {
     this.name = name;
     this.subCategories = subCategories;
@@ -28,36 +29,21 @@ class Category {
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-
-  isActive = false;
-  isAuthorized: boolean = false;
-  isLoading = false;
-  
-  user: User;
-  
-  passportFile : File = {};
-  passportFileTemp : File = {};
-  documents :  File[] = [];
-  documentsTemp : File[] = [];
-  
+  public isActive = false;
+  public isAuthorized: boolean = false;
+  public isLoading = false;
+  public user: User;
   public IdenticalImages: any = [];
   public SocialImages: any = [];
-
   public sertificatGivenDate: any;
-
-  accountImage : any =  "./assets/profile.jpg";
-  accountImageTemp : any = "./assets/profile.jpg";
-  selectedOption: string = "Hello";
-
-  categories : Category[];
-  selectedCategory : String;
-  selectedCategoryPath : String;
-
-  myPost: any;
-  initialPost: any
-
+  public accountImage : any =  "./assets/profile.jpg";
+  public accountImageTemp : any = "./assets/profile.jpg";
+  public categories : Category[];
+  public selectedCategory : String;
+  public selectedCategoryPath : String;
+  public myPost: any[] = [];
+  public initialPost: any
   public specialStatus: boolean = false
-
   ngOnInit(): void {
     const value = localStorage.getItem("userData");
     if(value !== null){ // @ts-ignore
@@ -77,11 +63,11 @@ export class AccountComponent implements OnInit {
         if(doc.data()["specialStatus"] === true) this.specialStatus = true
       });
 
-    } 
-    else {
+    } else {
       this.router.navigate(['/home']);
     }
   }
+
 
   constructor(public router: Router, public firestore: Firestore, public storage: Storage) {
     this.user = {} as User
@@ -103,7 +89,9 @@ export class AccountComponent implements OnInit {
     this.selectedCategory = "All categories";
     this.selectedCategoryPath = "All categories";
   }
+  getData() {
 
+  }
 
 
   openCertificateModal(e : any) {
@@ -164,8 +152,9 @@ export class AccountComponent implements OnInit {
     localStorage.removeItem("userData");
     window.location.reload()
   }
-  handleAddPost(e : any) {
-    e.composedPath()[1].children[3].classList.toggle("account-add-post-modal-active")
+
+  handleAddPost(){
+    this.isActive = !this.isActive
   }
 
   selectCategory(e : any, category : Category){

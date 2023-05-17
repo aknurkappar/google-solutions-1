@@ -12,7 +12,7 @@ import {
   where
 } from "@angular/fire/firestore";
 import {Storage} from "@angular/fire/storage";
-import {User} from "../user";
+import {User} from "../models/user";
 import {user} from "@angular/fire/auth";
 
 @Component({

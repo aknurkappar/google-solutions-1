@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import { addDoc, collection, Firestore, query, where, getDocs, onSnapshot, doc, getDoc } from "@angular/fire/firestore";
 import { Storage } from "@angular/fire/storage";
 
-import { User } from "./user";
+import { User } from "./models/user";
 
 @Component({
   selector: 'app-root',

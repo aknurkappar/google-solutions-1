@@ -23,6 +23,9 @@ import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { AdminSpecialUsersComponent } from './admin-special-users/admin-special-users.component';
 import { AdminDonationsComponent } from './admin-donations/admin-donations.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { AddPostComponent } from './add-post/add-post.component';
+import { AddPostSecondStepComponent } from './add-post-second-step/add-post-second-step.component';
+import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-step.component";
 
 
 
@@ -41,6 +44,9 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     AdminSpecialUsersComponent,
     AdminDonationsComponent,
     PostDetailsComponent,
+    AddPostComponent,
+    AddPostFirstStepComponent,
+    AddPostSecondStepComponent,
   ],
     imports: [
         BrowserModule,

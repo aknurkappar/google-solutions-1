@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { Firestore, collection, getDocs, arrayUnion, query, where, doc, updateDoc, arrayRemove } from '@angular/fire/firestore'
-import { User } from "../user";
+import { User } from "../models/user";
 
 import { Category } from "../catalog";
 import { categories } from "../catalog";

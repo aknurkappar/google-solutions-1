@@ -42,6 +42,8 @@ button, input{
     align-items: center;
     justify-content: center;
 }
+
+
 .no-avatar img
 {
     width: 90px;
@@ -931,6 +933,7 @@ option{
     border-radius: 50%;
     position: relative;
 }
+
 .account-edit-image-input-label img
 {
     width: 100%;
@@ -1116,3 +1119,10 @@ option{
     color: #3A47B9;
 }
 
+.edit-image-no-avatar img{
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    position: relative;
+    top: 10px;
+}

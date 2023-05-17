@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {collection, Firestore, getDocs} from "@angular/fire/firestore";
 import {Storage} from "@angular/fire/storage";
-import {User} from "../user";
+import {User} from "../models/user";
 
 @Component({
   selector: 'app-notifications',

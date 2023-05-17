@@ -8,7 +8,7 @@ import { addDoc, Firestore, collection, getDocs, updateDoc, doc, deleteDoc, arra
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage'
 import { PostsService } from "../posts.service";
 
-import { User } from "../user";
+import { User } from "../models/user";
 import { Subject } from "rxjs";
 
 
@@ -20,23 +20,17 @@ import { Subject } from "rxjs";
 export class HomeComponent implements OnInit{
 
   public ads: any[];
-
-  public amount: number = 1;
   public myFavorites: any[];
-
   public uploaded: boolean;
   public isAuthorized: boolean = false;
   public initialPosts: any[]
-
   public postCategory: any = [];
   public categories = categories;
-
   public user: User
-
   public postImages: any = [];
-  public images: any = [];
-
   public loaded: boolean;
+
+  public isActive : boolean = true
 
   startAt = new Subject()
   endAt = new Subject()
@@ -84,126 +78,12 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  upload($event: any) {
-    const postForm = $event.target.closest('.post_form');
-
-    if($event.target.files.length > 5 || (this.postImages.length + $event.target.files.length) > 5) {
-      postForm.classList.add('limit');
-      setTimeout(() => {
-        postForm.classList.remove('limit');
-      }, 3000);
-      return
-    }
-
-    for(let i = 0; i < $event.target.files.length; i++) {
-      var reader = new FileReader();
-      reader.readAsDataURL($event?.target.files[i]);
-
-      if(Number(this.postImages.length) >= 5) {
-        postForm.classList.add('limit');
-        setTimeout(() => {
-          postForm.classList.remove('limit');
-        }, 3000);
-        return
-      }
-
-      reader.onload = (event: any) => {
-        this.postImages.push(event.target.result)
-      }
-      this.images.push($event.target.files[i]);
-    }
-
-    this.uploaded = true;
-  }
-  
-  uploadImages(id: string, postForm: any) {
-    const len = Number(this.images.length);
-    let totalProg = 0;
-
-    for(let i=0; i<this.images.length; i++) {
-      const storageRef = ref(this.storage, `images/${this.images[i].name}`);
-      const uploadTask = uploadBytesResumable(storageRef, this.images[i]);
-
-      uploadTask.on('state_changed',
-        (snapshot) => { },
-        (error) => { console.log(error.message) },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            const dataToUpdate = doc(this.firestore, "posts", id);
-
-            if(i == 0) updateDoc(dataToUpdate, { mainIMG: downloadURL }).then(() => { }).catch((err) => { alert(err.message) })
-            else updateDoc(dataToUpdate, { images: arrayUnion(downloadURL) }).then(() => { }).catch((err) => { alert(err.message) })
-
-            totalProg += (100 / len);
-
-            if(totalProg >= 100) {
-              postForm.querySelector('.progress_bar').style.width = (totalProg + '%');
-              this.uploaded = false; window.location.reload();
-            } 
-            else postForm.querySelector('.progress_bar').style.width = (totalProg + '%');
-          });
-        }
-      )
-    }
-  }
-
-  addDays(date: Date, days: number) {
-    let result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
-
-  addData(value: any, e: any) {
-    const dbInstance = collection(this.firestore, 'posts');
-    const postForm = e.composedPath()[0];
-    
-    value.images = [];
-    value.visibility = "inProgress";
-    value.ownerId = this.user.userID
-    value.category = this.postCategory;
-    value.time = new Date()
-    value.expiredDate = this.addDays(value.time, 30)
-    value.location = postForm.querySelector('.input_location').value;
-    value.code = Math.floor(Math.random() * (999999 - 100000) + 100000)
-    value.favorite = []
-
-    if(value.title == "" || value.description == "" || value.catalog == "" || value.location == "" || value.amount == 0 || !this.uploaded) {
-      postForm.classList.add('occured');
-      for(let i = 0; i < postForm.querySelectorAll('input').length; i++) {
-        if(postForm.querySelectorAll('input')[i].value == "" && postForm.querySelectorAll('input')[i].className !== 'input_amount') {
-          postForm.querySelectorAll('input')[i].style.borderColor = '#e81f1f';
-        }
-      }
-      if(postForm.querySelector('textarea').value == "") postForm.querySelector('textarea').style.borderColor = '#e81f1f';
-      if(postForm.querySelector('.input_amount').value == "") postForm.querySelector('.amount').style.borderColor = '#e81f1f';
-      if(!this.uploaded) postForm.querySelector('.file label').style.borderColor = '#e81f1f';
-      setTimeout(() => {
-        for(let i = 0; i < postForm.querySelectorAll('input').length; i++) {
-          postForm.querySelectorAll('input')[i].style.borderColor = '#E2E2E2';
-        }
-        postForm.querySelector('textarea').style.borderColor = '#E2E2E2';
-        postForm.querySelector('.amount').style.borderColor = '#E2E2E2';
-        postForm.querySelector('.file label').style.borderColor = '#E2E2E2';
-        postForm.classList.remove('occured');
-      }, 3000);
-      return
-    }
-
-    addDoc(dbInstance, value).then((res) => {
-        this.uploadImages(res.id, postForm);
-        this.images = [];
-        this.getData();
-      }).catch((err) => { alert(err.message) }
-    )
-  }
-
   getData() {
     const dbInstance = collection(this.firestore, 'posts');
     getDocs(dbInstance).then( (response) => {
         this.ads = [...response.docs.map( (item) => {
           return { ...item.data(), id:item.id }})
         ].sort((n1, n2) => {
-          console.log(n1, n2)
           // @ts-ignore
           return n2.time - n1.time
         } )
@@ -227,14 +107,6 @@ export class HomeComponent implements OnInit{
     return this.myFavorites.includes(id)
   }
 
-  chooseCity(e: any) {
-    e.composedPath()[1].classList.toggle('open');
-  }
-  setCityValue(e: any) {
-    e.composedPath()[2].childNodes[0].value = e.composedPath()[0].innerHTML;
-    e.composedPath()[2].classList.remove('open');
-  }
-
   search(e: any){
     this.ads = this.initialPosts;
     if(e.composedPath()[0].value && e.composedPath()[0].value.trim()){
@@ -249,37 +121,7 @@ export class HomeComponent implements OnInit{
     else this.ads = this.initialPosts;
   }
 
-  chooseCategory(e: any) {
-    e.composedPath()[1].classList.toggle('open');
-  }
-  selectCategory(e : any, category : Category) {
-    if(e.composedPath()[0].className === 'category_top main') {
-      this.postCategory = []
-      this.postCategory.push(category.name.toString())
-      e.composedPath()[4].childNodes[0].value = this.postCategory[0]
-      e.composedPath()[4].classList.remove('open');
-    }
-    if(e.composedPath()[0].className === 'category_top middle') {
-      this.postCategory = []
-      this.postCategory.push(e.composedPath()[2].parentElement.childNodes[0].childNodes[0].innerHTML)
-      this.postCategory.push(category.name.toString())
-      e.composedPath()[6].childNodes[0].value = this.postCategory[0] + ' / ' + this.postCategory[1]
-      e.composedPath()[6].classList.remove('open');
-    }
-    if(e.composedPath()[0].className === 'category_top child') {
-      this.postCategory = []
-      this.postCategory.push(e.composedPath()[2].parentElement.parentElement.parentElement.childNodes[0].childNodes[0].innerHTML)
-      this.postCategory.push(e.composedPath()[2].parentElement.childNodes[0].childNodes[0].innerHTML)
-      this.postCategory.push(category.name.toString())
-      e.composedPath()[8].childNodes[0].value = this.postCategory[0] + ' / ' + this.postCategory[1] + ' / ' + this.postCategory[2]
-      e.composedPath()[8].classList.remove('open');
-    }
-    e.stopPropagation();
-  }
 
-  filterByLocation(e: any) {
-    e.composedPath()[1].classList.toggle('open');
-  }
   changeLocation(e: any) {
     if(e.composedPath()[0].innerHTML.length > 6) {
       e.composedPath()[2].childNodes[0].childNodes[0].innerHTML = e.composedPath()[0].innerHTML.substring(0, 5) + '...';
@@ -322,31 +164,49 @@ export class HomeComponent implements OnInit{
     updateDoc(dataToUpdate, { favorite: arrayRemove(this.user.userID) }).then(() => { }).catch((err) => { alert(err.message) })
   }
 
-  createPost(e: any) {
-    console.log(this.user)
-    if(e.composedPath()[0].className === 'add_ad' && Object.keys(this.user).length) {
-      window.scrollTo({top: 0}); e.composedPath()[1].classList.add('create'); document.body.classList.add('lock');
-    }
-    else if(e.composedPath()[0].className === 'create_post_back') {
-      e.composedPath()[1].classList.remove('create'); document.body.classList.remove('lock');
-    }
-    else if(e.composedPath()[1].className === 'close_post') {
-      e.composedPath()[5].classList.remove('create'); document.body.classList.remove('lock');
-    }
-    else if(!Object.keys(this.user).length) {
-      window.scrollTo({top: 0}); e.composedPath()[6].childNodes[0].classList.add('show_in'); document.body.classList.add('lock');
-    }
+  handleAddPost(){
+    document.body.classList.toggle('lock');
   }
+  // createPost(e: any) {
+  //   console.log(this.user)
+  //   if(e.composedPath()[0].className === 'add_ad' && Object.keys(this.user).length) {
+  //     window.scrollTo({top: 0}); e.composedPath()[1].classList.add('create'); document.body.classList.add('lock');
+  //   }
+  //   else if(e.composedPath()[0].className === 'create_post_back') {
+  //     e.composedPath()[1].classList.remove('create'); document.body.classList.remove('lock');
+  //   }
+  //   else if(e.composedPath()[1].className === 'close_post') {
+  //     // e.composedPath()[5].classList.remove('create'); document.body.classList.remove('lock');
+  //     this.isActive = false
+  //   }
+  //   else if(!Object.keys(this.user).length) {
+  //     window.scrollTo({top: 0}); e.composedPath()[6].childNodes[0].classList.add('show_in'); document.body.classList.add('lock');
+  //   }
+  // }
 
-  photosRedactor(e: any) {
-    if(e.composedPath()[0].className === "makemain") {
-      [this.postImages[0], this.postImages[e.composedPath()[2].childNodes[0].alt]] = [this.postImages[e.composedPath()[2].childNodes[0].alt], this.postImages[0]];
-      [this.images[0], this.images[e.composedPath()[2].childNodes[0].alt]] = [this.images[e.composedPath()[2].childNodes[0].alt], this.images[0]];
+  selectCategory(e : any, category : Category) {
+    if(e.composedPath()[0].className === 'category_top main') {
+      this.postCategory = []
+      this.postCategory.push(category.name.toString())
+      e.composedPath()[4].childNodes[0].value = this.postCategory[0]
+      e.composedPath()[4].classList.remove('open');
     }
-    if(e.composedPath()[0].className === "deleteimg") {
-      this.postImages.splice(e.composedPath()[2].childNodes[0].alt, 1);
-      this.images.splice(e.composedPath()[2].childNodes[0].alt, 1);
+    if(e.composedPath()[0].className === 'category_top middle') {
+      this.postCategory = []
+      this.postCategory.push(e.composedPath()[2].parentElement.childNodes[0].childNodes[0].innerHTML)
+      this.postCategory.push(category.name.toString())
+      e.composedPath()[6].childNodes[0].value = this.postCategory[0] + ' / ' + this.postCategory[1]
+      e.composedPath()[6].classList.remove('open');
     }
+    if(e.composedPath()[0].className === 'category_top child') {
+      this.postCategory = []
+      this.postCategory.push(e.composedPath()[2].parentElement.parentElement.parentElement.childNodes[0].childNodes[0].innerHTML)
+      this.postCategory.push(e.composedPath()[2].parentElement.childNodes[0].childNodes[0].innerHTML)
+      this.postCategory.push(category.name.toString())
+      e.composedPath()[8].childNodes[0].value = this.postCategory[0] + ' / ' + this.postCategory[1] + ' / ' + this.postCategory[2]
+      e.composedPath()[8].classList.remove('open');
+    }
+    e.stopPropagation();
   }
 
   getDiff(expired: any, id: any){
@@ -366,7 +226,6 @@ export class HomeComponent implements OnInit{
   filterByCategory(e: any) {
     this.ads = this.initialPosts;
     this.ads = this.ads.filter(value => value.category.includes(e.composedPath()[0].childNodes[0].innerHTML))
-    console.log(e.composedPath()[0].childNodes[0].innerHTML);
   }
 
 }

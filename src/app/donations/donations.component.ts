@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {addDoc, arrayUnion, collection, deleteDoc, doc, Firestore, getDocs, updateDoc} from '@angular/fire/firestore';
 import { getDownloadURL, ref, uploadBytesResumable, Storage } from '@angular/fire/storage';
-import {User} from "../user";
+import {User} from "../models/user";
 
 @Component({
   selector: 'app-donations',
@@ -10,7 +10,7 @@ import {User} from "../user";
 })
 export class DonationsComponent implements OnInit {
 
-  public donations: any = [];
+  public donations: any[] = [];
   public initialDonations: any = []
 
   public files: any = [];

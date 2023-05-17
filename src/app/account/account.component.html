@@ -9,7 +9,11 @@
                 <p>Upload a new photo</p>
                 <input (change)="uploadNewAccountImage($event)" id="account-edit-image-input" type="file" accept="image/*" />
                 <div class="account-edit-image-input-label">
-                    <img src="{{user.avatar}}" alt="">
+                    <img *ngIf="user.avatar" src="{{user.avatar}}" alt="">
+                    <div *ngIf="!user.avatar" class="edit-image-no-avatar">
+                        <img src="../assets/avatar.png" alt="">
+                    </div>
+
                     <label for="account-edit-image-input"></label>
                 </div>
                 <div></div>
@@ -19,8 +23,8 @@
         <div class="account-header-bottom">
             <div class="account-header-bottom-left">
                 <div class="account-header-image">
-                    <img *ngIf="user.avatar != undefined" src="{{user.avatar}}" alt="">
-                    <div *ngIf="user.avatar == undefined" class="no-avatar">
+                    <img *ngIf="user.avatar" src="{{user.avatar}}" alt="">
+                    <div *ngIf="!user.avatar" class="no-avatar">
                         <img src="../assets/avatar.png" alt="">
                     </div>
                 </div>
@@ -160,13 +164,8 @@
             <img alt="search" src="assets/search.png"/>
         </div>
 
-        <button (click)="handleAddPost($event)">Add post</button>
-
-        <div class="account-add-post-modal">
-            <div>
-
-            </div>
-        </div>
+        <button (click)="handleAddPost()">Add post</button>
+<!--        <app-add-post (getData)="getData()" [user]="user" (handleAddPost)="handleAddPost()" [isActive]="isActive"></app-add-post>-->
     </div>
 
     <div class="account-posts">
@@ -207,7 +206,7 @@
                         {{post.amount}}
                     </div>
                     <div class="post-info">
-                        <p><img style="margin-bottom: -3px" src="assets/likes.png"/> {{post.favorite.length}} </p>
+                        <p *ngIf="post.favorite"><img style="margin-bottom: -3px" src="assets/likes.png"/> {{post.favorite.length}} </p>
                         <span *ngIf="post.visibility == 'active' || post.visibility == 'inactive'" style="display: flex">
                         <p class="post-deactivate-button" (click)="handleDeactivatePost(post)" *ngIf="post.visibility == 'active'">Deactivate</p>
                         <p class="post-activate-button" (click)="handleActivatePost($event, post)" *ngIf="post.visibility == 'inactive'">Activate</p>
