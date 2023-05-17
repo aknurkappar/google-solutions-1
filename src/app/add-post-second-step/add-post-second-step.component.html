@@ -1,0 +1,49 @@
+<div class="post_container">
+    <div>
+        <p>The proceeds from this item will be donated to the chosen cause:</p>
+    </div>
+
+    <div class="donation-list">
+        <div *ngFor="let donation of donations" class="donation" [ngClass]="{'chosen' : donation.id == addPostFormService.chosenDonationId}"  (click)="chooseDonation(donation.id)">
+
+            <div class="image">
+                <img src="{{donation.file}}" alt="">
+            </div>
+            <div class="donation-content">
+                <div class="left">
+                    <p class="title">{{donation.title}}</p>
+                </div>
+
+                <div class="right">
+
+                    <div class="details">
+                        <button class="details-button">See details</button>
+
+                        <div class="triangle"></div>
+                        <div class="details-content">
+                            <p class="detail-title">Reason:</p>
+                            <p>{{donation.reason}}</p>
+                        </div>
+
+                    </div>
+
+                    <p class="timer">{{getDiff(donation.expiredDate, donation.id)}} days left</p>
+                    <img class="selector" *ngIf="addPostFormService.chosenDonationId != donation.id" src="assets/icon-not-selected.png"/>
+                    <img class="selector" *ngIf="addPostFormService.chosenDonationId == donation.id" src="assets/icon-selected.png"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="not-selected-message" [ngClass]="{'not-selected-message-active' : addPostFormService.notSelectedMessageIsActive}">
+        <p>{{notSelectedMessage}}</p>
+    </div>
+
+    <div class="post-footer">
+        <button routerLink=".." class="back-button"><img src="assets/icon-back.png"/></button>
+        <button class="post_button" type="submit">Upload post</button>
+    </div>
+</div>
+
