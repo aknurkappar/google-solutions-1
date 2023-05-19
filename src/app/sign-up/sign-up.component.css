@@ -1,0 +1,249 @@
+.sign_up_back
+{
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, .15);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: .3s;
+}
+.sign_up_form
+{
+    padding: 50px 35px;
+
+    background: #fff;
+    border-radius: 25px;
+
+    position: relative;
+}
+.form_top
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+.form_top span
+{
+    margin-top: -8px;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+.form_top .close_form img
+{
+    width: 18px;
+    cursor: pointer;
+}
+.form_center
+{
+    display: flex;
+}
+.form_side:last-child
+{
+    margin: 2px 0 0 45px;
+}
+.input_block
+{
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 15px;
+}
+.input_block label
+{
+    display: flex;
+    align-items: end;
+
+    margin-bottom: 12px;
+}
+.input_block label img
+{
+    width: 26px;
+}
+.input_block label .user_man_email
+{
+    margin-bottom: -1.5px;
+}
+.input_block label .user_name
+{
+    width: 28px;
+}
+.input_block label span
+{
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #2D2D2D;
+    margin: 0 0 0px 7px;
+}
+.input_block input
+{
+    width: 330px;
+    height: 50px;
+
+    padding: 0 20px;
+
+    background: #fff;
+    border: 1px solid #E2E2E2;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+
+    margin-bottom: 10px;
+}
+.password_input
+{
+    position: relative;
+}
+.password_input .pswd_btns
+{
+    position: absolute;
+    right: 0;
+    top: 40%;
+    transform: translateY(-40%);
+
+    width: 22px;
+    margin-right: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+.pswd_btns img
+{
+    width: 100%;
+    margin-left: 0;
+}
+.pswd_btns .hide_pswrd
+{
+    display: none;
+}
+.pswd_btns.show .show_pswrd
+{
+    display: none;
+}
+.pswd_btns.show .hide_pswrd
+{
+    display: block;
+}
+.form_separator
+{
+    border-bottom: 1px solid #DEDEDE;
+    margin: -8px auto 22px;
+}
+.form_bottom
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.link_sign_in
+{
+    color: #5A5A5A;
+    cursor: pointer;
+    position: relative;
+
+    font-size: 15.5px;
+}
+.link_sign_in::after
+{
+    content: "";
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    position: absolute;
+    top: 0;
+}
+.link_sign_in:hover strong
+{
+    text-decoration: underline;
+}
+.sign_up_button
+{
+    width: 330px;
+    height: 50px;
+
+    background: #3A47B9;
+    border-radius: 8px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+
+    color: #fff;
+}
+.alert
+{
+    padding: 14px 18px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 50px;
+
+    background: #ff4646;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    border: 1px solid #e81f1f;
+
+    color: rgba(255, 255, 255, 0.95);
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: .3s;
+}
+.sign_up_form.occured .error_mess
+{
+    visibility: visible;
+    opacity: 1;
+    margin-top: 55px;
+
+    transition: .15s;
+}
+.sign_up_form.exist .email_exist
+{
+    visibility: visible;
+    opacity: 1;
+    margin-top: 55px;
+
+    transition: .15s;
+}
+.sign_up_form.correct .check_correct
+{
+    visibility: visible;
+    opacity: 1;
+    margin-top: 55px;
+
+    transition: .15s;
+}
+.sign_up_form.length .passw_length
+{
+    visibility: visible;
+    opacity: 1;
+    margin-top: 55px;
+
+    transition: .15s;
+}

@@ -1,3 +1,6 @@
+<app-sign-in></app-sign-in>
+<app-sign-up></app-sign-up>
+
 <div class="section">
   <header *ngIf="!isAuthorized">
     <div class="head_container">
@@ -5,109 +8,12 @@
         <img src="../assets/logo.png" alt="">
       </a>
       <div class="authorize_btns">
-        <button class="sign_in" (click)="signIn($event)">Sign in</button>
-        <button class="sign_up" (click)="signUp($event)">Sign up</button>
+        <button class="sign_in" (click)="modalConditionService.signInCondition = true">Sign in</button>
+        <button class="sign_up" (click)="modalConditionService.signUpCondition = true">Sign up</button>
       </div>
     </div>
   </header>
-  <div class="sign_up_back" (click)="signUp($event)">
-    <form #loginForm="ngForm" (ngSubmit)="register(loginForm.value, $event)" class="sign_up_form">
-      <div class="error_mess alert">To register, first fill in all the fields !</div>
-      <div class="check_correct alert">Confirm the password to complete the registration !</div>
-      <div class="email_exist alert">This email is already in use !</div>
-      <div class="passw_length alert">The password must be at least 8 characters long !</div>
-      <div class="form_top">
-        <span>Sign up</span>
-        <div class="close_form">
-          <img src="../assets/close.svg" alt="">
-        </div>
-      </div>
-      <div class="form_center">
-        <div class="form_side">
-          <div class="input_block">
-            <label>
-              <img src="../assets/username.svg" class="user_name" alt="">
-              <span>User name</span>
-            </label>
-            <input name="fName" ngModel type="text" placeholder="Your first name" />
-            <input name="lName" ngModel type="text" placeholder="Your last name" />
-          </div>
-          <div class="input_block">
-            <label>
-              <img src="../assets/location.svg" alt="">
-              <span>Location</span>
-            </label>
-            <input name="city" ngModel type="text" placeholder="Your location" />
-          </div>
-        </div>
-        <div class="form_side">
-          <div class="input_block">
-            <label>
-              <img src="../assets/email.svg" class="user_man_email" alt="">
-              <span>Email</span>
-            </label>
-            <input name="email" ngModel type="email" class="useremail" placeholder="Your email" />
-          </div>
-          <div class="input_block">
-            <label>
-              <img src="../assets/passwordblack.svg" alt="">
-              <span>Password</span>
-            </label>
-            <div class="password_input">
-              <input name="password" ngModel type="password" class="userpassword" placeholder="Your password" />
-              <div class="pswd_btns">
-                <img src="../assets/showpswrd.svg" alt="" class="show_pswrd" (click)="showPasswordUp($event, 'show')">
-                <img src="../assets/hidepswd.svg" alt="" class="hide_pswrd" (click)="showPasswordUp($event, 'hide')">
-              </div>
-            </div>
-            <div class="password_input">
-              <input name="passwordconfirm" ngModel type="password" class="passwordconfirm" placeholder="Verify your password" />
-              <div class="pswd_btns">
-                <img src="../assets/showpswrd.svg" alt="" class="show_pswrd" (click)="showPasswordUp($event, 'show')">
-                <img src="../assets/hidepswd.svg" alt="" class="hide_pswrd" (click)="showPasswordUp($event, 'hide')">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form_separator"></div>
-      <div class="form_bottom">
-        <div class="link_sign_in" (click)="signUp($event)">Already have an account? <strong style="color: #F1C16F; font-weight:600">Sign in</strong></div>
-        <button type="submit" class="sign_up_button">Sign up</button>
-      </div>
-    </form>
-  </div>
-  <div class="sign_in_back" (click)="signIn($event)">
-    <form #SignInForm="ngForm" (ngSubmit)="checkData(SignInForm.value, $event)" class="sign_in_form">
-      <div class="error_mess">Check your email or password !</div>
-      <div class="form_top">
-        <div class="close_form_in">
-          <img src="../assets/close.svg" alt="">
-        </div>
-        <span>Sign in</span>
-      </div>
-      <div class="form_center">
-        <div class="input_item">
-          <img src="../assets/emailsignin.svg" class="input_first_img"  alt="">
-          <input name="email" ngModel type="email" placeholder="Your email" />
-        </div>
-        <div class="input_item">
-          <img src="../assets/password.svg" class="input_first_img" style="margin-top: -1px;" alt="">
-          <input name="password" ngModel type="password" placeholder="Your password" />
-          <div class="pswd_btns">
-            <img src="../assets/showpswrd.svg" alt="" class="show_pswrd" (click)="showPassword($event, 'show')">
-            <img src="../assets/hidepswd.svg" alt="" class="hide_pswrd" (click)="showPassword($event, 'hide')">
-          </div>
-        </div>
-      </div>
-      <div class="form_separator"></div>
-      <div class="form_bottom">
-        <button type="submit" class="sign_in_button">Sign in</button>
-        <div class="link_sign_up">Don't have an account? <strong style="color: #F1C16F; font-weight:600">Sign up</strong></div>
-      </div>
-    </form>
-  </div>
-  <header *ngIf="isAuthorized && !adminLoggined">
+  <header *ngIf="isAuthorized && !adminLogged">
     <div class="head_container">
       <a href="/home" class="logo">
         <img src="../assets/logo.png" alt="">
@@ -156,14 +62,14 @@
       </div>
     </div>
   </header>
-  <header *ngIf="adminLoggined">
+  <header *ngIf="adminLogged">
     <div class="head_container">
       <div class="logo">
         <img src="../assets/logo.png" alt="">
       </div>
       <div class="admin_side">
         <span>Hello, Admin!</span>
-        <button class="account-logout"><img (click)="handleLogout($event)" src="assets/adminlogout.svg"/></button>
+        <button class="account-logout"><img (click)="handleLogout($event)" src="assets/adminlogout.svg" alt=""></button>
         <div class="logout-modal">
           <div class="logout-modal-content">
             <p>Do you want to log out?</p>

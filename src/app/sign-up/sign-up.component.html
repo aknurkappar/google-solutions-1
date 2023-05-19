@@ -1,0 +1,67 @@
+<div *ngIf="this.modalCondition.signUpCondition" class="sign_up_back" (click)="signUpOptions($event)">
+    <form #signUpForm="ngForm" (ngSubmit)="signUp(signUpForm.value, $event)" class="sign_up_form">
+        <div class="error_mess alert">To register, first fill in all the fields !</div>
+        <div class="check_correct alert">Confirm the password to complete the registration !</div>
+        <div class="email_exist alert">This email is already in use !</div>
+        <div class="passw_length alert">The password must be at least 8 characters long !</div>
+        <div class="form_top">
+            <span>Sign up</span>
+            <div class="close_form">
+                <img src="/assets/svg/close.svg" alt="">
+            </div>
+        </div>
+        <div class="form_center">
+            <div class="form_side">
+                <div class="input_block">
+                    <label>
+                        <img src="/assets/svg/username.svg" class="user_name" alt="">
+                        <span>User name</span>
+                    </label>
+                    <input name="fName" ngModel type="text" placeholder="Your first name" />
+                    <input name="lName" ngModel type="text" placeholder="Your last name" />
+                </div>
+                <div class="input_block">
+                    <label>
+                        <img src="/assets/svg/location.svg" alt="">
+                        <span>Location</span>
+                    </label>
+                    <input name="city" ngModel type="text" placeholder="Your location" />
+                </div>
+            </div>
+            <div class="form_side">
+                <div class="input_block">
+                    <label>
+                        <img src="/assets/svg/email.svg" class="user_man_email" alt="">
+                        <span>Email</span>
+                    </label>
+                    <input name="email" ngModel type="email" class="useremail" placeholder="Your email" />
+                </div>
+                <div class="input_block">
+                    <label>
+                        <img src="/assets/svg/passwordblack.svg" alt="">
+                        <span>Password</span>
+                    </label>
+                    <div class="password_input">
+                        <input name="password" ngModel type="password" class="userpassword" placeholder="Your password" />
+                        <div class="pswd_btns">
+                            <img src="/assets/svg/showpswrd.svg" alt="" class="show_pswrd" (click)="showPassword($event, 'show')">
+                            <img src="/assets/svg/hidepswd.svg" alt="" class="hide_pswrd" (click)="showPassword($event, 'hide')">
+                        </div>
+                    </div>
+                    <div class="password_input">
+                        <input name="passwordconfirm" ngModel type="password" class="passwordconfirm" placeholder="Verify your password" />
+                        <div class="pswd_btns">
+                            <img src="/assets/svg/showpswrd.svg" alt="" class="show_pswrd" (click)="showPassword($event, 'show')">
+                            <img src="/assets/svg/hidepswd.svg" alt="" class="hide_pswrd" (click)="showPassword($event, 'hide')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form_separator"></div>
+        <div class="form_bottom">
+            <div class="link_sign_in" (click)="signUpOptions($event)">Already have an account? <strong style="color: #F1C16F; font-weight:600">Sign in</strong></div>
+            <button type="submit" class="sign_up_button">Sign up</button>
+        </div>
+    </form>
+</div>

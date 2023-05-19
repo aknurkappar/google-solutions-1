@@ -10,6 +10,7 @@ import { PostsService } from "../posts.service";
 
 import { User } from "../user";
 import { Subject } from "rxjs";
+import {ModalConditionService} from "../services/modal-condition.service";
 
 
 @Component({
@@ -64,7 +65,7 @@ export class HomeComponent implements OnInit{
     }
   ]
 
-  constructor(public firestore: Firestore, public storage: Storage, public router: Router) {
+  constructor(public firestore: Firestore, public storage: Storage, public router: Router, public modalsCondition: ModalConditionService) {
     this.getData();
     this.uploaded = false;
     this.loaded = false;
@@ -323,7 +324,6 @@ export class HomeComponent implements OnInit{
   }
 
   createPost(e: any) {
-    console.log(this.user)
     if(e.composedPath()[0].className === 'add_ad' && Object.keys(this.user).length) {
       window.scrollTo({top: 0}); e.composedPath()[1].classList.add('create'); document.body.classList.add('lock');
     }
@@ -334,7 +334,7 @@ export class HomeComponent implements OnInit{
       e.composedPath()[5].classList.remove('create'); document.body.classList.remove('lock');
     }
     else if(!Object.keys(this.user).length) {
-      window.scrollTo({top: 0}); e.composedPath()[6].childNodes[0].classList.add('show_in'); document.body.classList.add('lock');
+      window.scrollTo({top: 0}); document.body.classList.add('lock'); this.modalsCondition.signInCondition = true
     }
   }
 

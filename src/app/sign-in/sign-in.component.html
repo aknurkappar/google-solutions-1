@@ -1,0 +1,30 @@
+<div *ngIf="this.modalCondition.signInCondition" class="sign_in_back" (click)="signInOptions($event)">
+    <form #SignInForm="ngForm" (ngSubmit)="signIn(SignInForm.value, $event)" class="sign_in_form">
+        <div class="error_mess">Check your email or password !</div>
+        <div class="form_top">
+            <div class="close_form_in">
+                <img src="/assets/svg/close.svg" alt="">
+            </div>
+            <span>Sign in</span>
+        </div>
+        <div class="form_center">
+            <div class="input_item">
+                <input name="email" ngModel type="email" placeholder="Your email" />
+                <img src="/assets/svg/emailsignin.svg" class="input_first_img"  alt="">
+            </div>
+            <div class="input_item">
+                <input name="password" ngModel type="password" placeholder="Your password" />
+                <img src="/assets/svg/password.svg" class="input_first_img" style="margin-top: -1px;" alt="">
+                <div class="pswd_btns">
+                    <img src="/assets/svg/showpswrd.svg" alt="" class="show_pswrd" (click)="showPassword($event, 'show')">
+                    <img src="/assets/svg/hidepswd.svg" alt="" class="hide_pswrd" (click)="showPassword($event, 'hide')">
+                </div>
+            </div>
+        </div>
+        <div class="form_separator"></div>
+        <div class="form_bottom">
+            <button type="submit" class="sign_in_button">Sign in</button>
+            <div class="link_sign_up">Don't have an account? <strong style="color: #F1C16F; font-weight:600">Sign up</strong></div>
+        </div>
+    </form>
+</div>

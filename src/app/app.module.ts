@@ -23,25 +23,29 @@ import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { AdminSpecialUsersComponent } from './admin-special-users/admin-special-users.component';
 import { AdminDonationsComponent } from './admin-donations/admin-donations.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import {SignInComponent} from "./sign-in/sign-in.component";
+import {SignUpComponent} from "./sign-up/sign-up.component";
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RegistrationComponent,
-    HomeComponent,
-    CarouselComponent,
-    AccountComponent,
-    DonationsComponent,
-    NotificationsComponent,
-    FavoritesComponent,
-    AdminComponent,
-    AdminPostsComponent,
-    AdminSpecialUsersComponent,
-    AdminDonationsComponent,
-    PostDetailsComponent,
-  ],
+    declarations: [
+        AppComponent,
+        RegistrationComponent,
+        HomeComponent,
+        CarouselComponent,
+        AccountComponent,
+        DonationsComponent,
+        NotificationsComponent,
+        FavoritesComponent,
+        AdminComponent,
+        AdminPostsComponent,
+        AdminSpecialUsersComponent,
+        AdminDonationsComponent,
+        PostDetailsComponent,
+        SignInComponent,
+        SignUpComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
