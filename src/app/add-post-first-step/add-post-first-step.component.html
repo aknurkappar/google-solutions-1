@@ -1,0 +1,149 @@
+<div class="post_center">
+    <div class="block">
+        <div class="input_block">
+            <label>Title</label>
+            <input [(ngModel)]="addPostFormService.post.title" type="text" placeholder="Enter title" />
+        </div>
+        <div class="input_block">
+            <label>Selector</label>
+            <div class="choose_block" (click)="chooseCategory($event)">
+                <input [(ngModel)]="addPostFormService.categoryText" type="text" placeholder="Choose category" disabled />
+
+                <img class="selected" src="../../assets/arrowcreatepost.svg" alt="">
+                <div>
+                    <ul class="select_category">
+                        <li on-click="selectCategory($event, category)" *ngFor="let category of categories">
+                            <div class="category_top main">
+                                <p>{{category.name}}</p>
+                                <img class ="sub_selector" [ngClass]="category.subCategories && category.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrowcreatepost.svg" alt=""/>
+                            </div>
+                            <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="sub_category">
+                                <li on-click="selectCategory($event, subCategory)" *ngFor="let subCategory of category.subCategories">
+                                    <div class="category_top middle">
+                                        <p>{{subCategory.name}}</p>
+                                        <img class="sub_selector" [ngClass]="subCategory.subCategories && subCategory.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrowcreatepost.svg" alt=""/>
+                                    </div>
+                                    <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="sub_sub_category">
+                                        <li on-click="selectCategory($event, subCategorySub)" *ngFor="let subCategorySub of subCategory.subCategories">
+                                            <div class="category_top child">
+                                                <p>{{subCategorySub.name}}</p>
+                                                <img class="sub_selector" src="../../assets/arrowcreatepost.svg" alt=""/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="choose_block" (click)="chooseCity($event)">
+                <input [(ngModel)]="addPostFormService.post.location" class="input_location" type="text" placeholder="Choose your city" disabled />
+                <img src="../../assets/arrowcreatepost.svg" alt="">
+                <ul class="select_city" (click)="setCityValue($event)">
+                    <li>Astana</li>
+                    <li>Aktobe</li>
+                    <li>Almaty</li>
+                    <li>Atyrau</li>
+                    <li>Aktau</li>
+                    <li>Semey</li>
+                    <li>Taraz</li>
+                    <li>Karaganda</li>
+                    <li>Kostanay</li>
+                    <li>Kokshetau</li>
+                    <li>Kyzylorda</li>
+                    <li>Mangystau</li>
+                    <li>Pavlodar</li>
+                    <li>Uralsk</li>
+                    <li>Ust-Kamenogorsk</li>
+                    <li>Shymkent</li>
+                    <li>Turkestan</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="input_block">
+        <label>Description</label>
+        <textarea [(ngModel)]="addPostFormService.post.description" placeholder="Write about your item"></textarea>
+    </div>
+</div>
+<div class="post_pre_bottom">
+    <div class="input_block for_photo">
+        <label>Photos</label>
+        <span>The first photo will be on the cover of the post.</span>
+        <div class="photos" (click)="addPostFormService.photosRedactor($event)">
+            <div class="file">
+                <input (change)="addPostFormService.upload($event)" multiple type="file" accept="image/*" id="input_file" class="input input_file" />
+                <label for="input_file">
+                    <img src="../../assets/uploadphoto.svg" alt="">
+                </label>
+            </div>
+            <div class="post_images">
+                <img src="../../assets/postimg.svg" alt="">
+                <div *ngIf="addPostFormService.postImages.length > 0" class="img_back">
+                    <img [src]="addPostFormService.postImages[0]" class="post_img" alt="0">
+                    <div class="img_redactor">
+                        <img src="../../assets/makemain.svg" class="makemain" alt="">
+                        <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="post_images">
+                <img src="../../assets/postimg.svg" alt="">
+                <div *ngIf="addPostFormService.postImages.length > 1" class="img_back">
+                    <img [src]="addPostFormService.postImages[1]" class="post_img" alt="1">
+                    <div class="img_redactor">
+                        <img src="../../assets/makemain.svg" class="makemain" alt="">
+                        <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="post_images">
+                <img src="../../assets/postimg.svg" alt="">
+                <div *ngIf="addPostFormService.postImages.length > 2" class="img_back">
+                    <img [src]="addPostFormService.postImages[2]" class="post_img" alt="2">
+                    <div class="img_redactor">
+                        <img src="../../assets/makemain.svg" class="makemain" alt="">
+                        <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="post_images">
+                <img src="../../assets/postimg.svg" alt="">
+                <div *ngIf="addPostFormService.postImages.length > 3" class="img_back">
+                    <img [src]="addPostFormService.postImages[3]" class="post_img" alt="3">
+                    <div class="img_redactor">
+                        <img src="../../assets/makemain.svg" class="makemain" alt="">
+                        <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="post_images">
+                <img src="../../assets/postimg.svg" alt="">
+                <div *ngIf="addPostFormService.postImages.length > 4" class="img_back">
+                    <img [src]="addPostFormService.postImages[4]" class="post_img" alt="4">
+                    <div class="img_redactor">
+                        <img src="../../assets/makemain.svg" class="makemain" alt="">
+                        <img src="../../assets/delete.svg" class="deleteimg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="post_bottom">
+    <div class="input_block">
+        <label>Uploading</label>
+        <div class="up_block">
+            <div class="amount">
+                <div class="text">Amount:</div>
+                <input [(ngModel)]="addPostFormService.post.amount" class="input_amount" type="number" min="1" max="500" />
+            </div>
+            <input [(ngModel)]="addPostFormService.post.phone" type="tel" placeholder="Your phone" class="your_phone" />
+
+            <button *ngIf="!user.specialStatus" class="post_button" type="submit">Upload post {{user.specialStatus}}</button>
+
+            <button *ngIf="user.specialStatus" class="post_button" (click)="handlePostValidation($event)">Next step</button>
+        </div>
+    </div>
+</div>

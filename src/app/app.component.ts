@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { ModalConditionService } from "./services/modal-condition.service";
-import { User } from "./user";
+
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection, Firestore, query, where, getDocs, onSnapshot, doc, getDoc } from "@angular/fire/firestore";
+import { Storage } from "@angular/fire/storage";
+
+import { User } from "./models/user";
 
 @Component({
   selector: 'app-root',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { collection, doc, Firestore, onSnapshot, deleteDoc, query, where, updateDoc, arrayUnion, arrayRemove } from "@angular/fire/firestore";
-import { User } from "../user";
+import { User } from "../models/user";
 
 interface carouselImage {
   imageSrc: string;
@@ -18,20 +18,15 @@ export class PostDetailsComponent implements OnInit {
   OTPValues : string[] = [];
 
   public owner: any
-
   public post: any
   public postId: String | undefined
   public specialStatus: boolean = false
-
   sliderImages: carouselImage[] = []
-  
   CorrectOTP = ""
   OTPCurrentIndex : number = 0;
-  
   constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router) { 
     this.user = {} as  User;
   }
-
   ngOnInit(): void { // @ts-ignore
     this.postId = this.route.snapshot.paramMap.get('id');
     const value = localStorage.getItem("userData");

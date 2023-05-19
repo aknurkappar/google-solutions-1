@@ -7,7 +7,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, Firestore, query, where, onSnapshot } from "@angular/fire/firestore";
 import { Storage } from "@angular/fire/storage";
 
-import { User } from "../user";
+import { User } from "../models/user";
 import {ModalConditionService} from "../services/modal-condition.service";
 
 @Component({

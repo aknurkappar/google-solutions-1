@@ -25,6 +25,9 @@ import { AdminDonationsComponent } from './admin-donations/admin-donations.compo
 import { PostDetailsComponent } from './post-details/post-details.component';
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
+import { AddPostComponent } from './add-post/add-post.component';
+import { AddPostSecondStepComponent } from './add-post-second-step/add-post-second-step.component';
+import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-step.component";
 
 
 
@@ -43,6 +46,9 @@ import {SignUpComponent} from "./sign-up/sign-up.component";
         AdminSpecialUsersComponent,
         AdminDonationsComponent,
         PostDetailsComponent,
+        AddPostComponent,
+        AddPostFirstStepComponent,
+        AddPostSecondStepComponent,
         SignInComponent,
         SignUpComponent,
     ],

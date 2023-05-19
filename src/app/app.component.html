@@ -49,8 +49,8 @@
       </ul>
       <div class="user_side">
         <a routerLink="/account" class="link_to_profile">
-          <img *ngIf="user.avatar != undefined" src="{{user.avatar}}" alt="">
-          <div *ngIf="user.avatar == undefined" class="no-avatar">
+          <img *ngIf="user.avatar" src="{{user.avatar}}" alt="">
+          <div *ngIf="!user.avatar" class="no-avatar">
             <img src="../assets/avatar.png" alt="">
           </div>
           <div class="user_names">
