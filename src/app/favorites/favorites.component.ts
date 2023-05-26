@@ -1,11 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
-import { Firestore, collection, getDocs, arrayUnion, query, where, doc, updateDoc, arrayRemove } from '@angular/fire/firestore'
+import {
+    Firestore,
+    collection,
+    getDocs,
+    arrayUnion,
+    query,
+    where,
+    doc,
+    updateDoc,
+    arrayRemove,
+    onSnapshot
+} from '@angular/fire/firestore'
 import { User } from "../models/user";
 
 import { Category } from "../catalog";
 import { categories } from "../catalog";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-favorites',
@@ -30,18 +43,28 @@ export class FavoritesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const value = localStorage.getItem("userData")
-        if(value !== null) { // @ts-ignore
-            this.user = new User(JSON.parse(value)[0])
-            const q = query(collection(this.firestore, "posts"), where("favorite", "array-contains", this.user.userID));
-            getDocs(q).then( (data) => {
-                this.myFavorites = [...data.docs.map( (item) => {
-                    return { ...item.data(), id:item.id }})
-                ]
-                this.initialMyFav = this.myFavorites;
-                this.loaded = true;
-            })
-        }
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                const dbInstance = collection(this.firestore, 'users');
+                const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+                onSnapshot(userQuery, (data) => {
+                    this.user = new User(data.docs.map((item) => {
+                        return {...item.data(), uniqID: item.id}
+                    })[0]);
+                    const q = query(collection(this.firestore, "posts"), where("favorite", "array-contains", this.user.userID));
+                    getDocs(q).then( (data) => {
+                        this.myFavorites = [...data.docs.map( (item) => {
+                            return { ...item.data(), id:item.id }})
+                        ]
+                        this.initialMyFav = this.myFavorites;
+                        this.loaded = true;
+                    })
+                })
+            }
+        });
     }
 
     search(e: any){
