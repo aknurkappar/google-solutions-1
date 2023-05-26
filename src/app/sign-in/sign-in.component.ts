@@ -33,21 +33,9 @@ export class SignInComponent {
               const user = new User(data.docs.map((item) => {
                 return {...item.data(), uniqID: item.id}
               })[0]);
-              // this.isAuthorized = true;
-
-              // signInForm.closest('.section').classList.remove('show_in');
-              // document.body.classList.remove('lock');
-
-              this.addUserToLocal(user);
-
-              window.location.reload();
             })
-          } else{
-            const admin = new User({})
-            admin.email = "admin"
-            this.addUserToLocal(admin)
-            window.location.reload()
           }
+          window.location.reload();
         })
         .catch((error) => {
           signInForm.classList.add('occured');
@@ -63,19 +51,6 @@ export class SignInComponent {
           }, 3000);
           // alert(err.message);
         })
-  }
-
-  addUserToLocal(user: User) {
-    let userData;
-
-    if(localStorage.getItem("userData") === null) {
-      userData = [];
-    } else { // @ts-ignore
-      userData = JSON.parse(localStorage.getItem("userData"));
-    }
-
-    userData.push(user);
-    localStorage.setItem("userData", JSON.stringify(userData));
   }
 
   signInOptions(e: any) {
