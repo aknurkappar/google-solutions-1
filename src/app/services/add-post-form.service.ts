@@ -1,8 +1,20 @@
 import {Injectable, OnInit} from '@angular/core';
-import {addDoc, arrayUnion, collection, doc, Firestore, updateDoc} from "@angular/fire/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  Firestore,
+  onSnapshot,
+  query,
+  updateDoc,
+  where
+} from "@angular/fire/firestore";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";
 import {User} from "../models/user";
 import {Router} from "@angular/router";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "@angular/fire/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +47,21 @@ export class AddPostFormService{
     this.chosenDonationId = ""
 
     // get user
-    const value = localStorage.getItem("userData");
-    if(value !== null) { // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-    }
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
+
+        })
+      }
+    });
   }
 
   photosRedactor(e: any) {
