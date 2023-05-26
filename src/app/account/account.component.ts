@@ -3,8 +3,10 @@ import { User } from "../models/user";
 import { Router } from "@angular/router";
 import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, onSnapshot, query, updateDoc, where } from "@angular/fire/firestore";
 import { getDownloadURL, ref, Storage, uploadBytesResumable } from "@angular/fire/storage";
-import { timestamp } from "rxjs"; // @ts-ignore
+// @ts-ignore
 import * as html2pdf from 'html2pdf.js';
+import {onAuthStateChanged, signOut} from "@angular/fire/auth";
+import {getAuth} from "firebase/auth";
 
 
 interface File {
@@ -45,27 +47,38 @@ export class AccountComponent implements OnInit {
   public initialPost: any
   public specialStatus: boolean = false
   ngOnInit(): void {
-    const value = localStorage.getItem("userData");
-    if(value !== null){ // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-      this.isAuthorized  = true;
-      const q = query(collection(this.firestore, "posts"), where("ownerId", "==", this.user.userID));
-      getDocs(q).then( (data) => {
-        this.myPost = [...data.docs.map( (item) => {
-          return { ...item.data(), id:item.id }})
-        ]
-        this.initialPost = this.myPost
-      })
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
 
-      const colUsers = collection(this.firestore, "users");
-      const docRef = doc(colUsers, `${this.user.uniqID}`);
-      onSnapshot(docRef, (doc) => { // @ts-ignore
-        if(doc.data()["specialStatus"] === true) this.specialStatus = true
-      });
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
 
-    } else {
-      this.router.navigate(['/home']);
-    }
+          this.isAuthorized = true;
+
+          const q = query(collection(this.firestore, "posts"), where("ownerId", "==", this.user.userID));
+          getDocs(q).then( (data) => {
+            this.myPost = [...data.docs.map( (item) => {
+              return { ...item.data(), id:item.id }})
+            ]
+            this.initialPost = this.myPost
+          })
+          const colUsers = collection(this.firestore, "users");
+          const docRef = doc(colUsers, `${this.user.uniqID}`);
+          onSnapshot(docRef, (doc) => { // @ts-ignore
+            if(doc.data()["specialStatus"] === true) this.specialStatus = true
+          });
+        })
+      }
+      else {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
 
@@ -149,7 +162,12 @@ export class AccountComponent implements OnInit {
     document.body.classList.remove('lock');
   }
   logout(e : any) {
-    localStorage.removeItem("userData");
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
     window.location.reload()
   }
 
@@ -324,22 +342,9 @@ export class AccountComponent implements OnInit {
       this.user.setFName(value.fName);
       this.user.setLName(value.lName);
       this.user.setLocation(value.city);
-      localStorage.removeItem("userData");
-      this.addUserToLocal(this.user)
     }).catch((err) => { alert(err.message) }).finally(() =>{ location.reload() })
   }
 
-  addUserToLocal(user: User) {
-    let userData;
-
-    if(localStorage.getItem("userData") === null) userData = [];
-    else { // @ts-ignore
-      userData = JSON.parse(localStorage.getItem("userData"));
-    }
-
-    userData.push(user);
-    localStorage.setItem("userData", JSON.stringify(userData));
-  }
 
   search(e: any){
     this.myPost = this.initialPost;
