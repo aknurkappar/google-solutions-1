@@ -359,6 +359,11 @@
     width: 22px;
     display: none;
 }
+.item.chosen
+{
+    border-color: #F1C16F;
+    box-shadow: 0 0 7px rgba(241, 193, 111, 0.25);
+}
 .item.chosen .fav_1
 {
     display: none;

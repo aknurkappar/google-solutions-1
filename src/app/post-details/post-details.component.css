@@ -184,7 +184,7 @@ button
 {
     font-size: 18px;
 }
-.post-details-get-button
+.get_buttons button
 {
     background: #F1C16F;
     border-radius: 8px;
@@ -197,11 +197,7 @@ button
     transition: .2s;
     display: none;
 }
-.post-details-get-button:hover
-{
-    background: #e9b65d;
-}
-.post-details-get-button.special
+.get_buttons.special .post-details-get-button
 {
     display: block;
 }

@@ -28,6 +28,8 @@ import {SignUpComponent} from "./sign-up/sign-up.component";
 import { AddPostComponent } from './add-post/add-post.component';
 import { AddPostSecondStepComponent } from './add-post-second-step/add-post-second-step.component';
 import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-step.component";
+import { BuyAndDonateComponent } from './buy-and-donate/buy-and-donate.component';
+import { AdminBuyAndDonateComponent } from './admin-buy-and-donate/admin-buy-and-donate.component';
 
 
 
@@ -51,6 +53,8 @@ import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-st
         AddPostSecondStepComponent,
         SignInComponent,
         SignUpComponent,
+        BuyAndDonateComponent,
+        AdminBuyAndDonateComponent,
     ],
     imports: [
         BrowserModule,

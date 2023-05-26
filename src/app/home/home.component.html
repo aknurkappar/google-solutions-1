@@ -81,7 +81,7 @@
         </div>
         <div *ngIf="loaded" class="list">
             <div class="item_back" *ngFor="let ad of ads">
-                <div [ngClass]=" isFavorite(ad.id) ? 'item chosen' : 'item'" *ngIf="ad.visibility ==='active'" class="item">
+                <div [ngClass]="isFavorite(ad.id) ? 'item chosen' : 'item'" *ngIf="ad.visibility ==='active'" class="item">
                     <a href="/postdetails/{{ad.id}}}" class="left">
                         <div class="image">
                             <img src="{{ad.mainIMG}}" alt="">

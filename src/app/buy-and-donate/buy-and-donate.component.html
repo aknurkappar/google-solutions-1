@@ -44,27 +44,27 @@
             <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
         </div>
         <div *ngIf="loaded" class="list">
-            <div class="item_back" *ngFor="let fav of myFavorites">
-                <div class="item chosen" *ngIf="fav.visibility === 'active'">
-                    <a href="/postdetails/{{fav.id}}}" class="left">
+            <div class="item_back" *ngFor="let bad of myFavorites">
+                <div [ngClass]="isFavorite(bad.id) ? 'item chosen' : 'item'" class="item chosen" *ngIf="bad.visibility === 'active'">
+                    <a href="/postdetails/{{bad.id}}}" class="left">
                         <div class="image">
-                            <img src="{{fav.mainIMG}}" alt="">
+                            <img src="{{bad.mainIMG}}" alt="">
                         </div>
                         <div class="info_ad">
                             <div class="top_info">
-                                <div class="title">{{fav.title}}</div>
+                                <div class="title">{{bad.title}}</div>
                                 <div class="category_type">
-                                    <p *ngFor="let category of fav.category">{{category}}<span>/</span></p>
+                                    <p *ngFor="let category of bad.category">{{category}}<span>/</span></p>
                                 </div>
                             </div>
-                            <div class="location">Kazakhstan, {{fav.location}}</div>
+                            <div class="location">Kazakhstan, {{bad.location}}</div>
                         </div>
                     </a>
                     <div class="right">
-                        <div class="count">{{fav.amount}}</div>
+                        <div class="count">1500</div>
                         <div class="add_to_fav">
-                            <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, fav)" alt="">
-                            <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, fav)" alt="">
+                            <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, bad)" alt="">
+                            <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, bad)" alt="">
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,7 @@ interface carouselImage {
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
+
   user: User;
   OTPValues : string[] = [];
 
@@ -24,8 +25,9 @@ export class PostDetailsComponent implements OnInit {
   sliderImages: carouselImage[] = []
   CorrectOTP = ""
   OTPCurrentIndex : number = 0;
+
   constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router) { 
-    this.user = {} as  User;
+    this.user = {} as User;
   }
   ngOnInit(): void { // @ts-ignore
     this.postId = this.route.snapshot.paramMap.get('id');
@@ -40,6 +42,7 @@ export class PostDetailsComponent implements OnInit {
       });
     } 
     // else this.router.navigate(['/home']);
+    this.classExpression()
 
     if(this.postId != null) {
       this.postId = this.postId.substring(0, this.postId.length - 1);
@@ -51,9 +54,6 @@ export class PostDetailsComponent implements OnInit {
         if(doc.data() == undefined) {
           this.router.navigate(['home'])
         }
-
-        console.log(this.post)
-        console.log(this.user)
 
         this.CorrectOTP = this.post.code
 
@@ -75,6 +75,12 @@ export class PostDetailsComponent implements OnInit {
         })
       });
     }
+  }
+  classExpression(): string {
+    if(this.specialStatus && this.post.ownerId != this.user.userID) {
+      return 'get_buttons special'
+    }
+    return 'get_buttons'
   }
 
   closeOTPModal(e : any) {
@@ -104,12 +110,12 @@ export class PostDetailsComponent implements OnInit {
   }
 
   sendCodeToOwner(e : any) {
-    e.composedPath()[4].children[0].classList.toggle("modal-active");
-    e.composedPath()[5].querySelector('.otp-first-input').focus();
+    e.composedPath()[5].children[0].classList.toggle("modal-active");
+    e.composedPath()[6].querySelector('.otp-first-input').focus();
     document.body.classList.add('lock');
   }
 
-  deleteData(){
+  deleteData() {
     const dataToDeleteOrUpdate= doc(this.firestore, 'posts', `${this.postId}`)
     const dataToUpdate= doc(this.firestore, 'users', `${this.owner.uniqID}`)
     console.log("Here your user")
@@ -119,14 +125,12 @@ export class PostDetailsComponent implements OnInit {
       let newCode = Math.floor(Math.random() * (999999 - 100000) + 100000);
       updateDoc(dataToDeleteOrUpdate, {amount: this.post.amount - 1, code: newCode})
     }
-    else{
+    else {
       deleteDoc(dataToDeleteOrUpdate)
-          .then(() => {
-
-          })
-          .catch((err) => {
-            alert(err.message)
-          })
+      .then(() => { })
+      .catch((err) => {
+        alert(err.message)
+      })
     }
     updateDoc(dataToUpdate, {baursaks: this.owner.baursaks + 1})
   }

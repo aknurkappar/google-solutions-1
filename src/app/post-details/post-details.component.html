@@ -46,7 +46,10 @@
                 </div>
                 <div class="text-bottom">
                     <p class="post-amount"><span>Amount:</span> {{post.amount}}</p>
-                    <button [ngClass]="(specialStatus && post.ownerId != this.user.userID) ? 'post-details-get-button special' : 'post-details-get-button'" (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
+                    <div [ngClass]="classExpression()">
+                        <button>Buy now</button>
+                        <button (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,7 +58,6 @@
         <div class="bottom-top">
             <p id="title">Owner</p>
             <p class="post_owner_info">
-                <!-- <span class="material-symbols-outlined">person</span> -->
                 <img src="{{owner.avatar}}" alt="">
                 {{owner.fName}} {{owner.lName}}
             </p>

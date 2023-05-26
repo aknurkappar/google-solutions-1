@@ -122,6 +122,11 @@ header
 {
     margin-left: -2px;
 }
+.nav li:nth-child(4) a img
+{
+    width: 25px;
+    margin: -1px 0 0 -5px;
+}
 .nav li a span
 {
     color: #161616;

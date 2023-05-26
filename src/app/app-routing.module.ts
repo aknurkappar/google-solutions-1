@@ -14,30 +14,34 @@ import {PostDetailsComponent} from "./post-details/post-details.component";
 import {AddPostComponent} from "./add-post/add-post.component";
 import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-step.component";
 import {AddPostSecondStepComponent} from "./add-post-second-step/add-post-second-step.component";
+import {BuyAndDonateComponent} from "./buy-and-donate/buy-and-donate.component";
+import {AdminBuyAndDonateComponent} from "./admin-buy-and-donate/admin-buy-and-donate.component";
 
 const addPostRoutes : Routes = [
-    {path : 'add-post', component : AddPostComponent, children : [
+    { path : 'add-post', component : AddPostComponent, children : [
             {path : "" , component : AddPostFirstStepComponent},
             {path : "1", component : AddPostFirstStepComponent},
             {path : "2", component : AddPostSecondStepComponent},
-        ]},
+    ]},
 ]
 
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
-  { path: 'home', component: HomeComponent, children : addPostRoutes},
-  { path: 'account', component: AccountComponent, children : addPostRoutes},
-  { path: 'donations', component: DonationsComponent},
-  { path: 'notifications', component: NotificationsComponent},
-  { path: 'favorites', component: FavoritesComponent},
-  { path : "admin", component : AdminComponent, children : [
-      { path: '', redirectTo: 'postsadmin', pathMatch: 'full'},
-      { path : "postsadmin", component : AdminPostsComponent},
-      { path : "donationsadmin", component : AdminDonationsComponent},
-      { path : "specialusers", component : AdminSpecialUsersComponent}
-    ]},
-  { path : 'favorites/:id', component: PostDetailsComponent},
-  { path : 'postdetails/:id', component: PostDetailsComponent},
+  { path: 'home', component: HomeComponent, children : addPostRoutes },
+  { path: 'account', component: AccountComponent, children : addPostRoutes },
+  { path: 'donations', component: DonationsComponent },
+  { path: 'notifications', component: NotificationsComponent },
+  { path: 'favorites', component: FavoritesComponent },
+  { path: "admin", component : AdminComponent, children : [
+      { path: "posts-admin", component : AdminPostsComponent },
+      { path: "donations-admin", component : AdminDonationsComponent },
+      { path: "special-users", component : AdminSpecialUsersComponent },
+      { path: 'buy-and-donate-admin', component: AdminBuyAndDonateComponent},
+      { path: '', redirectTo: 'posts-admin', pathMatch: 'full' }
+  ]},
+  { path: 'favorites/:id', component: PostDetailsComponent },
+  { path: 'postdetails/:id', component: PostDetailsComponent },
+  { path: 'buy-and-donate', component: BuyAndDonateComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
