@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {collection, Firestore, getDocs} from "@angular/fire/firestore";
+import {collection, Firestore, getDocs, onSnapshot, query, where} from "@angular/fire/firestore";
 import {Storage} from "@angular/fire/storage";
 import {User} from "../models/user";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-notifications',
@@ -18,14 +20,23 @@ export class NotificationsComponent implements OnInit{
   }
 
   ngOnInit() {
-    const value = localStorage.getItem("userData")
-    if(value !== null){
-      // @ts-ignore
-      this.user = new User(JSON.parse(value)[0])
-      if(Object.keys(this.user).length !== 0){
-        this.authorized = true;
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
+          if( this.user.email !== "admin@bejomart.kz"){
+            this.authorized = true;
+          }
+        })
       }
-    }
+    });
   }
 
   getNotifications() {
