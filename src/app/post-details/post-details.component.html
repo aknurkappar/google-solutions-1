@@ -57,10 +57,13 @@
     <div class="post-details-bottom">
         <div class="bottom-top">
             <p id="title">Owner</p>
-            <p class="post_owner_info">
-                <img src="{{owner.avatar}}" alt="">
+            <div class="post_owner_info">
+                <img class="avatar_of_owner" *ngIf="owner.avatar != ''" src="{{owner.avatar}}" alt="">
+                <div *ngIf="owner.avatar == ''" class="no_avatar_owner">
+                    <img src="/assets/avatar.png" alt="">
+                </div>
                 {{owner.fName}} {{owner.lName}}
-            </p>
+            </div>
         </div>
         <div [ngClass]="specialStatus ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
             <p id="subtitle">Owner contacts</p>

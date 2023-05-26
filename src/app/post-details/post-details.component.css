@@ -227,9 +227,9 @@ button
 {
     display: flex;
     align-items: center !important;
-    font-size: 19px !important;
+    font-size: 18px !important;
 }
-.bottom-top img
+.avatar_of_owner
 {
     width: 45px;
     height: 45px;
@@ -238,6 +238,28 @@ button
     border-radius: 50%;
 
     margin-right: 12px;
+}
+.no_avatar_owner
+{
+    width: 45px;
+    height: 45px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+    background: #DEDEDE;
+
+    margin-right: 12px;
+
+    display: flex;
+    align-items: center;
+}
+.no_avatar_owner img
+{
+    width: 25px;
+    height: 25px;
+
+    margin: 0 auto;
 }
 .bottom-top p span
 {
