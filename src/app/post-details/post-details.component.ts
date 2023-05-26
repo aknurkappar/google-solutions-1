@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { collection, doc, Firestore, onSnapshot, deleteDoc, query, where, updateDoc, arrayUnion, arrayRemove } from "@angular/fire/firestore";
 import { User } from "../models/user";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "@angular/fire/auth";
 
 interface carouselImage {
   imageSrc: string;
@@ -31,16 +33,28 @@ export class PostDetailsComponent implements OnInit {
   }
   ngOnInit(): void { // @ts-ignore
     this.postId = this.route.snapshot.paramMap.get('id');
-    const value = localStorage.getItem("userData");
 
-    if(value !== null) { // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-      const colUsers = collection(this.firestore, "users");
-      const docRef = doc(colUsers, `${this.user.uniqID}`);
-      onSnapshot(docRef, (doc) => { // @ts-ignore
-        if(doc.data()["specialStatus"] === true) this.specialStatus = true
-      });
-    } 
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
+
+          const colUsers = collection(this.firestore, "users");
+          const docRef = doc(colUsers, `${this.user.uniqID}`);
+          onSnapshot(docRef, (doc) => { // @ts-ignore
+            if(doc.data()["specialStatus"] === true) this.specialStatus = true
+          });
+        })
+      }
+    });
+
     // else this.router.navigate(['/home']);
     this.classExpression()
 
@@ -77,7 +91,7 @@ export class PostDetailsComponent implements OnInit {
     }
   }
   classExpression(): string {
-    if(this.specialStatus && this.post.ownerId != this.user.userID) {
+    if((this.specialStatus || this.user.baursaks >= 1) && this.post.ownerId != this.user.userID) {
       return 'get_buttons special'
     }
     return 'get_buttons'
@@ -118,8 +132,11 @@ export class PostDetailsComponent implements OnInit {
   deleteData() {
     const dataToDeleteOrUpdate= doc(this.firestore, 'posts', `${this.postId}`)
     const dataToUpdate= doc(this.firestore, 'users', `${this.owner.uniqID}`)
-    console.log("Here your user")
-    console.log(this.owner)
+
+    if(!this.specialStatus){
+      this.reduceFromUser()
+    }
+
     if(this.post.amount > 1){
       // this.post.amount = this.post.amount - 1;
       let newCode = Math.floor(Math.random() * (999999 - 100000) + 100000);
@@ -133,6 +150,11 @@ export class PostDetailsComponent implements OnInit {
       })
     }
     updateDoc(dataToUpdate, {baursaks: this.owner.baursaks + 1})
+  }
+
+  reduceFromUser(){
+    const userToUpdate= doc(this.firestore, 'users', `${this.user.uniqID}`)
+    updateDoc(userToUpdate, {baursaks: this.user.baursaks - 1})
   }
 
   moveToNextInput(e : any) {
