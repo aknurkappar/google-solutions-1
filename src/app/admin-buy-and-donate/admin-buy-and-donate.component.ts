@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
   addDoc,
-  collection,
+  collection, deleteDoc,
   doc,
   Firestore, getDoc,
   getDocs,
@@ -147,8 +147,13 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
   }
 
   priceRange(slider: any) {
-    const price = document.querySelector(".slider_value span") // @ts-ignore
-    price.textContent = slider.composedPath()[0].value
+    slider.composedPath()[2].children[0].children[0].textContent = slider.composedPath()[0].value
+  }
+
+  getDiff(expired: any, id: any){
+    const time = new Date()
+    const diffInMs = expired.seconds - time.getTime() / 1000;
+    return Math.floor(diffInMs / (60 * 60 * 24));
   }
 
 }

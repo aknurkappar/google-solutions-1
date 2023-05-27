@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="loaded" class="list">
     <div *ngFor="let post of visiblePosts" class="list">
-        <div  *ngIf="post.visibility === 'inProgress'" class="item_cont">
+        <div *ngIf="post.visibility === 'inProgress'" class="item_cont">
             <div class="item">
                 <div class="left">
                     <div class="image">
@@ -99,20 +99,19 @@
                     The money for this product will be sent to:
                     <div class="donation_item">
                         <div class="don_left">
-                            <img src="" alt="">
-                            <p></p>
+                            <img src="{{post.donation.file}}" alt="">
+                            <span>{{post.donation.title}}</span>
                         </div>
                         <div class="don_right">
+                            <p class="remaining">{{getDiff(post.donation.expiredDate, post.donation.id)}} days left</p>
                             <div class="see_details">
                                 <p>See details</p>
-                                <span>jsagnk jasngk jasnjgknask jngkjasngk jasnjgnaskjngjkasng jkn asjkgnasjkng kjasn kjgnaskjbgsajbk</span>
+                                <span>{{post.donation.reason}}</span>
                             </div>
-                            <p class="remaining"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{post.donation.title}}
     </div>
 </div>
