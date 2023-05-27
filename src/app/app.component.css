@@ -324,3 +324,49 @@ header
 {
     width: 35px;
 }
+
+
+footer
+{
+    width: 1100px;
+
+    padding-bottom: 20px;
+    margin: 90px auto 0;
+}
+.line
+{
+    width: 100%;
+    border-top: 1px solid #d7d7d7;
+    margin-bottom: 20px;
+}
+.footer_container
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.foot_left p:first-child
+{
+    font-size: 17px;
+    margin-bottom: 2px;
+}
+.foot_left .slogan
+{
+    font-size: 15px;
+    opacity: .8;
+}
+.foot_right
+{
+    display: flex;
+    gap: 25px;
+
+    font-size: 15px;
+}
+.foot_right a
+{
+    color: #3a3a3a;
+}
+.foot_right a:hover
+{
+    color: #2d388d;
+}

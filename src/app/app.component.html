@@ -1,102 +1,119 @@
-<app-sign-in></app-sign-in>
-<app-sign-up></app-sign-up>
-
-<div *ngIf="userLoaded == 0" class="user_loading">
-  <img src="/assets/loading.gif" alt="loading gif">
-</div>
-
-<div *ngIf="userLoaded != 0" class="section">
-  <header *ngIf="!isAuthorized && !adminLogged">
-    <div class="head_container">
-      <a href="/home" class="logo">
-        <img src="../assets/logo.png" alt="">
-      </a>
-      <div class="authorize_btns">
-        <button class="sign_in" (click)="modalConditionService.signInCondition = true">Sign in</button>
-        <button class="sign_up" (click)="modalConditionService.signUpCondition = true">Sign up</button>
-      </div>
-    </div>
-  </header>
-  <header *ngIf="isAuthorized && !adminLogged">
-    <div class="head_container">
-      <a href="/home" class="logo">
-        <img src="../assets/logo.png" alt="">
-      </a>
-      <ul class="nav">
-        <li>
-          <a href="/donations">
-            <div class="nav_img">
-              <img src="../assets/donationhover.svg" alt="">
-              <img src="../assets/donation.svg" alt="">
-            </div>
-            <span>Donations</span>
-          </a>
-        </li>
-        <li>
-          <a href="/notifications">
-            <div class="nav_img">
-              <img src="../assets/notificationhover.svg" alt="">
-              <img src="../assets/notification.svg" alt="">
-            </div>
-            <span>Notifications</span>
-          </a>
-        </li>
-        <li>
-          <a href="/favorites">
-            <div class="nav_img">
-              <img src="../assets/navfavoritehover.svg" alt="">
-              <img src="../assets/navfavorite.svg" alt="">
-            </div>
-            <span>Favorites</span>
-          </a>
-        </li>
-        <li *ngIf="!user.specialStatus" style="margin-left: 6px">
-          <a href="/buy-and-donate">
-            <div class="nav_img">
-              <img src="../assets/svg/buy-and-donate-hover.svg" alt="">
-              <img src="../assets/svg/buy-and-donate.svg" alt="">
-            </div>
-            <span>B&D</span>
-          </a>
-        </li>
-      </ul>
-      <div class="user_side">
-        <a routerLink="/account" class="link_to_profile">
-          <img *ngIf="user.avatar" src="{{user.avatar}}" alt="">
-          <div *ngIf="!user.avatar" class="no-avatar">
-            <img src="../assets/avatar.png" alt="">
-          </div>
-          <div class="user_names">
-            <span>{{user.fName}} </span>
-            <span>{{user.lName.substring(0, 1)}}.</span>
-          </div>
+<div class="top_side">
+  <app-sign-in></app-sign-in>
+  <app-sign-up></app-sign-up>
+  <div *ngIf="userLoaded == 0" class="user_loading">
+    <img src="/assets/loading.gif" alt="loading gif">
+  </div>
+  <div *ngIf="userLoaded != 0" class="section">
+    <header *ngIf="!isAuthorized && !adminLogged">
+      <div class="head_container">
+        <a href="/home" class="logo">
+          <img src="../assets/logo.png" alt="">
         </a>
-        <div class="baursaks">{{user.baursaks}}</div>
+        <div class="authorize_btns">
+          <button class="sign_in" (click)="modalConditionService.signInCondition = true">Sign in</button>
+          <button class="sign_up" (click)="modalConditionService.signUpCondition = true">Sign up</button>
+        </div>
       </div>
-    </div>
-  </header>
-  <header *ngIf="adminLogged">
-    <div class="head_container">
-      <div class="logo">
-        <img src="../assets/logo.png" alt="">
+    </header>
+    <header *ngIf="isAuthorized && !adminLogged">
+      <div class="head_container">
+        <a href="/home" class="logo">
+          <img src="../assets/logo.png" alt="">
+        </a>
+        <ul class="nav">
+          <li>
+            <a href="/donations">
+              <div class="nav_img">
+                <img src="../assets/donationhover.svg" alt="">
+                <img src="../assets/donation.svg" alt="">
+              </div>
+              <span>Donations</span>
+            </a>
+          </li>
+          <li>
+            <a href="/notifications">
+              <div class="nav_img">
+                <img src="../assets/notificationhover.svg" alt="">
+                <img src="../assets/notification.svg" alt="">
+              </div>
+              <span>Notifications</span>
+            </a>
+          </li>
+          <li>
+            <a href="/favorites">
+              <div class="nav_img">
+                <img src="../assets/navfavoritehover.svg" alt="">
+                <img src="../assets/navfavorite.svg" alt="">
+              </div>
+              <span>Favorites</span>
+            </a>
+          </li>
+          <li *ngIf="!user.specialStatus" style="margin-left: 6px">
+            <a href="/buy-and-donate">
+              <div class="nav_img">
+                <img src="../assets/svg/buy-and-donate-hover.svg" alt="">
+                <img src="../assets/svg/buy-and-donate.svg" alt="">
+              </div>
+              <span>B&D</span>
+            </a>
+          </li>
+        </ul>
+        <div class="user_side">
+          <a routerLink="/account" class="link_to_profile">
+            <img *ngIf="user.avatar" src="{{user.avatar}}" alt="">
+            <div *ngIf="!user.avatar" class="no-avatar">
+              <img src="../assets/avatar.png" alt="">
+            </div>
+            <div class="user_names">
+              <span>{{user.fName}} </span>
+              <span>{{user.lName.substring(0, 1)}}.</span>
+            </div>
+          </a>
+          <div class="baursaks">{{user.baursaks}}</div>
+        </div>
       </div>
-      <div class="admin_side">
-        <span>Hello, Admin!</span>
-        <button class="account-logout"><img (click)="handleLogout($event)" src="assets/adminlogout.svg" alt=""></button>
-        <div class="logout-modal">
-          <div class="logout-modal-content">
-            <p>Do you want to log out?</p>
-            <div>
-              <button (click)="cancelLogout($event)">Cancel</button>
-              <button class="button-success" (click)="logout($event)">Yes</button>
+    </header>
+    <header *ngIf="adminLogged">
+      <div class="head_container">
+        <div class="logo">
+          <img src="../assets/logo.png" alt="">
+        </div>
+        <div class="admin_side">
+          <span>Hello, Admin!</span>
+          <button class="account-logout"><img (click)="handleLogout($event)" src="assets/adminlogout.svg" alt=""></button>
+          <div class="logout-modal">
+            <div class="logout-modal-content">
+              <p>Do you want to log out?</p>
+              <div>
+                <button (click)="cancelLogout($event)">Cancel</button>
+                <button class="button-success" (click)="logout($event)">Yes</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
+  </div>
+  <div *ngIf="userLoaded != 0" class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
-<div *ngIf="userLoaded != 0" class="container">
-  <router-outlet></router-outlet>
-</div>
+<footer *ngIf="userLoaded != 0">
+  <div class="line"></div>
+  <div class="footer_container">
+    <div class="foot_left">
+      <p>© «BeJomart» 2023</p>
+      <p *ngIf="!adminLogged" class="slogan">Make world better with us.</p>
+    </div>
+    <div class="foot_right">
+      <a *ngIf="!adminLogged" href="/home">Home</a>
+      <a *ngIf="isAuthorized && !adminLogged" href="/donations">Donations</a>
+      <a *ngIf="isAuthorized && !adminLogged" href="/notifications">Notifications</a>
+      <a *ngIf="isAuthorized && !adminLogged" href="/favorites">Favorites</a>
+      <a *ngIf="isAuthorized && !adminLogged && !user.specialStatus" href="/buy-and-donates">B&D</a>
+      <p *ngIf="adminLogged" class="slogan">Make world better with us.</p>
+    </div>
+  </div>
+</footer>

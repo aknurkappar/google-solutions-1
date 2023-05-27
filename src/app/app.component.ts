@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
         if(uid == "GUWLnRf5Fdbb4ITZE4uu21yzL782") {
           this.adminLogged = true
           this.router.navigate(['/admin']).then()
+          this.userLoaded = 1
         } else {
           const dbInstance = collection(this.firestore, 'users');
           const userQuery = query(dbInstance, where("userID", "==", `${uid}`))

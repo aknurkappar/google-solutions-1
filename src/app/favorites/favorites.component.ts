@@ -55,6 +55,7 @@ export class FavoritesComponent implements OnInit {
                         return {...item.data(), uniqID: item.id}
                     })[0]);
                     const q = query(collection(this.firestore, "posts"), where("favorite", "array-contains", this.user.userID));
+                    const q2 = query(collection(this.firestore, "B&D"), where("favorite", "array-contains", this.user.userID));
                     getDocs(q).then( (data) => {
                         this.myFavorites = [...data.docs.map( (item) => {
                             return { ...item.data(), id:item.id }})

@@ -181,7 +181,21 @@
         <p class="account-checkbox"><input type="checkbox"/> Select all ads from the list to apply the same actions to them</p>
         <div class="account-posts-list-container" *ngFor="let post of myPost" [ngClass]="post.visibility === 'active' ? '' : 'inactive-post'">
             <div class="account-posts-list">
-                <div class="post-left-side">
+                <a *ngIf="post.visibility === 'active'" href="/postdetails/{{post.id}}}" class="post-left-side">
+                    <div class="post-main-image">
+                        <img src="{{post.mainIMG}}" />
+                    </div>
+                    <div class="post-text">
+                        <div>
+                            <p class="post-title">{{post.title}}</p>
+                            <div class="category_type">
+                                <p *ngFor="let category of post.category">{{category}}<span>/</span></p>
+                            </div>
+                        </div>
+                        <div class="post_location">Kazakhstan, {{post.location}}</div>
+                    </div>
+                </a>
+                <div *ngIf="post.visibility != 'active'" class="post-left-side">
                     <div class="post-main-image">
                         <img src="{{post.mainIMG}}" />
                     </div>
