@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
   isAuthorized: boolean = false;
   adminLogged: boolean = false;
-  userLoaded = false
+  userLoaded = 0
   
   constructor(public router: Router, public modalConditionService: ModalConditionService, public firestore: Firestore) {
     this.user = {} as User
@@ -32,26 +32,24 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if(user) {
         const uid = user.uid
-
         if(uid == "GUWLnRf5Fdbb4ITZE4uu21yzL782") {
           this.adminLogged = true
           this.router.navigate(['/admin']).then()
         } else {
           const dbInstance = collection(this.firestore, 'users');
           const userQuery = query(dbInstance, where("userID", "==", `${uid}`))
-
           onSnapshot(userQuery, (data) => {
             this.user = new User(data.docs.map((item) => {
               return {...item.data(), uniqID: item.id}
             })[0]);
             this.isAuthorized = true
-            this.userLoaded = true
+            this.userLoaded = 1
           })
         }
-      }
-    });
+      } else this.userLoaded = 2
+    })
   }
 
   handleLogout(e : any) {
@@ -70,7 +68,7 @@ export class AppComponent implements OnInit {
 
     const auth = getAuth();
     signOut(auth).then(() => {
-      // Sign-out successful.
+      this.userLoaded = 0
     }).catch((error) => {
       // An error happened.
     });

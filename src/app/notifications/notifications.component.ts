@@ -10,19 +10,19 @@ import {onAuthStateChanged} from "@angular/fire/auth";
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
-export class NotificationsComponent implements OnInit{
+export class NotificationsComponent implements OnInit {
+
   notifications: any[] | undefined
   user: User;
   authorized: boolean = false;
   constructor(public firestore: Firestore, public storage: Storage) {
-    this.getNotifications();
     this.user = {} as User;
   }
 
   ngOnInit() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if(user) {
         const uid = user.uid;
         const dbInstance = collection(this.firestore, 'users');
         const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
@@ -31,12 +31,13 @@ export class NotificationsComponent implements OnInit{
           this.user = new User(data.docs.map((item) => {
             return {...item.data(), uniqID: item.id}
           })[0]);
-          if( this.user.email !== "admin@bejomart.kz"){
+          if(this.user.email !== "admin@bejomart.kz"){
             this.authorized = true;
           }
         })
       }
     });
+    this.getNotifications();
   }
 
   getNotifications() {

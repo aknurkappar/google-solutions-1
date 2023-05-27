@@ -102,46 +102,45 @@ export class AdminPostsComponent implements OnInit{
     e.composedPath()[1].classList.toggle('open');
   }
 
-  doAction(e : any, id: String, ownerUser: User, chosen: string) {
+  doAction(e : any, id: String, ownerUser: User, title: string, chosen: string) {
     if(chosen === "acceptpost") {
-      this.acceptPost(id, ownerUser.userID)
+      this.acceptPost(id, ownerUser.userID, title)
       e.composedPath()[3].classList.remove('open');
       document.body.classList.remove('lock');
     }
     if(chosen === "rejectpost") {
-      this.rejectPost(id, ownerUser.userID)
-      console.log(e.composedPath())
+      this.rejectPost(id, ownerUser.userID, title)
       e.composedPath()[3].classList.remove('open');
       document.body.classList.remove('lock');
     }
   }
 
-  acceptPost(id: String, ownerID: string) { // @ts-ignore
+  acceptPost(id: String, ownerID: string, title: string) { // @ts-ignore
     const dataToUpdate = doc(this.firestore, "posts", id);
     updateDoc(dataToUpdate, {
       visibility: 'active',
       time: new Date()
     })
     .then(() => {
-      this.sendNotification(ownerID, "Your post was accepted")
+      this.sendNotification(ownerID, `Your post ${title} was accepted`)
     })
     .catch((err) => {
       alert(err.message)
     })
   }
 
-  deleteData(id: String, userID: String) { // @ts-ignore
+  deleteData(id: String, userID: String, title: string) { // @ts-ignore
     const dataToUpdate = doc(this.firestore, 'posts', id)
     updateDoc(dataToUpdate, {
       visibility: 'rejected'
     }).then( ()=> {
-      this.sendNotification(userID, "Your post was rejected")
+      this.sendNotification(userID, `Your post ${title} was accepted`)
     })
   }
 
 
-  rejectPost(id: String, userID: String){
-    this.deleteData(id, userID)
+  rejectPost(id: String, userID: String, title: string){
+    this.deleteData(id, userID, title)
   }
 
   sendNotification(spuserID: any, message: string){

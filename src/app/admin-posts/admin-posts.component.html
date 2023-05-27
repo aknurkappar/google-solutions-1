@@ -28,7 +28,7 @@
                             <p>You won't be able to return this action. Continue?</p>
                             <div>
                                 <button (click)="cancelAction($event)">Cancel</button>
-                                <button (click)="doAction($event, post.id, post.ownerUser, 'acceptpost')" >Yes</button>
+                                <button (click)="doAction($event, post.id, post.ownerUser, post.title, 'acceptpost')" >Yes</button>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                             <p>You won't be able to return this action. Continue?</p>
                             <div>
                                 <button (click)="cancelAction($event)">Cancel</button>
-                                <button (click)="doAction($event, post.id, post.ownerUser, 'rejectpost')" >Yes</button>
+                                <button (click)="doAction($event, post.id, post.ownerUser, post.title, 'rejectpost')" >Yes</button>
                             </div>
                         </div>
                     </div>

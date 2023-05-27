@@ -172,31 +172,29 @@
                 <select onChange=selectChange(this.value)>
                     <option value="all">All</option>
                     <option value="inProgress">In progress</option>
-                    <option value="rejected">Rejected</option>
                     <option value="active">Active</option>
+                    <option value="rejected">Rejected</option>
                     <option value="inactive">Inactive</option>
                 </select>
             </p>
         </div>
-
         <p class="account-checkbox"><input type="checkbox"/> Select all ads from the list to apply the same actions to them</p>
-
         <div class="account-posts-list-container" *ngFor="let post of myPost" [ngClass]="post.visibility === 'active' ? '' : 'inactive-post'">
             <div class="account-posts-list">
                 <div class="post-left-side">
                     <div class="post-main-image">
                         <img src="{{post.mainIMG}}" />
                     </div>
-
                     <div class="post-text">
                         <div>
                             <p class="post-title">{{post.title}}</p>
-                            <p>{{post.category}}</p>
+                            <div class="category_type">
+                                <p *ngFor="let category of post.category">{{category}}<span>/</span></p>
+                            </div>
                         </div>
-                        <p>{{post.location}}</p>
+                        <div class="post_location">Kazakhstan, {{post.location}}</div>
                     </div>
                 </div>
-
                 <div class="post-right-side">
                     <div class="post-item-amount">
                         {{post.amount}}
@@ -209,10 +207,8 @@
                         </span>
                         <p class="post-info-text" (click)="openCodeModal($event)">Give it right now</p>
                     </div>
-
                     <div class="edit-post-modal-background" (click)="closeEditPostModal($event)">
                         <div class="edit-post-modal">
-
                         </div>
                     </div>
                     <div class="account-otp-modal-background" (click)="closeCodeModal($event)">
@@ -224,11 +220,9 @@
                 </div>
             </div>
             <div class="account-post-footer">
-                <img src="assets/selector-gray.png" />
+                <img src="assets/svg/arrow.svg" />
                 Available: {{post.time.toDate() | date:'dd.MM.yyyy'}} -  {{post.expiredDate.toDate() | date:'dd.MM.yyyy'}}
             </div>
         </div>
-
-
     </div>
 </div>
