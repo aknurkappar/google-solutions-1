@@ -107,22 +107,21 @@ export class AddPostFormService{
         this.router.navigate(["/home/add-post/2"])
       }
     }
-    if(!this.user.specialStatus){
+    if(!this.user.specialStatus) {
       this.addData(event)
     }
   }
 
   handleSecondStepValidation(event : any){
     // B&D
-    if(this.chosenDonationId == ""){
+    if(this.chosenDonationId == "") {
       this.notSelectedMessageIsActive = true
       setTimeout(() => {
         this.notSelectedMessageIsActive = false
       }, 3000)
-    } else{
+    } else {
       event.donationID = this.chosenDonationId
     }
-    console.log(event)
     this.addData(event)
   }
 
@@ -140,6 +139,7 @@ export class AddPostFormService{
     this.post.visibility = "inProgress"
     this.post.favorite = []
     this.post.donationID = (event.donationID === null ? null : event.donationID)
+    this.post.price = 0
 
     addDoc(dbInstance, this.post).then((res) => {
       this.uploadImages(res.id, postForm, (event.donationID === null) ?  false : true);

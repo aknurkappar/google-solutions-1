@@ -23,6 +23,8 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
   visiblePosts: any[] | undefined
   loaded = false
 
+  newPrice = 1000
+
   constructor(public firestore: Firestore, public storage: Storage) { }
 
   ngOnInit() {
@@ -105,9 +107,10 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
   }
 
   acceptPost(id: String, ownerID: string) { // @ts-ignore
-    const dataToUpdate = doc(this.firestore, "posts", id);
+    const dataToUpdate = doc(this.firestore, "B&D", id);
     updateDoc(dataToUpdate, {
       visibility: 'active',
+      price: this.newPrice,
       time: new Date()
     })
     .then(() => {
@@ -148,9 +151,10 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
 
   priceRange(slider: any) {
     slider.composedPath()[2].children[0].children[0].textContent = slider.composedPath()[0].value
+    this.newPrice = slider.composedPath()[0].value
   }
 
-  getDiff(expired: any, id: any){
+  getDiff(expired: any, id: any) {
     const time = new Date()
     const diffInMs = expired.seconds - time.getTime() / 1000;
     return Math.floor(diffInMs / (60 * 60 * 24));

@@ -59,7 +59,6 @@ export class AddPostSecondStepComponent implements OnInit{
   }
 
   chooseDonation(id : string, $event: any){
-    console.log($event)
     if(this.addPostFormService.chosenDonationId == id){
       this.addPostFormService.chosenDonationId = ""
     } else {

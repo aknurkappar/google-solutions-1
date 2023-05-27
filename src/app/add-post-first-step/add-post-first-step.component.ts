@@ -31,6 +31,7 @@ export class AddPostFirstStepComponent implements OnInit {
   public categories = categories;
   public uploaded: boolean;
   public user : User
+
   constructor(public firestore: Firestore, public storage: Storage, public router: Router, public addPostFormService: AddPostFormService) {
     this.uploaded = false
     this.user = {} as User;
@@ -104,4 +105,5 @@ export class AddPostFirstStepComponent implements OnInit {
       }
     }
   }
+
 }
