@@ -3,7 +3,7 @@ import {
   addDoc,
   collection,
   doc,
-  Firestore,
+  Firestore, getDoc,
   getDocs,
   onSnapshot,
   query,
@@ -27,6 +27,7 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getVisiblePosts()
+
   }
   ngAfterViewInit() {
 
@@ -47,11 +48,17 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
     }).catch((err) => {
       alert(err.message)
     }).finally(() => {
-      if(this.visiblePosts != undefined) {
-        for(let i of this.visiblePosts) {
-          if(i.ownerId != undefined) {
+      if (this.visiblePosts != undefined) {
+        for (let i of this.visiblePosts) {
+          if (i.ownerId != undefined) {
             const colUsers = collection(this.firestore, "users");
+            const docRef = doc(this.firestore, "donations", i.donationID);
+
             const userQuery = query(colUsers, where("userID", "==", i.ownerId));
+            getDoc(docRef).then((data)=>{
+              i.donation = data.data()
+            })
+
             onSnapshot(userQuery, (data) => {
               i.ownerUser = new User(data.docs.map((item) => {
                 return item.data()
@@ -62,15 +69,9 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
       }
       this.loaded = true
     })
-    onSnapshot(dbInstance, (response) => {
-      console.log(response.docs.map((item) => {
-        return {...item.data(), id: item.id}
-      }));
-    });
   }
 
   openContinueModal(e: any) {
-    console.log(e.composedPath()[0])
     if (e.composedPath()[0].innerHTML === 'Accept') {
       e.composedPath()[1].childNodes[2].classList.add('open');
       document.body.classList.add('lock');

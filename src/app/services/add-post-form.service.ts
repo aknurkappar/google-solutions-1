@@ -1,8 +1,20 @@
 import {Injectable, OnInit} from '@angular/core';
-import {addDoc, arrayUnion, collection, doc, Firestore, updateDoc} from "@angular/fire/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  Firestore,
+  onSnapshot,
+  query,
+  updateDoc,
+  where
+} from "@angular/fire/firestore";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";
 import {User} from "../models/user";
 import {Router} from "@angular/router";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "@angular/fire/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +47,21 @@ export class AddPostFormService{
     this.chosenDonationId = ""
 
     // get user
-    const value = localStorage.getItem("userData");
-    if(value !== null) { // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-    }
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
+
+        })
+      }
+    });
   }
 
   photosRedactor(e: any) {
@@ -96,13 +119,17 @@ export class AddPostFormService{
       setTimeout(() => {
         this.notSelectedMessageIsActive = false
       }, 3000)
+    } else{
+      event.donationID = this.chosenDonationId
     }
+    console.log(event)
     this.addData(event)
   }
 
   addData(event: any) {
-    const dbInstance = collection(this.firestore, 'posts');
+    const dbInstance = collection(this.firestore, (event.donationID !== null) ? "B&D" : "posts");
     const postForm = event.composedPath()[7];
+    console.log(event)
 
     this.post.ownerId = this.user.userID
     this.post.category = this.postCategory;
@@ -112,15 +139,16 @@ export class AddPostFormService{
     this.post.code = Math.floor(Math.random() * (999999 - 100000) + 100000)
     this.post.visibility = "inProgress"
     this.post.favorite = []
+    this.post.donationID = (event.donationID === null ? null : event.donationID)
 
     addDoc(dbInstance, this.post).then((res) => {
-      this.uploadImages(res.id, postForm);
+      this.uploadImages(res.id, postForm, (event.donationID === null) ?  false : true);
     }).catch((err) => { alert(err.message) }
     )
   }
 
 
-  uploadImages(id: string, postForm: any) {
+  uploadImages(id: string, postForm: any, isPost: boolean) {
     const len = Number(this.images.length);
     let totalProg = 0;
 
@@ -136,7 +164,7 @@ export class AddPostFormService{
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              const dataToUpdate = doc(this.firestore, "posts", id);
+              const dataToUpdate = doc(this.firestore, ((isPost === true) ? "B&D" : "posts"), id);
 
               if (i == 0) updateDoc(dataToUpdate, {mainIMG: downloadURL}).then(() => {
               }).catch((err) => {

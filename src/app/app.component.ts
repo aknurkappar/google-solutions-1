@@ -8,6 +8,7 @@ import { addDoc, collection, Firestore, query, where, getDocs, onSnapshot, doc, 
 import { Storage } from "@angular/fire/storage";
 
 import { User } from "./models/user";
+import {onAuthStateChanged, signOut} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-root',
@@ -23,20 +24,33 @@ export class AppComponent implements OnInit {
   isAuthorized: boolean = false;
   adminLogged: boolean = false;
   
-  constructor(public router: Router, public modalConditionService: ModalConditionService) {
+  constructor(public router: Router, public modalConditionService: ModalConditionService, public firestore: Firestore) {
     this.user = {} as User
   }
   
   ngOnInit() {
-    const value = localStorage.getItem("userData");
-    if(value !== null) { // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-      if(Object.keys(this.user).length !== 0) this.isAuthorized = true;
-      if(this.user.email == "admin") {
-        this.adminLogged = true
-        this.router.navigate(['/admin']).then()
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+
+        if (uid == "GUWLnRf5Fdbb4ITZE4uu21yzL782") {
+          this.adminLogged = true
+          this.router.navigate(['/admin']).then()
+        } else {
+
+          const dbInstance = collection(this.firestore, 'users');
+          const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+          onSnapshot(userQuery, (data) => {
+            this.user = new User(data.docs.map((item) => {
+              return {...item.data(), uniqID: item.id}
+            })[0]);
+            this.isAuthorized = true;
+          })
+        }
       }
-    }
+    });
   }
 
   handleLogout(e : any) {
@@ -52,9 +66,13 @@ export class AppComponent implements OnInit {
   logout(e : any) {
     this.adminLogged = false
     this.isAuthorized = false
-    setTimeout(() => {
-      localStorage.removeItem("userData");
-    }, 1500);
+
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
     this.router.navigate(['/home']).then()
     document.body.classList.remove('lock')
   }

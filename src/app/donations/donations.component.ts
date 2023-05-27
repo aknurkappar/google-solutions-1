@@ -1,7 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {addDoc, arrayUnion, collection, deleteDoc, doc, Firestore, getDocs, updateDoc} from '@angular/fire/firestore';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  Firestore,
+  getDocs, onSnapshot,
+  query,
+  updateDoc, where
+} from '@angular/fire/firestore';
 import { getDownloadURL, ref, uploadBytesResumable, Storage } from '@angular/fire/storage';
 import {User} from "../models/user";
+import {getAuth} from "firebase/auth";
+import {onAuthStateChanged} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-donations',
@@ -24,12 +36,20 @@ export class DonationsComponent implements OnInit {
   public loaded: boolean;
 
   ngOnInit(){
-    const value = localStorage.getItem("userData");
-    if(value !== null){
-      // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-      console.log(this.user)
-    }
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
+        })
+      }
+    });
     this.getData()
   }
 

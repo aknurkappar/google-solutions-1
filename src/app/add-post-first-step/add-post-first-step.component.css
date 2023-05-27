@@ -302,6 +302,12 @@
     width: calc(100% - 400px);
     height: 50px;
 
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background: #3A47B9;
     border-radius: 8px;
 

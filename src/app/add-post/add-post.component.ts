@@ -2,12 +2,23 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Category} from "../catalog";
 
 import { categories } from "../catalog";
-import {addDoc, arrayUnion, collection, doc, Firestore, updateDoc} from "@angular/fire/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  Firestore,
+  onSnapshot,
+  query,
+  updateDoc,
+  where
+} from "@angular/fire/firestore";
 import {getDownloadURL, ref, Storage, uploadBytesResumable} from "@angular/fire/storage";
 import {Router} from "@angular/router";
-import { user } from '@angular/fire/auth';
+import {onAuthStateChanged, user} from '@angular/fire/auth';
 import {User} from "../models/user";
 import {AddPostFormService} from "../services/add-post-form.service";
+import {getAuth} from "firebase/auth";
 
 @Component({
   selector: 'app-add-post',
@@ -24,10 +35,19 @@ export class AddPostComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    const value = localStorage.getItem("userData");
-    if(value !== null) { // @ts-ignore
-      this.user = new User(JSON.parse(value)[0]);
-    }
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const dbInstance = collection(this.firestore, 'users');
+        const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+        onSnapshot(userQuery, (data) => {
+          this.user = new User(data.docs.map((item) => {
+            return {...item.data(), uniqID: item.id}
+          })[0]);
+        })
+      }
+    });
   }
 
   closeModal() {

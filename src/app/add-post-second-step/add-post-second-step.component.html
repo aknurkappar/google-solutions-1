@@ -4,7 +4,7 @@
     </div>
 
     <div class="donation-list">
-        <div *ngFor="let donation of donations" class="donation" [ngClass]="{'chosen' : donation.id == addPostFormService.chosenDonationId}"  (click)="chooseDonation(donation.id)">
+        <div *ngFor="let donation of donations" class="donation" [ngClass]="{'chosen' : donation.id == addPostFormService.chosenDonationId}"  (click)="chooseDonation(donation.id, $event)">
 
             <div class="image">
                 <img src="{{donation.file}}" alt="">
