@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
   addDoc,
   collection,
@@ -18,23 +18,22 @@ import {User} from "../models/user";
   templateUrl: './admin-buy-and-donate.component.html',
   styleUrls: ['./admin-buy-and-donate.component.css']
 })
-export class AdminBuyAndDonateComponent implements OnInit {
+export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
 
-  currentAction: any;
   visiblePosts: any[] | undefined
+  loaded = false
 
-  loaded = false;
-
-  constructor(public firestore: Firestore, public storage: Storage) {
-
-  }
+  constructor(public firestore: Firestore, public storage: Storage) { }
 
   ngOnInit() {
     this.getVisiblePosts()
   }
+  ngAfterViewInit() {
+
+  }
 
   getVisiblePosts() {
-    const dbInstance = collection(this.firestore, 'posts');
+    const dbInstance = collection(this.firestore, 'B&D');
     getDocs(dbInstance).then((response) => {
       this.visiblePosts = [...response.docs.map((item) => {
         return {
@@ -42,20 +41,15 @@ export class AdminBuyAndDonateComponent implements OnInit {
           id: item.id,
           ownerUser: User,
         }
-      })
-      ].sort((n1, n2) => {
-        console.log(n1, n2)
-        // @ts-ignore
+      })].sort((n1, n2) => {// @ts-ignore
         return n2.time - n1.time
       });
     }).catch((err) => {
-          alert(err.message)
-        }
-    ).finally(() => {
-
-      if (this.visiblePosts != undefined) {
-        for (let i of this.visiblePosts) {
-          if (i.ownerId != undefined) {
+      alert(err.message)
+    }).finally(() => {
+      if(this.visiblePosts != undefined) {
+        for(let i of this.visiblePosts) {
+          if(i.ownerId != undefined) {
             const colUsers = collection(this.firestore, "users");
             const userQuery = query(colUsers, where("userID", "==", i.ownerId));
             onSnapshot(userQuery, (data) => {
@@ -63,7 +57,6 @@ export class AdminBuyAndDonateComponent implements OnInit {
                 return item.data()
               })[0])
             })
-            // this.getVisiblePosts()
           }
         }
       }
@@ -98,14 +91,13 @@ export class AdminBuyAndDonateComponent implements OnInit {
   }
 
   doAction(e: any, id: String, ownerUser: User, chosen: string) {
-    if (chosen === "acceptpost") {
+    if(chosen === "acceptpost") {
       this.acceptPost(id, ownerUser.userID)
       e.composedPath()[3].classList.remove('open');
       document.body.classList.remove('lock');
     }
-    if (chosen === "rejectpost") {
+    if(chosen === "rejectpost") {
       this.rejectPost(id, ownerUser.userID)
-      console.log(e.composedPath())
       e.composedPath()[3].classList.remove('open');
       document.body.classList.remove('lock');
     }
@@ -117,12 +109,12 @@ export class AdminBuyAndDonateComponent implements OnInit {
       visibility: 'active',
       time: new Date()
     })
-        .then(() => {
-          this.sendNotification(ownerID, "Your post was accepted")
-        })
-        .catch((err) => {
-          alert(err.message)
-        })
+    .then(() => {
+      this.sendNotification(ownerID, "Your post was accepted")
+    })
+    .catch((err) => {
+      alert(err.message)
+    })
   }
 
   deleteData(id: String, userID: String) { // @ts-ignore
@@ -133,7 +125,6 @@ export class AdminBuyAndDonateComponent implements OnInit {
       this.sendNotification(userID, "Your post was rejected")
     })
   }
-
 
   rejectPost(id: String, userID: String) {
     this.deleteData(id, userID)
@@ -152,6 +143,11 @@ export class AdminBuyAndDonateComponent implements OnInit {
     }).finally(() => {
       location.reload()
     })
+  }
+
+  priceRange(slider: any) {
+    const price = document.querySelector(".slider_value span") // @ts-ignore
+    price.textContent = slider.composedPath()[0].value
   }
 
 }

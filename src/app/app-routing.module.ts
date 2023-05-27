@@ -37,7 +37,7 @@ const routes: Routes = [
       { path: "donations-admin", component : AdminDonationsComponent },
       { path: "special-users", component : AdminSpecialUsersComponent },
       { path: 'buy-and-donate-admin', component: AdminBuyAndDonateComponent},
-      { path: '', redirectTo: 'posts-admin', pathMatch: 'full' }
+      { path: '', redirectTo: 'buy-and-donate-admin', pathMatch: 'full' }
   ]},
   { path: 'favorites/:id', component: PostDetailsComponent },
   { path: 'postdetails/:id', component: PostDetailsComponent },

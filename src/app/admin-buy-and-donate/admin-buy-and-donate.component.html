@@ -70,14 +70,45 @@
                     Description:
                     <p>{{post.description}}</p>
                 </div>
-                <div class="double_block">
-                    <div class="block">
-                        Amount:
-                        <p>{{post.amount}}</p>
+                <div class="double_block pre_last">
+                    <div class="block_block" style="display: flex">
+                        <div class="block">
+                            Amount:
+                            <p>{{post.amount}}</p>
+                        </div>
+                        <div class="block">
+                            Phone:
+                            <p>{{post.phone}}</p>
+                        </div>
                     </div>
                     <div class="block">
-                        Phone:
-                        <p>{{post.phone}}</p>
+                        <div class="price">
+                            <div class="slider_value">
+                                Price:
+                                <span class="post_price_value" style="font-weight: 600">1000</span>
+                            </div>
+                            <div class="field">
+                                <div class="value left">1000</div>
+                                <input type="range" min="1000" max="10000" step="500" on-input="priceRange($event)">
+                                <div class="value right">10000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    The money for this product will be sent to:
+                    <div class="donation_item">
+                        <div class="don_left">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                        <div class="don_right">
+                            <div class="see_details">
+                                <p>See details</p>
+                                <span>jsagnk jasngk jasnjgknask jngkjasngk jasnjgnaskjngjkasng jkn asjkgnasjkng kjasn kjgnaskjbgsajbk</span>
+                            </div>
+                            <p class="remaining"></p>
+                        </div>
                     </div>
                 </div>
             </div>
