@@ -23,30 +23,31 @@ export class AppComponent implements OnInit {
 
   isAuthorized: boolean = false;
   adminLogged: boolean = false;
+  userLoaded = false
   
   constructor(public router: Router, public modalConditionService: ModalConditionService, public firestore: Firestore) {
     this.user = {} as User
   }
   
   ngOnInit() {
-    const auth = getAuth();
+    const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user.uid;
+        const uid = user.uid
 
-        if (uid == "GUWLnRf5Fdbb4ITZE4uu21yzL782") {
+        if(uid == "GUWLnRf5Fdbb4ITZE4uu21yzL782") {
           this.adminLogged = true
           this.router.navigate(['/admin']).then()
         } else {
-
           const dbInstance = collection(this.firestore, 'users');
-          const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
+          const userQuery = query(dbInstance, where("userID", "==", `${uid}`))
 
           onSnapshot(userQuery, (data) => {
             this.user = new User(data.docs.map((item) => {
               return {...item.data(), uniqID: item.id}
             })[0]);
-            this.isAuthorized = true;
+            this.isAuthorized = true
+            this.userLoaded = true
           })
         }
       }

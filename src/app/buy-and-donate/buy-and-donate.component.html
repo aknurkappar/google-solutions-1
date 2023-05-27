@@ -45,8 +45,8 @@
         </div>
         <div *ngIf="loaded" class="list">
             <div class="item_back" *ngFor="let bad of buyAndDonates">
-                <div [ngClass]="isFavorite(user.userID) ? 'item chosen' : 'item'" *ngIf="bad.visibility === 'active'" class="item">
-                    <a href="/postdetails/{{bad.id}}}" class="left">
+                <div [ngClass]="isFavorite(bad.id) ? 'item chosen' : 'item'" *ngIf="bad.visibility === 'active'" class="item">
+                    <a href="/buy-and-donate/{{bad.id}}}" class="left">
                         <div class="image">
                             <img src="{{bad.mainIMG}}" alt="">
                         </div>

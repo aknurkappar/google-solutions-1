@@ -1,11 +1,11 @@
 
-<div class="create_post_back">
+<div class="create_post_back" (click)=closeModal($event)>
     <form class="post_form" id="post-form" (ngSubmit)="post($event)">
         <div class="error_mess alert">To upload, first fill in all the fields !</div>
         <div class="img_limit alert">You can't upload more than 5 images !</div>
         <div class="post_top">
             <span>Create post</span>
-            <div class="close_post" routerLink="" (click)=closeModal()>
+            <div class="close_post">
                 <img src="../../assets/close.svg" alt="">
             </div>
         </div>

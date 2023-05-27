@@ -19,6 +19,7 @@ import {onAuthStateChanged, user} from '@angular/fire/auth';
 import {User} from "../models/user";
 import {AddPostFormService} from "../services/add-post-form.service";
 import {getAuth} from "firebase/auth";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-add-post',
@@ -30,7 +31,7 @@ import {getAuth} from "firebase/auth";
 export class AddPostComponent implements OnInit{
   public user : User
 
-  constructor(public firestore: Firestore, public storage: Storage, public router: Router, private addPostFormService: AddPostFormService) {
+  constructor(public firestore: Firestore, public storage: Storage, public router: Router, private addPostFormService: AddPostFormService, private location: Location) {
     this.user = {} as User
   }
 
@@ -50,8 +51,13 @@ export class AddPostComponent implements OnInit{
     });
   }
 
-  closeModal() {
-    document.body.classList.toggle('lock');
+  closeModal(e: any) {
+    if(e.composedPath()[0].className == "create_post_back") {
+      this.location.back(); document.body.classList.toggle('lock')
+    }
+    if(e.composedPath()[1].className == "close_post") {
+      this.location.back(); document.body.classList.toggle('lock')
+    }
   }
   post(event : any) {
     if(this.user.specialStatus) {

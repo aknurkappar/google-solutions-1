@@ -311,3 +311,16 @@ header
     font-size: 17px;
     margin: 12px 15px 18px;
 }
+
+.user_loading
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}
+.user_loading img
+{
+    width: 35px;
+}

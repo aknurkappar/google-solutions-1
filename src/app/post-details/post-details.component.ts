@@ -60,7 +60,7 @@ export class PostDetailsComponent implements OnInit {
 
     if(this.postId != null) {
       this.postId = this.postId.substring(0, this.postId.length - 1);
-      const colRef = collection(this.firestore, "posts");
+      const colRef = location.pathname.includes("buy-and-donate") ? collection(this.firestore, "B&D") : collection(this.firestore, "posts")
       const docRef = doc(colRef, `${this.postId}`);
 
       onSnapshot(docRef, (doc) => {

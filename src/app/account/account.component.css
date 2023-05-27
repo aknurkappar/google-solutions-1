@@ -320,18 +320,24 @@ button, input{
 .account-posts-sort{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    font-size: 14.5px;
 }
 
 .account-posts-sort p select{
     border: none;
-    font-weight: 600;
-    font-size: 17px;
     background: none;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+
+    cursor: pointer;
+    text-align: left;
 }
 
 .account-posts-sort .line{
-    width: 80%;
+    width: 81.8%;
 }
 
 option{
@@ -339,8 +345,8 @@ option{
 }
 
 .account-checkbox input{
-    width: 25px;
-    height: 25px;
+    width: 19px;
+    height: 19px;
     margin-right: 10px;
 }
 
@@ -441,8 +447,7 @@ option{
 .line
 {
     width: 100%;
-    border: 1px solid #DEDEDE;
-    margin: 13px 0 23px;
+    border-bottom: 1px solid #A1A1A1;
 }
 .edit-profile-submit
 {
@@ -467,8 +472,8 @@ option{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
-    height:  50px;
+    margin: 25px 0 15px;
+    height: 50px;
 }
 
 .account-post-category{
@@ -497,7 +502,7 @@ option{
     border: 1px solid #DADADA;
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    width: 54%;
+    width: 55%;
     height: 30px;
     display: flex;
     justify-content: space-between;
@@ -509,6 +514,8 @@ option{
     width: 80%;
     height: 90%;
     border: none;
+
+    font-size: 15.5px;
 }
 
 .account-post-search input:focus{
@@ -1125,4 +1132,12 @@ option{
     object-fit: cover;
     position: relative;
     top: 10px;
+}
+
+.add_post_button
+{
+    font-weight: 500;
+    font-size: 16px;
+
+    box-sizing: border-box;
 }

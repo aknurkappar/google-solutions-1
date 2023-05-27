@@ -41,6 +41,7 @@ const routes: Routes = [
   ]},
   { path: 'favorites/:id', component: PostDetailsComponent },
   { path: 'postdetails/:id', component: PostDetailsComponent },
+  { path: 'buy-and-donate/:id', component: PostDetailsComponent },
   { path: 'buy-and-donate', component: BuyAndDonateComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

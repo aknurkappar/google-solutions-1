@@ -173,6 +173,7 @@ export class AccountComponent implements OnInit {
 
   handleAddPost(){
     this.isActive = !this.isActive
+    document.body.classList.add("lock")
   }
 
   selectCategory(e : any, category : Category){

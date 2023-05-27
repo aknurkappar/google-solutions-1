@@ -158,18 +158,14 @@
                 </div>
             </div>
         </div>
-
         <div class="account-post-search">
             <input (keyup)="search($event)" placeholder="Search by title" />
             <img alt="search" src="assets/search.png"/>
         </div>
-
-        <button (click)="handleAddPost()">Add post</button>
-<!--        <app-add-post (getData)="getData()" [user]="user" (handleAddPost)="handleAddPost()" [isActive]="isActive"></app-add-post>-->
+        <button class="add_post_button" routerLink="add-post" (click)="handleAddPost()">Add post</button>
     </div>
-
+    <router-outlet></router-outlet>
     <div class="account-posts">
-
         <div class="account-posts-sort">
             <div class="line"></div>
             <p (change)="showOnly($event)">Show only:

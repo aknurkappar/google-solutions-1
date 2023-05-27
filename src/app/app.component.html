@@ -1,8 +1,12 @@
 <app-sign-in></app-sign-in>
 <app-sign-up></app-sign-up>
 
-<div class="section">
-  <header *ngIf="!isAuthorized">
+<div *ngIf="!userLoaded" class="user_loading">
+  <img src="/assets/loading.gif" alt="loading gif">
+</div>
+
+<div *ngIf="userLoaded" class="section">
+  <header *ngIf="!isAuthorized && !adminLogged">
     <div class="head_container">
       <a href="/home" class="logo">
         <img src="../assets/logo.png" alt="">
@@ -46,7 +50,7 @@
             <span>Favorites</span>
           </a>
         </li>
-        <li style="margin-left: 6px">
+        <li *ngIf="!user.specialStatus" style="margin-left: 6px">
           <a href="/buy-and-donate">
             <div class="nav_img">
               <img src="../assets/svg/buy-and-donate-hover.svg" alt="">
@@ -93,6 +97,6 @@
   </header>
 </div>
 
-<div class="container">
+<div *ngIf="userLoaded" class="container">
   <router-outlet></router-outlet>
 </div>
