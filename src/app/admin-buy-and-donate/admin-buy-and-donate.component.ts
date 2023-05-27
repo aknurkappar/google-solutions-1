@@ -3,7 +3,7 @@ import {
   addDoc,
   collection,
   doc,
-  Firestore,
+  Firestore, getDoc,
   getDocs,
   onSnapshot,
   query,
@@ -31,10 +31,11 @@ export class AdminBuyAndDonateComponent implements OnInit {
 
   ngOnInit() {
     this.getVisiblePosts()
+
   }
 
   getVisiblePosts() {
-    const dbInstance = collection(this.firestore, 'posts');
+    const dbInstance = collection(this.firestore, 'B&D');
     getDocs(dbInstance).then((response) => {
       this.visiblePosts = [...response.docs.map((item) => {
         return {
@@ -44,7 +45,6 @@ export class AdminBuyAndDonateComponent implements OnInit {
         }
       })
       ].sort((n1, n2) => {
-        console.log(n1, n2)
         // @ts-ignore
         return n2.time - n1.time
       });
@@ -52,12 +52,17 @@ export class AdminBuyAndDonateComponent implements OnInit {
           alert(err.message)
         }
     ).finally(() => {
-
       if (this.visiblePosts != undefined) {
         for (let i of this.visiblePosts) {
           if (i.ownerId != undefined) {
             const colUsers = collection(this.firestore, "users");
+            const docRef = doc(this.firestore, "donations", i.donationID);
+
             const userQuery = query(colUsers, where("userID", "==", i.ownerId));
+            getDoc(docRef).then((data)=>{
+              i.donation = data.data()
+            })
+
             onSnapshot(userQuery, (data) => {
               i.ownerUser = new User(data.docs.map((item) => {
                 return item.data()
@@ -69,15 +74,9 @@ export class AdminBuyAndDonateComponent implements OnInit {
       }
       this.loaded = true
     })
-    onSnapshot(dbInstance, (response) => {
-      console.log(response.docs.map((item) => {
-        return {...item.data(), id: item.id}
-      }));
-    });
   }
 
   openContinueModal(e: any) {
-    console.log(e.composedPath()[0])
     if (e.composedPath()[0].innerHTML === 'Accept') {
       e.composedPath()[1].childNodes[2].classList.add('open');
       document.body.classList.add('lock');
@@ -105,7 +104,6 @@ export class AdminBuyAndDonateComponent implements OnInit {
     }
     if (chosen === "rejectpost") {
       this.rejectPost(id, ownerUser.userID)
-      console.log(e.composedPath())
       e.composedPath()[3].classList.remove('open');
       document.body.classList.remove('lock');
     }
@@ -153,5 +151,6 @@ export class AdminBuyAndDonateComponent implements OnInit {
       location.reload()
     })
   }
+
 
 }

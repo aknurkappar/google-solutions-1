@@ -119,13 +119,17 @@ export class AddPostFormService{
       setTimeout(() => {
         this.notSelectedMessageIsActive = false
       }, 3000)
+    } else{
+      event.donationID = this.chosenDonationId
     }
+    console.log(event)
     this.addData(event)
   }
 
   addData(event: any) {
-    const dbInstance = collection(this.firestore, 'posts');
+    const dbInstance = collection(this.firestore, (event.donationID !== null) ? "B&D" : "posts");
     const postForm = event.composedPath()[7];
+    console.log(event)
 
     this.post.ownerId = this.user.userID
     this.post.category = this.postCategory;
@@ -135,15 +139,16 @@ export class AddPostFormService{
     this.post.code = Math.floor(Math.random() * (999999 - 100000) + 100000)
     this.post.visibility = "inProgress"
     this.post.favorite = []
+    this.post.donationID = (event.donationID === null ? null : event.donationID)
 
     addDoc(dbInstance, this.post).then((res) => {
-      this.uploadImages(res.id, postForm);
+      this.uploadImages(res.id, postForm, (event.donationID === null) ?  false : true);
     }).catch((err) => { alert(err.message) }
     )
   }
 
 
-  uploadImages(id: string, postForm: any) {
+  uploadImages(id: string, postForm: any, isPost: boolean) {
     const len = Number(this.images.length);
     let totalProg = 0;
 
@@ -159,7 +164,7 @@ export class AddPostFormService{
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              const dataToUpdate = doc(this.firestore, "posts", id);
+              const dataToUpdate = doc(this.firestore, ((isPost === true) ? "B&D" : "posts"), id);
 
               if (i == 0) updateDoc(dataToUpdate, {mainIMG: downloadURL}).then(() => {
               }).catch((err) => {

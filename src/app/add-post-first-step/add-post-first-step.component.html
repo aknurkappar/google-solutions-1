@@ -1,3 +1,5 @@
+<div class="error_mess alert">To upload, first fill in all the fields !</div>
+<div class="img_limit alert">You can't upload more than 5 images !</div>
 <div class="post_center">
     <div class="block">
         <div class="input_block">
@@ -141,9 +143,9 @@
             </div>
             <input [(ngModel)]="addPostFormService.post.phone" type="tel" placeholder="Your phone" class="your_phone" />
 
-            <button *ngIf="!user.specialStatus" class="post_button" type="submit">Upload post {{user.specialStatus}}</button>
+            <button *ngIf="!user.specialStatus" class="post_button" type="submit">Upload post</button>
 
-            <button *ngIf="user.specialStatus" class="post_button" (click)="handlePostValidation($event)">Next step</button>
+            <div *ngIf="user.specialStatus" class="post_button" (click)="handlePostValidation($event)">Next step</div>
         </div>
     </div>
 </div>
