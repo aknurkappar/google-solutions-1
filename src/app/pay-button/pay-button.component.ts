@@ -48,7 +48,7 @@ export class PayButtonComponent {
   onPaymentDataAuthorized: google.payments.api.PaymentAuthorizedHandler = (
       paymentData
   ) => {
-    console.log('payment authorized', paymentData);
+    console.log("I could buy it")
     return {
       transactionState: "SUCCESS"
     }
