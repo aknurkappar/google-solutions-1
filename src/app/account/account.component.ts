@@ -1,7 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from "../models/user";
 import { Router } from "@angular/router";
-import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, onSnapshot, query, updateDoc, where } from "@angular/fire/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  Firestore,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where
+} from "@angular/fire/firestore";
 import { getDownloadURL, ref, Storage, uploadBytesResumable } from "@angular/fire/storage";
 // @ts-ignore
 import * as html2pdf from 'html2pdf.js';
@@ -37,7 +49,7 @@ export class AccountComponent implements OnInit {
   public user: User;
   public IdenticalImages: any = [];
   public SocialImages: any = [];
-  public sertificatGivenDate: any;
+  public certificateGivenDate: number | undefined;
   public accountImage : any =  "./assets/profile.jpg";
   public accountImageTemp : any = "./assets/profile.jpg";
   public categories : Category[];
@@ -58,7 +70,6 @@ export class AccountComponent implements OnInit {
           this.user = new User(data.docs.map((item) => {
             return {...item.data(), uniqID: item.id}
           })[0]);
-
           this.isAuthorized = true;
 
           const q = query(collection(this.firestore, "posts"), where("ownerId", "==", this.user.userID));
@@ -110,7 +121,13 @@ export class AccountComponent implements OnInit {
   openCertificateModal(e : any) {
     e.composedPath()[1].children[3].classList.toggle("certificate-modal-background-active");
     document.body.classList.add('lock');
-    this.sertificatGivenDate = new Date();
+    if(this.user.certificateDate == null){
+      const date = new Date().valueOf();
+      const userToUpdate= doc(this.firestore, 'users', `${this.user.uniqID}`)
+      updateDoc(userToUpdate, {"certificateDate": date, "baursaks": this.user.baursaks - 7})
+      this.user.certificateDate = date;
+    }
+    this.certificateGivenDate = this.user.certificateDate
   }
 
   closeCertificateModal(e : any){
@@ -173,7 +190,6 @@ export class AccountComponent implements OnInit {
 
   handleAddPost(){
     this.isActive = !this.isActive
-    document.body.classList.add("lock")
   }
 
   selectCategory(e : any, category : Category){
