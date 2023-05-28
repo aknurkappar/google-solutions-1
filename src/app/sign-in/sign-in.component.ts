@@ -48,7 +48,8 @@ export class SignInComponent {
               })[0]);
             })
           }
-          window.location.reload();
+          this.location.back()
+          document.body.classList.remove('lock');
         })
         .catch((error) => {
           signInForm.classList.add('occured');

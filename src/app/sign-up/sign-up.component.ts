@@ -92,8 +92,8 @@ export class SignUpComponent {
             .catch((err) => {
               alert(err.message)
             })
-        this.modalCondition.signUpCondition = false
-        this.modalCondition.signInCondition = true
+        this.location.back()
+        document.body.classList.remove('lock');
       })
       .catch((err) => {
         signUpForm.classList.add('exist');
