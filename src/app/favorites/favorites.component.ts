@@ -35,6 +35,8 @@ export class FavoritesComponent implements OnInit {
     public categories = categories;
 
     public loaded: boolean;
+    url1: string = '/buy-and-donate/';
+    url2: string = '/postdetails/';
 
     constructor(public firestore: Firestore, public router: Router) {
         this.myFavorites = [] as any;
@@ -58,8 +60,16 @@ export class FavoritesComponent implements OnInit {
                     const q2 = query(collection(this.firestore, "B&D"), where("favorite", "array-contains", this.user.userID));
                     getDocs(q).then( (data) => {
                         this.myFavorites = [...data.docs.map( (item) => {
-                            return { ...item.data(), id:item.id }})
+                            return { ...item.data(), id:item.id, donate: false}})
                         ]
+                        this.initialMyFav = this.myFavorites;
+                        this.loaded = true;
+                    })
+                    getDocs(q2).then((data)=> {
+                        this.myFavorites.push(...[...data.docs.map( (item) => {
+                            console.log(item.data())
+                            return { ...item.data(), id:item.id, donate: true}})
+                        ])
                         this.initialMyFav = this.myFavorites;
                         this.loaded = true;
                     })
@@ -103,4 +113,11 @@ export class FavoritesComponent implements OnInit {
         console.log(e.composedPath()[0].childNodes[0].innerHTML);
     }
 
+    getUrl1(id: string){
+        return this.url1+id+"%7D"
+    }
+
+    getUrl2(id: string){
+        return this.url2+id+"%7D"
+    }
 }

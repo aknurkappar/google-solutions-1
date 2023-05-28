@@ -30,6 +30,8 @@ import { AddPostSecondStepComponent } from './add-post-second-step/add-post-seco
 import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-step.component";
 import { BuyAndDonateComponent } from './buy-and-donate/buy-and-donate.component';
 import { AdminBuyAndDonateComponent } from './admin-buy-and-donate/admin-buy-and-donate.component';
+import { PayButtonComponent } from './pay-button/pay-button.component';
+import {GooglePayButtonModule} from "@google-pay/button-angular";
 
 
 
@@ -55,6 +57,7 @@ import { AdminBuyAndDonateComponent } from './admin-buy-and-donate/admin-buy-and
         SignUpComponent,
         BuyAndDonateComponent,
         AdminBuyAndDonateComponent,
+        PayButtonComponent,
     ],
     imports: [
         BrowserModule,
@@ -66,7 +69,8 @@ import { AdminBuyAndDonateComponent } from './admin-buy-and-donate/admin-buy-and
         provideFirestore(() => getFirestore()),
         provideMessaging(() => getMessaging()),
         provideStorage(() => getStorage()),
-        FormsModule
+        FormsModule,
+        GooglePayButtonModule
     ],
   providers: [
     ScreenTrackingService,UserTrackingService

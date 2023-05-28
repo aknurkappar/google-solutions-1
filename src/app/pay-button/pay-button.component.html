@@ -1,0 +1,10 @@
+<google-pay-button
+        environment="TEST"
+        buttonType="buy"
+        buttonColor="black"
+        [paymentRequest]="paymentRequest"
+        (loadeddata)="onLoadPaymentData($event)"
+        (error)="onError($event)"
+        [paymentAuthorizedCallback]="onPaymentDataAuthorized"
+>
+</google-pay-button>

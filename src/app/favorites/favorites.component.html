@@ -46,7 +46,8 @@
         <div *ngIf="loaded" class="list">
             <div class="item_back" *ngFor="let fav of myFavorites">
                 <div class="item chosen" *ngIf="fav.visibility === 'active'">
-                    <a href="/postdetails/{{fav.id}}}" class="left">
+<!--                    <a href="/postdetails/{{fav.id}}}" class="left">-->
+                    <a [href]="fav.donate == true ? this.getUrl1(fav.id) : this.getUrl2(fav.id)" class="left">
                         <div class="image">
                             <img src="{{fav.mainIMG}}" alt="">
                         </div>

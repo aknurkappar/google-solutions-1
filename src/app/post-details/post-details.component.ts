@@ -27,6 +27,7 @@ export class PostDetailsComponent implements OnInit {
   sliderImages: carouselImage[] = []
   CorrectOTP = ""
   OTPCurrentIndex : number = 0;
+  isDonate: boolean = false
 
   constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router) { 
     this.user = {} as User;
@@ -60,7 +61,11 @@ export class PostDetailsComponent implements OnInit {
 
     if(this.postId != null) {
       this.postId = this.postId.substring(0, this.postId.length - 1);
+
       const colRef = location.pathname.includes("buy-and-donate") ? collection(this.firestore, "B&D") : collection(this.firestore, "posts")
+
+      if(colRef.path === "B&D") this.isDonate = true
+
       const docRef = doc(colRef, `${this.postId}`);
 
       onSnapshot(docRef, (doc) => {

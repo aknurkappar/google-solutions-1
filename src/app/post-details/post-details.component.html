@@ -49,6 +49,7 @@
                     <div [ngClass]="classExpression()">
                         <button>Buy now</button>
                         <button (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
+                        <app-pay-button *ngIf="isDonate"></app-pay-button>
                     </div>
                 </div>
             </div>
