@@ -46,12 +46,13 @@ export class AccountComponent implements OnInit {
   public isActive = false;
   public isAuthorized: boolean = false;
   public isLoading = false;
+  public imageIsLoading = false;
   public user: User;
   public IdenticalImages: any = [];
   public SocialImages: any = [];
   public certificateGivenDate: number | undefined;
   public accountImage : any =  "./assets/profile.jpg";
-  public accountImageTemp : any = "./assets/profile.jpg";
+  public accountImageTemp : any = ""
   public categories : Category[];
   public selectedCategory : String;
   public selectedCategoryPath : String;
@@ -112,11 +113,8 @@ export class AccountComponent implements OnInit {
     ];
     this.selectedCategory = "All categories";
     this.selectedCategoryPath = "All categories";
+    this.accountImageTemp = this.user.avatar;
   }
-  getData() {
-
-  }
-
 
   openCertificateModal(e : any) {
     e.composedPath()[1].children[3].classList.toggle("certificate-modal-background-active");
@@ -214,9 +212,59 @@ export class AccountComponent implements OnInit {
     e.composedPath()[0].classList.remove("modal-active")
   }
 
+  uploadNewAccountImage1($event : any){
+    let reader = new FileReader();
+    reader.readAsDataURL($event?.target.files[0]);
+
+    reader.onload = (event: any) => { // @ts-ignore
+      document.querySelector('.account-edit-image-input-label img').src = event.target.result
+      this.accountImageTemp = event.target.result
+    }
+
+  }
+
+  submitNewAccountImage(e : any){
+    console.log(this.accountImageTemp)
+    if(this.accountImageTemp == this.user.avatar || !this.accountImageTemp){
+      location.reload()
+    } else {
+      this.imageIsLoading = true
+      const dbInstance = collection(this.firestore, 'users');
+      const userQuery = query(dbInstance, where("userID", "==", `${this.user.userID}`))
+      onSnapshot(userQuery, (data) => {
+        let key = (data.docs.map((item) => {
+          return item.id
+        })[0])
+        const dataToUpdate = doc(this.firestore, "users", key);
+        updateDoc(dataToUpdate, {
+          avatar: this.accountImageTemp
+        }).then(() => {
+          this.imageIsLoading = false
+          location.reload()
+        }).catch((err) => {
+          alert(err.message)
+          location.reload()
+        })
+      })
+    }
+  }
+
   uploadNewAccountImage($event : any){
     let reader = new FileReader();
     reader.readAsDataURL($event?.target.files[0]);
+
+    const dbInstance = collection(this.firestore, 'users');
+    const userQuery = query(dbInstance, where("userID", "==", `${this.user.userID}`))
+    onSnapshot(userQuery, (data) => {
+      let key  = (data.docs.map((item) => {
+        return item.id
+      })[0])
+      const dataToUpdate = doc(this.firestore, "users", key);
+      updateDoc(dataToUpdate, {
+        specialStatus: status
+      }).then(() => {}).catch((err) => { alert(err.message) })
+    })
+
 
     reader.onload = (event: any) => { // @ts-ignore
       document.querySelector('.account-edit-image-input-label img').src = event.target.result
@@ -224,10 +272,14 @@ export class AccountComponent implements OnInit {
 
       const storageRef = ref(this.storage, `images/${this.accountImageTemp.name}`);
       const uploadTask = uploadBytesResumable(storageRef, $event.target.files[0]);
+      console.log(storageRef)
+      console.log(uploadTask)
 
-      this.accountImage = this.accountImageTemp;
+      // this.accountImage = this.accountImageTemp;
+      console.log(this.user.userID)
 
       const q = query(collection(this.firestore, "users"), where("userID", "==", this.user.userID));
+      console.log(q)
       getDocs(q).then( (data) => {
         let id = data.docs.map( (item) => item.id)
         console.log(id)
@@ -244,12 +296,6 @@ export class AccountComponent implements OnInit {
         )
       })
     }
-  }
-
-  submitNewAccountImage(e : any){
-    this.accountImage = this.accountImageTemp;
-    e.composedPath()[2].classList.remove("account-header-edit-image-active");
-    window.location.reload()
   }
 
   handleActivatePost(e: any, post : any){

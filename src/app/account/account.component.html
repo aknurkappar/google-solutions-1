@@ -7,7 +7,7 @@
         <div class="modal-background" (click)="closeEditProfileImage($event)">
             <div class="account-header-edit-image">
                 <p>Upload a new photo</p>
-                <input (change)="uploadNewAccountImage($event)" id="account-edit-image-input" type="file" accept="image/*" />
+                <input (change)="uploadNewAccountImage1($event)" id="account-edit-image-input" type="file" accept="image/*" />
                 <div class="account-edit-image-input-label">
                     <img *ngIf="user.avatar" src="{{user.avatar}}" alt="">
                     <div *ngIf="!user.avatar" class="edit-image-no-avatar">
@@ -17,7 +17,8 @@
                     <label for="account-edit-image-input"></label>
                 </div>
                 <div></div>
-                <button (click)="submitNewAccountImage($event)" type="submit">Save changes</button>
+                <button *ngIf="!imageIsLoading" (click)="submitNewAccountImage($event)" type="submit">Save changes</button>
+                <button *ngIf="imageIsLoading" class="image-loader"> <img class="loading" src="assets/loading.png"/></button>
             </div>
         </div>
         <div class="account-header-bottom">

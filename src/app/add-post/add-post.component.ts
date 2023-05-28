@@ -66,5 +66,4 @@ export class AddPostComponent implements OnInit{
       this.addPostFormService.handleFirstStepValidation(event)
     }
   }
-
 }
