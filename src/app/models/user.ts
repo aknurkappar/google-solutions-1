@@ -1,3 +1,5 @@
+import {Data} from "@angular/router";
+
 export class User {
   userID: string
   email: string
@@ -10,6 +12,7 @@ export class User {
   specialStatus: boolean = false
   avatar: string;
   uniqID: string;
+  certificateDate: number;
 
   constructor(data: any) {
     this.userID = data.userID;
@@ -21,8 +24,9 @@ export class User {
     this.city = data.city;
     this.baursaks = data.baursaks;
     this.specialStatus = data.specialStatus;
-    this.avatar = data.avatar
-    this.uniqID = data.uniqID
+    this.avatar = data.avatar;
+    this.uniqID = data.uniqID;
+    this.certificateDate = data.certificateDate;
   }
 
   setFName(fName: string){
