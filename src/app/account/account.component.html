@@ -32,7 +32,7 @@
             </div>
             <div class="account-header-bottom-right">
                 <div class="account-header-bottom-left-content">
-                    <p [ngClass]="(user.baursaks == 7) ? 'special_status show' : 'special_status'" (click)="openCertificateModal($event)">Get my certificate</p>
+                    <p [ngClass]="(user.baursaks >= 7) ? 'special_status show' : 'special_status'" (click)="openCertificateModal($event)">Get my certificate</p>
                     <p [ngClass]="(!specialStatus) ? 'special_status show' : 'special_status'"> | </p>
                     <p [ngClass]="(!specialStatus) ? 'special_status show' : 'special_status'" (click)="openApplyForStatus($event)">Apply for special status </p>
                     <div class="certificate-modal-background" (click)="closeCertificateModal($event)">
@@ -44,12 +44,12 @@
                                         <div class="text_block">
                                             <p>This certificate is proudly presented to</p>
                                             <p class="certificate-name">{{user.fName}} {{user.lName}}</p>
-                                            <p style="width: 340px;">for significant service to the community as a volunteer</p>
+                                            <p style="width: 340px;">in grateful recognition of your hard work and commitment to building a better world in line with the goals of the UN</p>
                                         </div>
                                     </div>
                                     <div class="certificate-footer">
                                         <img src="./assets/certificate-footer.png"/>
-                                        <p class="given_date">{{sertificatGivenDate | date:'dd.MM.yyyy'}}</p>
+                                        <p class="given_date">{{certificateGivenDate | date:'dd.MM.yyyy'}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -158,57 +158,49 @@
                 </div>
             </div>
         </div>
+
         <div class="account-post-search">
             <input (keyup)="search($event)" placeholder="Search by title" />
             <img alt="search" src="assets/search.png"/>
         </div>
-        <button class="add_post_button" routerLink="add-post" (click)="handleAddPost()">Add post</button>
+
+        <button (click)="handleAddPost()">Add post</button>
+<!--        <app-add-post (getData)="getData()" [user]="user" (handleAddPost)="handleAddPost()" [isActive]="isActive"></app-add-post>-->
     </div>
-    <router-outlet></router-outlet>
+
     <div class="account-posts">
+
         <div class="account-posts-sort">
             <div class="line"></div>
             <p (change)="showOnly($event)">Show only:
                 <select onChange=selectChange(this.value)>
                     <option value="all">All</option>
                     <option value="inProgress">In progress</option>
-                    <option value="active">Active</option>
                     <option value="rejected">Rejected</option>
+                    <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
             </p>
         </div>
+
         <p class="account-checkbox"><input type="checkbox"/> Select all ads from the list to apply the same actions to them</p>
+
         <div class="account-posts-list-container" *ngFor="let post of myPost" [ngClass]="post.visibility === 'active' ? '' : 'inactive-post'">
             <div class="account-posts-list">
-                <a *ngIf="post.visibility === 'active'" href="/postdetails/{{post.id}}}" class="post-left-side">
+                <div class="post-left-side">
                     <div class="post-main-image">
                         <img src="{{post.mainIMG}}" />
                     </div>
+
                     <div class="post-text">
                         <div>
                             <p class="post-title">{{post.title}}</p>
-                            <div class="category_type">
-                                <p *ngFor="let category of post.category">{{category}}<span>/</span></p>
-                            </div>
+                            <p>{{post.category}}</p>
                         </div>
-                        <div class="post_location">Kazakhstan, {{post.location}}</div>
-                    </div>
-                </a>
-                <div *ngIf="post.visibility != 'active'" class="post-left-side">
-                    <div class="post-main-image">
-                        <img src="{{post.mainIMG}}" />
-                    </div>
-                    <div class="post-text">
-                        <div>
-                            <p class="post-title">{{post.title}}</p>
-                            <div class="category_type">
-                                <p *ngFor="let category of post.category">{{category}}<span>/</span></p>
-                            </div>
-                        </div>
-                        <div class="post_location">Kazakhstan, {{post.location}}</div>
+                        <p>{{post.location}}</p>
                     </div>
                 </div>
+
                 <div class="post-right-side">
                     <div class="post-item-amount">
                         {{post.amount}}
@@ -221,8 +213,10 @@
                         </span>
                         <p class="post-info-text" (click)="openCodeModal($event)">Give it right now</p>
                     </div>
+
                     <div class="edit-post-modal-background" (click)="closeEditPostModal($event)">
                         <div class="edit-post-modal">
+
                         </div>
                     </div>
                     <div class="account-otp-modal-background" (click)="closeCodeModal($event)">
@@ -234,9 +228,11 @@
                 </div>
             </div>
             <div class="account-post-footer">
-                <img src="assets/svg/arrow.svg" />
+                <img src="assets/selector-gray.png" />
                 Available: {{post.time.toDate() | date:'dd.MM.yyyy'}} -  {{post.expiredDate.toDate() | date:'dd.MM.yyyy'}}
             </div>
         </div>
+
+
     </div>
 </div>
