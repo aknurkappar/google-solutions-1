@@ -1,8 +1,8 @@
-<div *ngIf="this.modalCondition.signInCondition" class="sign_in_back" (click)="signInOptions($event)">
+<div class="sign_in_back">
     <form #SignInForm="ngForm" (ngSubmit)="signIn(SignInForm.value, $event)" class="sign_in_form">
         <div class="error_mess">Check your email or password !</div>
         <div class="form_top">
-            <div class="close_form_in">
+            <div class="close_form_in" (click)="closeModal()">
                 <img src="/assets/svg/close.svg" alt="">
             </div>
             <span>Sign in</span>
@@ -24,7 +24,7 @@
         <div class="form_separator"></div>
         <div class="form_bottom">
             <button type="submit" class="sign_in_button">Sign in</button>
-            <div class="link_sign_up">Don't have an account? <strong style="color: #F1C16F; font-weight:600">Sign up</strong></div>
+            <div class="link_sign_up" (click)="switchToSigUp()">Don't have an account? <strong style="color: #F1C16F; font-weight:600">Sign up</strong></div>
         </div>
     </form>
 </div>

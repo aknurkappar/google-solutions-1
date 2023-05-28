@@ -10,6 +10,7 @@ export class ModalConditionService {
 
   constructor() { }
 
+
   // setSignUpCondition(condition: boolean) {
   //   this.signUpCondition = condition
   // }

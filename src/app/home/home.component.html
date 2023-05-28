@@ -62,7 +62,7 @@
                     <img src="../../assets/search.svg" alt="">
                 </div>
             </div>
-            <button class="add_ad" routerLink="add-post" (click)="handleAddPost()">Add post</button>
+            <button class="add_ad" [routerLink]="isAuthorized ? 'add-post' : 'sign-in'" (click)="handleAddPost()">Add post</button>
             <router-outlet></router-outlet>
         </div>
         <div class="sort">

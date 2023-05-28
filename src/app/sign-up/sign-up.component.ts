@@ -6,6 +6,7 @@ import { ModalConditionService } from "../services/modal-condition.service";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, Firestore } from "@angular/fire/firestore";
 import { Storage } from "@angular/fire/storage";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-sign-up',
@@ -16,8 +17,19 @@ export class SignUpComponent {
 
   auth = getAuth()
 
-  constructor(public firestore: Firestore, public storage: Storage, public router: Router, public modalCondition: ModalConditionService) { }
-
+  constructor(public firestore: Firestore,
+              public storage: Storage,
+              public router: Router,
+              public modalCondition: ModalConditionService,
+              private location: Location
+  ) { }
+  closeModal(){
+    this.router.navigate(['/home']).then()
+    document.body.classList.remove('lock');
+  }
+  switchToSigIn(){
+    this.router.navigate(['/home/sign-in']).then()
+  }
   signUp(value: any, e: any) {
     const signUpForm = e.composedPath()[0];
 

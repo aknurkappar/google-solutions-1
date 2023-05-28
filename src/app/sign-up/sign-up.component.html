@@ -1,4 +1,4 @@
-<div *ngIf="this.modalCondition.signUpCondition" class="sign_up_back" (click)="signUpOptions($event)">
+<div class="sign_up_back" (click)="signUpOptions($event)">
     <form #signUpForm="ngForm" (ngSubmit)="signUp(signUpForm.value, $event)" class="sign_up_form">
         <div class="error_mess alert">To register, first fill in all the fields !</div>
         <div class="check_correct alert">Confirm the password to complete the registration !</div>
@@ -6,7 +6,7 @@
         <div class="passw_length alert">The password must be at least 8 characters long !</div>
         <div class="form_top">
             <span>Sign up</span>
-            <div class="close_form">
+            <div class="close_form_in" (click)="closeModal()">
                 <img src="/assets/svg/close.svg" alt="">
             </div>
         </div>
@@ -60,7 +60,10 @@
         </div>
         <div class="form_separator"></div>
         <div class="form_bottom">
-            <div class="link_sign_in" (click)="signUpOptions($event)">Already have an account? <strong style="color: #F1C16F; font-weight:600">Sign in</strong></div>
+<!--            <div class="link_sign_in" (click)="signUpOptions($event)">Already have an account? <strong style="color: #F1C16F; font-weight:600">Sign in</strong></div>-->
+
+            <div class="link_sign_in" (click)="switchToSigIn()">Already have an account? <strong style="color: #F1C16F; font-weight:600">Sign in</strong></div>
+
             <button type="submit" class="sign_up_button">Sign up</button>
         </div>
     </form>

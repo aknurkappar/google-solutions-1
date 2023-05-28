@@ -19,8 +19,21 @@ export class SignInComponent {
 
   auth = getAuth()
 
-  constructor(public firestore: Firestore, public storage: Storage, public router: Router, public modalCondition: ModalConditionService) { }
+  constructor(public firestore: Firestore,
+              public storage: Storage,
+              public router: Router,
+              public modalCondition: ModalConditionService,
+              private location: Location
+  ) { }
 
+  closeModal(){
+    this.router.navigate(['/home']).then()
+    document.body.classList.remove('lock');
+  }
+  switchToSigUp(){
+    console.log("hereeee")
+    this.router.navigate(['/home/sign-up']).then()
+  }
   signIn(value: any, e: any) {
     const signInForm = e.composedPath()[0];
     signInWithEmailAndPassword(this.auth, value.email, value.password)

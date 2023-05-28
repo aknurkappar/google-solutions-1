@@ -10,7 +10,6 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule } from "@angular/forms";
 import { HomeComponent } from './home/home.component';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -38,7 +37,6 @@ import {GooglePayButtonModule} from "@google-pay/button-angular";
 @NgModule({
     declarations: [
         AppComponent,
-        RegistrationComponent,
         HomeComponent,
         CarouselComponent,
         AccountComponent,

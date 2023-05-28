@@ -74,7 +74,12 @@ export class HomeComponent implements OnInit{
     }
   ]
 
-  constructor(public firestore: Firestore, public storage: Storage, public router: Router, public modalsCondition: ModalConditionService) {
+  constructor(public firestore: Firestore,
+              public storage: Storage,
+              public router: Router,
+              public modalsCondition: ModalConditionService,
+              public modalConditionService: ModalConditionService
+  ) {
     this.getData();
     this.uploaded = false;
     this.loaded = false;
@@ -189,21 +194,6 @@ export class HomeComponent implements OnInit{
     const dataToUpdate = doc(this.firestore, "posts", post.id);
     updateDoc(dataToUpdate, { favorite: arrayRemove(this.user.userID) }).then(() => { }).catch((err) => { alert(err.message) })
   }
-
-  // createPost(e: any) {
-  //   if(e.composedPath()[0].className === 'add_ad' && Object.keys(this.user).length) {
-  //     window.scrollTo({top: 0}); e.composedPath()[1].classList.add('create'); document.body.classList.add('lock');
-  //   }
-  //   else if(e.composedPath()[0].className === 'create_post_back') {
-  //     e.composedPath()[1].classList.remove('create'); document.body.classList.remove('lock');
-  //   }
-  //   else if(e.composedPath()[1].className === 'close_post') {
-  //     e.composedPath()[5].classList.remove('create'); document.body.classList.remove('lock');
-  //   }
-  //   else if(Object.keys(this.user).length) {
-  //     window.scrollTo({top: 0}); document.body.classList.add('lock'); this.modalsCondition.signInCondition = true
-  //   }
-  // }
 
   handleAddPost() {
     document.body.classList.toggle('lock');

@@ -52,6 +52,9 @@ export class AppComponent implements OnInit {
       } else this.userLoaded = 2
     })
   }
+  handleOpenModal(){
+    document.body.classList.add('lock');
+  }
 
   handleLogout(e : any) {
     e.composedPath()[2].children[2].classList.toggle("logout-modal-active");

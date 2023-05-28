@@ -126,7 +126,7 @@ export class AddPostFormService{
   }
 
   addData(event: any) {
-    const dbInstance = collection(this.firestore, (event.donationID !== null) ? "B&D" : "posts");
+    const dbInstance = collection(this.firestore, (!event.donationID) ? "posts" : "B&D");
     const postForm = event.composedPath()[7];
     console.log(event)
 
@@ -138,11 +138,13 @@ export class AddPostFormService{
     this.post.code = Math.floor(Math.random() * (999999 - 100000) + 100000)
     this.post.visibility = "inProgress"
     this.post.favorite = []
-    this.post.donationID = (event.donationID === null ? null : event.donationID)
-    this.post.price = 0
+    if(this.user.specialStatus){
+      this.post.donationID = event.donationID
+      this.post.price = 0
+    }
 
     addDoc(dbInstance, this.post).then((res) => {
-      this.uploadImages(res.id, postForm, (event.donationID === null) ?  false : true);
+      this.uploadImages(res.id, postForm, (!event.donationID));
     }).catch((err) => { alert(err.message) }
     )
   }
@@ -151,6 +153,7 @@ export class AddPostFormService{
   uploadImages(id: string, postForm: any, isPost: boolean) {
     const len = Number(this.images.length);
     let totalProg = 0;
+    console.log(isPost)
 
     for (let i = 0; i < this.images.length; i++) {
       const storageRef = ref(this.storage, `images/${this.images[i].name}`);
@@ -164,7 +167,7 @@ export class AddPostFormService{
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              const dataToUpdate = doc(this.firestore, ((isPost === true) ? "B&D" : "posts"), id);
+              const dataToUpdate = doc(this.firestore, (isPost ? "posts" : "B&D"), id);
 
               if (i == 0) updateDoc(dataToUpdate, {mainIMG: downloadURL}).then(() => {
               }).catch((err) => {

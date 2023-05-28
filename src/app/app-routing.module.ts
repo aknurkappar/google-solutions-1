@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { RegistrationComponent } from "./registration/registration.component";
 import {AccountComponent} from "./account/account.component";
 import {DonationsComponent} from "./donations/donations.component";
 import {NotificationsComponent} from "./notifications/notifications.component";
@@ -16,18 +15,24 @@ import {AddPostFirstStepComponent} from "./add-post-first-step/add-post-first-st
 import {AddPostSecondStepComponent} from "./add-post-second-step/add-post-second-step.component";
 import {BuyAndDonateComponent} from "./buy-and-donate/buy-and-donate.component";
 import {AdminBuyAndDonateComponent} from "./admin-buy-and-donate/admin-buy-and-donate.component";
+import {SignInComponent} from "./sign-in/sign-in.component";
+import {SignUpComponent} from "./sign-up/sign-up.component";
 
 const addPostRoutes : Routes = [
     { path : 'add-post', component : AddPostComponent, children : [
             {path : "" , component : AddPostFirstStepComponent},
             {path : "1", component : AddPostFirstStepComponent},
             {path : "2", component : AddPostSecondStepComponent},
-    ]},
+    ]}
+]
+
+const authorizationRoutes : Routes = [
+    { path : 'sign-in', component : SignInComponent},
+    { path : 'sign-up', component : SignUpComponent}
 ]
 
 const routes: Routes = [
-  { path: 'registration', component: RegistrationComponent },
-  { path: 'home', component: HomeComponent, children : addPostRoutes },
+  { path: 'home', component: HomeComponent, children : [...addPostRoutes, ...authorizationRoutes]},
   { path: 'account', component: AccountComponent, children : addPostRoutes },
   { path: 'donations', component: DonationsComponent },
   { path: 'notifications', component: NotificationsComponent },
