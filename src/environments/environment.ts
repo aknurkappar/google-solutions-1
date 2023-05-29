@@ -8,4 +8,7 @@ export const environment = {
     authDomain: 'bejomart-23e13.firebaseapp.com',
     messagingSenderId: '328937419617',
     measurementId: 'G-0L156035QF',
-  },};
+  }
+};
+
+
