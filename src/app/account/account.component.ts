@@ -57,6 +57,7 @@ export class AccountComponent implements OnInit {
   public selectedCategory : String;
   public selectedCategoryPath : String;
   public myPost: any[] = [];
+  public BuyDonate: any[] = [];
   public initialPost: any
   public specialStatus: boolean = false
   ngOnInit(): void {
@@ -79,6 +80,13 @@ export class AccountComponent implements OnInit {
               return { ...item.data(), id:item.id }})
             ]
             this.initialPost = this.myPost
+          })
+
+          const q2 = query(collection(this.firestore, "B&D"), where("takerID", "==", this.user.uniqID));
+          getDocs(q2).then( (data) => {
+            this.BuyDonate = [...data.docs.map( (item) => {
+              return { ...item.data(), id:item.id }})
+            ]
           })
           const colUsers = collection(this.firestore, "users");
           const docRef = doc(colUsers, `${this.user.uniqID}`);
@@ -188,6 +196,7 @@ export class AccountComponent implements OnInit {
 
   handleAddPost(){
     this.isActive = !this.isActive
+    document.body.classList.add("lock")
   }
 
   selectCategory(e : any, category : Category){
@@ -283,7 +292,11 @@ export class AccountComponent implements OnInit {
   showOnly(e: any) {
     this.myPost = this.initialPost;
     if(e.composedPath()[0].value !== "all") { // @ts-ignore
-      this.myPost = this.myPost.filter(x => x.visibility == e.composedPath()[0].value)
+        if(e.composedPath()[0].value == "B&D"){
+          this.myPost = this.BuyDonate
+        } else{
+          this.myPost = this.myPost.filter(x => x.visibility == e.composedPath()[0].value)
+        }
     }
   }
 

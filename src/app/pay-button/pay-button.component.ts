@@ -1,11 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {doc, Firestore, increment, updateDoc} from "@angular/fire/firestore";
+import * as fs from "fs";
+import {Environment} from "@angular/cli/lib/config/workspace-schema";
+import {environment} from "../../environments/environment.development";
+
+
+
 
 @Component({
   selector: 'app-pay-button',
   templateUrl: './pay-button.component.html',
   styleUrls: ['./pay-button.component.css']
 })
-export class PayButtonComponent {
+export class PayButtonComponent implements OnInit{
+  @Input() credit: any
+
+  constructor(public firestore: Firestore) {
+  }
+
+  ngOnInit() {
+    console.log(this.credit)
+    this.paymentRequest.transactionInfo.totalPrice = this.credit.price
+  }
+
   paymentRequest: google.payments.api.PaymentDataRequest = {
     apiVersion: 2,
     apiVersionMinor: 0,
@@ -32,8 +49,8 @@ export class PayButtonComponent {
     transactionInfo: {
       totalPriceStatus: 'FINAL',
       totalPriceLabel: 'Total',
-      totalPrice: '0.01',
-      currencyCode: 'EUR'
+      totalPrice: "0.01",
+      currencyCode: 'KZT'
     },
     callbackIntents: ['PAYMENT_AUTHORIZATION']
   }
@@ -48,7 +65,29 @@ export class PayButtonComponent {
   onPaymentDataAuthorized: google.payments.api.PaymentAuthorizedHandler = (
       paymentData
   ) => {
-    console.log("I could buy it")
+    const dataToUpdate = doc(this.firestore, "donations", this.credit.donationID);
+    updateDoc(dataToUpdate, {
+      donatedFunds: increment(this.credit.price)
+    }).then(() => {
+
+    }).catch((err) => {
+      alert(err.message)
+      location.reload()
+    })
+
+    const dataToUpdate2 = doc(this.firestore, "B&D", this.credit.postID);
+    updateDoc(dataToUpdate2, {
+      visibility: "B&D",
+      takerID: this.credit.takerID
+    }).then(() => {
+
+    }).catch((err) => {
+      alert(err.message)
+      location.reload()
+    })
+
+
+
     return {
       transactionState: "SUCCESS"
     }

@@ -47,9 +47,8 @@
                 <div class="text-bottom">
                     <p class="post-amount"><span>Amount:</span> {{post.amount}}</p>
                     <div [ngClass]="classExpression()">
-                        <button>Buy now</button>
                         <button (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
-                        <app-pay-button *ngIf="isDonate"></app-pay-button>
+                        <app-pay-button *ngIf="isDonate" [credit]="{price: post.price, donationID: post.donationID, postID: postId, takerID: this.user.uniqID}"></app-pay-button>
                     </div>
                 </div>
             </div>

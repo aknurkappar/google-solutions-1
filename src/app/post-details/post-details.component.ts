@@ -56,8 +56,10 @@ export class PostDetailsComponent implements OnInit {
       }
     });
 
+
+
     // else this.router.navigate(['/home']);
-    this.classExpression()
+
 
     if(this.postId != null) {
       this.postId = this.postId.substring(0, this.postId.length - 1);
@@ -69,12 +71,18 @@ export class PostDetailsComponent implements OnInit {
       const docRef = doc(colRef, `${this.postId}`);
 
       onSnapshot(docRef, (doc) => {
+
         this.post = doc.data();
         if(doc.data() == undefined) {
           this.router.navigate(['home'])
         }
 
+        if(this.post.takerID === undefined || this.post.takerID === null){
+          this.post.takerID = null
+        }
+
         this.CorrectOTP = this.post.code
+
 
         this.sliderImages = []
         this.sliderImages.push({imageSrc: this.post.mainIMG, imageAlt: ''})
@@ -92,10 +100,18 @@ export class PostDetailsComponent implements OnInit {
             return item.data()
           })[0])
         })
+
       });
     }
+    this.classExpression()
   }
   classExpression(): string {
+    if(!this.post.takerID && !this.specialStatus && this.post.ownerId != this.user.userID) {
+      return 'get_buttons not_bought'
+    }
+    if(this.post.takerID != undefined && !this.specialStatus && this.user.uniqID == this.post.takerID && this.post.ownerId != this.user.userID) {
+      return 'get_buttons bought'
+    }
     if((this.specialStatus || this.user.baursaks >= 1) && this.post.ownerId != this.user.userID) {
       return 'get_buttons special'
     }
