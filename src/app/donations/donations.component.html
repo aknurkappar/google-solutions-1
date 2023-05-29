@@ -52,6 +52,10 @@
                     </div>
                     <div class="block">
                         <input name="phone" ngModel type="tel" placeholder="Your phone" class="your_phone" />
+                        <p class="donation-amount">
+                            <input name="amount" ngModel type="number" placeholder="Amount needed" class="amount_money" />
+                            <span>₸</span>
+                        </p>
                         <button type="submit">Apply application</button>
                     </div>
                 </div>
@@ -79,8 +83,22 @@
                     </div>
                 </div>
                 <div class="right" (click)="openHelp($event)">
-                    <button class="help">Help</button>
-                    <p class="timer">{{getDiff(don.expiredDate, don.id)}} days left</p>
+
+                    <div class="right-side-content">
+                        <div class="percentage-content">
+                            <p>{{don.donatedFunds}}₸ / {{don.amount.toString().replace('/\B(?=(\d{3})+(?!\d))/g', ' ')}}₸</p>
+                            <div class="percentage-line">
+                                <div class="percentage" [ngStyle]="{'width' : (don.donatedFunds * 100 /don.amount) + '%'}"></div>
+                            </div>
+                            <p class="percentage-text">{{(don.donatedFunds * 100 /don.amount).toString().slice(0, 2)}}%</p>
+                        </div>
+
+                        <div class="right-bottom-content">
+                            <p class="timer">{{getDiff(don.expiredDate, don.id)}} days left</p>
+                            <button class="help">Help</button>
+                        </div>
+                    </div>
+
                     <div class="help_back">
                         <div class="help_card">
                             <img src="../../assets/card_back.png" alt="">
@@ -91,7 +109,7 @@
                             <div class="needs_contacts">
                                 <div class="contact">
                                     <p>Recipient</p>
-                                    {{don.name}} {{don.surname}}
+                                    {{don.name.toUpperCase()}} {{don.surname.toUpperCase()}}
                                 </div>
                                 <div class="contact">
                                     <p>Phone number</p>
@@ -106,8 +124,11 @@
                 <img src="../../assets/arrow.svg" class="reason_more" alt="">
             </div>
             <div class="item_reason">
-                <span>Help {{don.name}} for this reason:</span>
+                <span>Help {{don.name.toUpperCase()}} for this reason:</span>
                 <p>{{don.reason}}</p>
+
+                <span class="bottom-text">Needed amount of money:</span>
+                <p>{{don.amount}}₸</p>
             </div>
         </div>
     </div>

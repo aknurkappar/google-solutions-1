@@ -50,6 +50,10 @@ export class SignInComponent {
           }
           this.location.back()
           document.body.classList.remove('lock');
+
+          if(success.user.email == "admin@bejomart.kz"){
+            window.location.reload()
+          }
         })
         .catch((error) => {
           signInForm.classList.add('occured');
