@@ -55,28 +55,40 @@
             </div>
         </div>
     </div>
-    <div class="post-details-bottom">
-        <div class="bottom-top">
-            <p id="title">Owner</p>
-            <div class="post_owner_info">
-                <img class="avatar_of_owner" *ngIf="owner.avatar != ''" src="{{owner.avatar}}" alt="">
-                <div *ngIf="owner.avatar == ''" class="no_avatar_owner">
-                    <img src="/assets/avatar.png" alt="">
+    <div class="right_container">
+        <div class="post-details-bottom">
+            <div class="bottom-top">
+                <p id="title">Owner information</p>
+                <div class="post_owner_info">
+                    <img class="avatar_of_owner" *ngIf="owner.avatar != ''" src="{{owner.avatar}}" alt="">
+                    <div *ngIf="owner.avatar == ''" class="no_avatar_owner">
+                        <img src="/assets/avatar.png" alt="">
+                    </div>
+                    {{owner.fName}} {{owner.lName}}
                 </div>
-                {{owner.fName}} {{owner.lName}}
+            </div>
+            <div [ngClass]="specialStatus ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
+                <p id="subtitle">Owner contacts</p>
+                <p style="margin-bottom: 6px;">
+                    <span class="material-symbols-outlined">call</span>
+                    {{post.phone}}
+                </p>
+                <p>
+                    <span class="material-symbols-outlined">location_on</span>
+                    Kazakhstan, {{post.location}}
+                </p>
+                <p class="post-location"></p>
             </div>
         </div>
-        <div [ngClass]="specialStatus ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
-            <p id="subtitle">Owner contacts</p>
-            <p style="margin-bottom: 6px;">
-                <span class="material-symbols-outlined">call</span>
-                {{post.phone}}
-            </p>
-            <p>
+        <div class="post-details-bottom product_location" style="margin-top: 15px !important;">
+            <p id="title2">Location</p>
+            <p style="margin-top: 5px; margin-left: 0; margin-bottom: 18px">
                 <span class="material-symbols-outlined">location_on</span>
                 Kazakhstan, {{post.location}}
             </p>
-            <p class="post-location"></p>
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+            </agm-map>
         </div>
     </div>
 </div>

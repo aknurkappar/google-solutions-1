@@ -31,7 +31,7 @@ import { BuyAndDonateComponent } from './buy-and-donate/buy-and-donate.component
 import { AdminBuyAndDonateComponent } from './admin-buy-and-donate/admin-buy-and-donate.component';
 import { PayButtonComponent } from './pay-button/pay-button.component';
 import {GooglePayButtonModule} from "@google-pay/button-angular";
-
+import {AgmCoreModule} from "@agm/core";
 
 
 @NgModule({
@@ -68,7 +68,11 @@ import {GooglePayButtonModule} from "@google-pay/button-angular";
         provideMessaging(() => getMessaging()),
         provideStorage(() => getStorage()),
         FormsModule,
-        GooglePayButtonModule
+        GooglePayButtonModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCvyJd83113PsK1sK98o8-I-JjrYKotLPU',
+            libraries: ['places']
+        })
     ],
   providers: [
     ScreenTrackingService,UserTrackingService

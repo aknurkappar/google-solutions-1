@@ -83,7 +83,6 @@
                     </div>
                 </div>
                 <div class="right" (click)="openHelp($event)">
-
                     <div class="right-side-content">
                         <div class="percentage-content">
                             <p>{{don.donatedFunds}}₸ / {{don.amount.toString().replace('/\B(?=(\d{3})+(?!\d))/g', ' ')}}₸</p>
@@ -92,13 +91,11 @@
                             </div>
                             <p class="percentage-text">{{(don.donatedFunds * 100 /don.amount).toString().slice(0, 2)}}%</p>
                         </div>
-
                         <div class="right-bottom-content">
                             <p class="timer">{{getDiff(don.expiredDate, don.id)}} days left</p>
                             <button class="help">Help</button>
                         </div>
                     </div>
-
                     <div class="help_back">
                         <div class="help_card">
                             <img src="../../assets/card_back.png" alt="">
@@ -126,7 +123,6 @@
             <div class="item_reason">
                 <span>Help {{don.name.toUpperCase()}} for this reason:</span>
                 <p>{{don.reason}}</p>
-
                 <span class="bottom-text">Needed amount of money:</span>
                 <p>{{don.amount}}₸</p>
             </div>

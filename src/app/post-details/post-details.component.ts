@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { collection, doc, Firestore, onSnapshot, deleteDoc, query, where, updateDoc, arrayUnion, arrayRemove } from "@angular/fire/firestore";
 import { User } from "../models/user";
-import {getAuth} from "firebase/auth";
-import {onAuthStateChanged} from "@angular/fire/auth";
+import { getAuth } from "firebase/auth";
+import { onAuthStateChanged } from "@angular/fire/auth";
 
 interface carouselImage {
   imageSrc: string;
@@ -29,9 +29,14 @@ export class PostDetailsComponent implements OnInit {
   OTPCurrentIndex : number = 0;
   isDonate: boolean = false
 
-  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router) { 
+  latitude: number = 0;
+  longitude: number = 0;
+  zoom: number = 0;
+
+  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router) {
     this.user = {} as User;
   }
+
   ngOnInit(): void { // @ts-ignore
     this.postId = this.route.snapshot.paramMap.get('id');
 
@@ -94,7 +99,20 @@ export class PostDetailsComponent implements OnInit {
         })
       });
     }
+
+    this.setCurrentLocation()
   }
+
+  setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
+    }
+  }
+
   classExpression(): string {
     if((this.specialStatus || this.user.baursaks >= 1) && this.post.ownerId != this.user.userID) {
       return 'get_buttons special'

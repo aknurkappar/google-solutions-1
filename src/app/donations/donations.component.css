@@ -127,7 +127,7 @@
 }
 .top_info div:first-child
 {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
 
     margin-bottom: 10px;
@@ -150,7 +150,7 @@
 .location
 {
     color: #6B6B6B !important;
-    font-size: 17px;
+    font-size: 16px;
 }
 .right
 {
@@ -165,7 +165,7 @@
 .help
 {
     width: 150px;
-    height: 43px;
+    height: 42px;
 
     background: #F1C16F;
     border-radius: 10px;
@@ -176,13 +176,14 @@
     align-items: center;
     justify-content: center;
 
-    font-size: 18px;
+    font-size: 17px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
 }
 .timer
 {
-    font-size: 17px;
+    font-size: 16.5px;
+    margin-bottom: -12px;
     /*text-decoration: underline;*/
 }
 .open_reason
@@ -768,19 +769,19 @@
     width: 100%;
     background: #EAE9E9;
     border-radius: 8px;
-    height: 21px;
+    height: 10px;
     display: flex;
     align-items: center;
 }
 
 .percentage-text{
     display: none;
-    color: #444444;
-    font-weight: 400;
+    color: #2c2c2c;
     font-size: 13px;
+    font-weight: 500;
     position: relative;
-    top: -29px;
-    left: 7px;
+    top: -8px;
+    left: 2px;
     height: 0;
 }
 
@@ -792,17 +793,18 @@
     width: 70px;
     background: #F1C16F;
     border-radius: 12px;
-    height: 26px;
+    height: 10px;
 }
 
 .right-bottom-content{
     display: flex;
     justify-content: space-between;
-    margin-top: 7px;
     align-items: center;
+    margin-top: 17px;
 }
 
-.bottom-text{
-    margin-bottom: 10px;
+.bottom-text {
+    margin-top: 15px;
+    display: block;
 }
 
