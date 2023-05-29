@@ -65,7 +65,7 @@
                 {{owner.fName}} {{owner.lName}}
             </div>
         </div>
-        <div [ngClass]="specialStatus ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
+        <div [ngClass]="(specialStatus || this.user.uniqID == this.post.takerID) ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
             <p id="subtitle">Owner contacts</p>
             <p style="margin-bottom: 6px;">
                 <span class="material-symbols-outlined">call</span>
