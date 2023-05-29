@@ -104,6 +104,7 @@ export class DonationsComponent implements OnInit {
     value.city = this.user.city;
     value.time = new Date()
     value.expiredDate = this.addDays(value.time, 30)
+    value.donatedFunds = 0
 
     value.requisites = []; let temp = 0;
     for(let i = 0; i < 4; i++) {
@@ -236,11 +237,13 @@ export class DonationsComponent implements OnInit {
   }
 
   openHelp(e: any) {
+    console.log(e.composedPath()[0])
+    console.log(e.composedPath()[0].className)
+    console.log(e.composedPath()[3].children[1])
     if(e.composedPath()[0].className == 'help') {
-      window.scrollTo({top: 0}); e.composedPath()[1].classList.add('open'); document.body.classList.add('lock');
+      window.scrollTo({top: 0}); e.composedPath()[3].classList.add('open'); document.body.classList.add('lock');
     }
     if(e.composedPath()[0].className == 'help_back') {
-      console.log(e.composedPath());
       e.composedPath()[1].classList.remove('open'); document.body.classList.remove('lock');
     }
   }

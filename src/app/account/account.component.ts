@@ -250,55 +250,6 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  uploadNewAccountImage($event : any){
-    let reader = new FileReader();
-    reader.readAsDataURL($event?.target.files[0]);
-
-    const dbInstance = collection(this.firestore, 'users');
-    const userQuery = query(dbInstance, where("userID", "==", `${this.user.userID}`))
-    onSnapshot(userQuery, (data) => {
-      let key  = (data.docs.map((item) => {
-        return item.id
-      })[0])
-      const dataToUpdate = doc(this.firestore, "users", key);
-      updateDoc(dataToUpdate, {
-        specialStatus: status
-      }).then(() => {}).catch((err) => { alert(err.message) })
-    })
-
-
-    reader.onload = (event: any) => { // @ts-ignore
-      document.querySelector('.account-edit-image-input-label img').src = event.target.result
-      this.accountImageTemp = event.target.result
-
-      const storageRef = ref(this.storage, `images/${this.accountImageTemp.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, $event.target.files[0]);
-      console.log(storageRef)
-      console.log(uploadTask)
-
-      // this.accountImage = this.accountImageTemp;
-      console.log(this.user.userID)
-
-      const q = query(collection(this.firestore, "users"), where("userID", "==", this.user.userID));
-      console.log(q)
-      getDocs(q).then( (data) => {
-        let id = data.docs.map( (item) => item.id)
-        console.log(id)
-        uploadTask.on('state_changed',
-            (snapshot) => { },
-            (error) => { console.log(error.message) },
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                const dataToUpdate = doc(this.firestore, "users", `${id}`);
-
-                updateDoc(dataToUpdate, { avatar: downloadURL }).then(() => {console.log("Photo updated") }).catch((err) => { alert(err.message) })
-              });
-            }
-        )
-      })
-    }
-  }
-
   handleActivatePost(e: any, post : any){
     const dataToUpdate= doc(this.firestore, 'posts', `${post.id}`)
     updateDoc(dataToUpdate, {visibility: "active"}).then( () => {
