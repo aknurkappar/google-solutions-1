@@ -256,6 +256,10 @@ button, input{
     margin-bottom: 7px;
 }
 
+.location
+{
+    color: #545454;
+}
 .category_type
 {
     font-size: 18px;
