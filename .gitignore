@@ -1,3 +1,4 @@
 node_modules
 .*
-src/environments/*
+environment.development.ts
+environment.ts
