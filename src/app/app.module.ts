@@ -72,7 +72,7 @@ import {AgmCoreModule} from "@agm/core";
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCvyJd83113PsK1sK98o8-I-JjrYKotLPU',
             libraries: ['places']
-        })
+        }),
     ],
   providers: [
     ScreenTrackingService,UserTrackingService

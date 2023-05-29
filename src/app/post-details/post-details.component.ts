@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { collection, doc, Firestore, onSnapshot, deleteDoc, query, where, updateDoc, arrayUnion, arrayRemove } from "@angular/fire/firestore";
 import { User } from "../models/user";
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "@angular/fire/auth";
+import {MapsAPILoader} from "@agm/core";
 
 interface carouselImage {
   imageSrc: string;
@@ -25,15 +26,18 @@ export class PostDetailsComponent implements OnInit {
   public postId: String | undefined
   public specialStatus: boolean = false
   sliderImages: carouselImage[] = []
+
   CorrectOTP = ""
-  OTPCurrentIndex : number = 0;
+  OTPCurrentIndex : number = 0
+
   isDonate: boolean = false
 
-  latitude: number = 0;
-  longitude: number = 0;
-  zoom: number = 0;
+  // @ts-ignore
+  map: google.maps.Map;
 
-  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router) {
+  private geoCoder: google.maps.Geocoder | undefined;
+
+  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     this.user = {} as User;
   }
 
@@ -100,17 +104,41 @@ export class PostDetailsComponent implements OnInit {
       });
     }
 
-    this.setCurrentLocation()
+    setTimeout(() => {
+      this.initMap();
+      this.geocodeAddress(this.post.location);
+    }, 500)
   }
 
-  setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
+  initMap() {
+    this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+      center: { lat: 0, lng: 0 },
+      zoom: 12
+    });
+  }
+
+  geocodeAddress(address: string) {
+    this.mapsAPILoader.load().then(() => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address }, (results, status) => {
+        if(status === 'OK' && results[0]) {
+          const location = results[0].geometry.location;
+          console.log('Latitude:', location.lat());
+          console.log('Longitude:', location.lng());
+
+          // Update the map's center
+          this.map.setCenter(location);
+
+          // Add a marker for the geocoded address
+          new google.maps.Marker({
+            position: location,
+            map: this.map
+          });
+        } else {
+          console.error('Geocode was not successful for the following reason:', status);
+        }
       });
-    }
+    });
   }
 
   classExpression(): string {
