@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {
   addDoc,
   arrayUnion,
@@ -34,6 +34,11 @@ export class DonationsComponent implements OnInit {
   public filesUploaded: boolean = false;
 
   public loaded: boolean;
+
+  donateFunds = ""
+  accepted = false
+
+  timer: any
 
   ngOnInit(){
     const auth = getAuth();
@@ -245,6 +250,8 @@ export class DonationsComponent implements OnInit {
     }
     if(e.composedPath()[0].className == 'help_back') {
       e.composedPath()[1].classList.remove('open'); document.body.classList.remove('lock');
+      this.donateFunds = ''; e.composedPath()[1].querySelector(".pay_by_google input").value = "";
+      this.accepted = false
     }
   }
 
@@ -293,6 +300,18 @@ export class DonationsComponent implements OnInit {
       e.composedPath()[0].classList.remove("show")
       document.body.classList.remove("lock")
     }
+  }
+
+  setDonateValue(e: any) {
+    const value = e.composedPath()[0].value
+
+    clearTimeout(this.timer)
+    this.accepted = false
+
+    this.timer = setTimeout(() => {
+      this.donateFunds = value
+      if(this.donateFunds.length > 2) this.accepted = true
+    }, 500)
   }
 
 }

@@ -632,7 +632,7 @@
     width: 100%;
     height: 100%;
 
-    background: rgba(0, 0, 0, .15);
+    background: rgba(0, 0, 0, .25);
 
     position: absolute;
     top: 0;
@@ -659,7 +659,7 @@
     width: 520px;
     height: 295px;
 
-    transform:  translateY(100%) scale(0.2);
+    transform: translateY(100%) scale(0.2);
     transition: .2s;
 
     background: #b59a69;
@@ -679,6 +679,44 @@
     cursor: default;
 }
 .right.open .help_card
+{
+    transform: scale(1);
+}
+.pay_by_google
+{
+    width: 455px;
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pay_by_google input
+{
+    width: 200px;
+    height: 40px;
+
+    margin-bottom: 4px;
+    padding: 0 20px;
+
+    background: #fff;
+    border: 1px solid #E2E2E2;
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .15);
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+
+    box-sizing: border-box;
+}
+app-pay-button
+{
+    position: relative;
+
+    transform: translateY(100%) scale(0.2);
+    transition: .2s;
+}
+.right.open app-pay-button
 {
     transform: scale(1);
 }

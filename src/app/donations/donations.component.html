@@ -117,6 +117,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pay_by_google">
+                            <input type="text" (keyup)="setDonateValue($event)" placeholder="Minimum 100₸">
+                            <app-pay-button *ngIf="!accepted" [credit]="{price: '', donationID: '', postID: '', takerID: '', type: ''}"></app-pay-button>
+                            <app-pay-button *ngIf="accepted" [credit]="{price: donateFunds, donationID: don.id, postID: '', takerID: '', type: 'justDonation'}"></app-pay-button>
+                        </div>
                     </div>
                 </div>
             </div>

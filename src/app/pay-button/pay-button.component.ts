@@ -9,11 +9,9 @@ import {doc, Firestore, increment, updateDoc} from "@angular/fire/firestore";
 export class PayButtonComponent implements OnInit{
   @Input() credit: any
 
-  constructor(public firestore: Firestore) {
-  }
+  constructor(public firestore: Firestore) {}
 
   ngOnInit() {
-    console.log(this.credit)
     this.paymentRequest.transactionInfo.totalPrice = this.credit.price
   }
 
@@ -59,35 +57,36 @@ export class PayButtonComponent implements OnInit{
   onPaymentDataAuthorized: google.payments.api.PaymentAuthorizedHandler = (
       paymentData
   ) => {
-    const dataToUpdate = doc(this.firestore, "donations", this.credit.donationID);
-    updateDoc(dataToUpdate, {
-      donatedFunds: increment(this.credit.price)
-    }).then(() => {
-
-    }).catch((err) => {
-      alert(err.message)
-      location.reload()
-    })
-
-    const dataToUpdate2 = doc(this.firestore, "B&D", this.credit.postID);
-    updateDoc(dataToUpdate2, {
-      visibility: "B&D",
-      takerID: this.credit.takerID
-    }).then(() => {
-
-    }).catch((err) => {
-      alert(err.message)
-      location.reload()
-    })
-
-
+    if(this.credit.type == "B&D") {
+      const dataToUpdate = doc(this.firestore, "donations", this.credit.donationID);
+      updateDoc(dataToUpdate, {
+        donatedFunds: increment(this.credit.price)
+      }).then(() => {
+      }).catch((err) => {})
+      const dataToUpdate2 = doc(this.firestore, "B&D", this.credit.postID);
+      updateDoc(dataToUpdate2, {
+        visibility: "B&D",
+        takerID: this.credit.takerID
+      }).then(() => {
+      }).catch((err) => {})
+    }
+    else {
+      const dataToUpdate = doc(this.firestore, "donations", this.credit.donationID);
+      updateDoc(dataToUpdate, {
+        donatedFunds: increment(this.credit.price)
+      }).then(() => {
+        location.reload()
+      }).catch((err) => {})
+    }
 
     return {
       transactionState: "SUCCESS"
     }
+
   }
 
   onError = (event: ErrorEvent): void => {
     console.log('error', event.error)
   }
+
 }
