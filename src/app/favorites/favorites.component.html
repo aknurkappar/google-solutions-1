@@ -62,7 +62,7 @@
                         </div>
                     </a>
                     <div class="right">
-                        <div class="count">{{fav.amount}}</div>
+                        <div class="count">{{fav.donate == false ? fav.amount : fav.price+"₸"}}</div>
                         <div class="add_to_fav">
                             <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, fav)" alt="">
                             <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, fav)" alt="">

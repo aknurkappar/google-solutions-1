@@ -197,7 +197,19 @@ button
     transition: .2s;
     display: none;
 }
+.get_buttons app-pay-button
+{
+    display: none;
+}
 .get_buttons.special .post-details-get-button
+{
+    display: block;
+}
+.get_buttons.bought .post-details-get-button
+{
+    display: block;
+}
+.get_buttons.not_bought app-pay-button
 {
     display: block;
 }
@@ -392,7 +404,6 @@ button
     width: 15px;
     height: 20px;
     margin-right: 10px;
-    border: none;
     background: #f0f0f0;
     border: 1px solid #E2E2E2;
     box-shadow: 0 0 1px rgba(0, 0, 0, .2);

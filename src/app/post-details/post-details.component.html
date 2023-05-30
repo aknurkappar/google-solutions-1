@@ -47,9 +47,8 @@
                 <div class="text-bottom">
                     <p class="post-amount"><span>Amount:</span> {{post.amount}}</p>
                     <div [ngClass]="classExpression()">
-                        <button>Buy now</button>
                         <button (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
-                        <app-pay-button *ngIf="isDonate"></app-pay-button>
+                        <app-pay-button *ngIf="isDonate" [credit]="{price: post.price, donationID: post.donationID, postID: postId, takerID: this.user.uniqID}"></app-pay-button>
                     </div>
                 </div>
             </div>
@@ -83,6 +82,13 @@
         <div class="post-details-bottom product_location" style="margin-top: 15px !important;">
             <p id="title2">Location</p>
             <p style="margin-top: 5px; margin-left: 0; margin-bottom: 18px">
+        <div [ngClass]="(specialStatus || this.user.uniqID == this.post.takerID) ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
+            <p id="subtitle">Owner contacts</p>
+            <p style="margin-bottom: 6px;">
+                <span class="material-symbols-outlined">call</span>
+                {{post.phone}}
+            </p>
+            <p>
                 <span class="material-symbols-outlined">location_on</span>
                 Kazakhstan, {{post.location}}
             </p>
