@@ -236,7 +236,7 @@
                         <p class="post-deactivate-button" (click)="handleDeactivatePost(post)" *ngIf="post.visibility == 'active'">Deactivate</p>
                         <p class="post-activate-button" (click)="handleActivatePost($event, post)" *ngIf="post.visibility == 'inactive'">Activate</p>
                         </span>
-                        <p class="post-info-text" (click)="openCodeModal($event)">Give it right now</p>
+                        <p *ngIf="post.takerID!==this.user.uniqID" class="post-info-text" (click)="openCodeModal($event)">Give it right now</p>
                     </div>
                     <div class="edit-post-modal-background" (click)="closeEditPostModal($event)">
                         <div class="edit-post-modal">
