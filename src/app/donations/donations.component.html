@@ -88,7 +88,7 @@
                 <div class="right" (click)="openHelp($event)">
                     <div class="right-side-content">
                         <div class="percentage-content">
-                            <p>{{don.donatedFunds}}₸ / {{don.amount.toString().replace('/\B(?=(\d{3})+(?!\d))/g', ' ')}}₸</p>
+                            <p>{{don.donatedFunds}}₸ / {{don.amount}}₸</p>
                             <div class="percentage-line">
                                 <div class="percentage" [ngStyle]="{'width' : (don.donatedFunds * 100 /don.amount) + '%'}"></div>
                             </div>

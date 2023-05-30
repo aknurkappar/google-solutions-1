@@ -21,8 +21,11 @@ export const categories = [
       new Category("Shoes", []), new Category("Dress", []), new Category("T-Shirt", [])
     ]),
   ]),
+  new Category( "For babies", []),
   new Category( "Food", [
     new Category("Vegetables", [] ),
     new Category("Fruits", [] ),
   ]),
+  new Category( "Home", []),
+  new Category( "Travel", []),
 ]

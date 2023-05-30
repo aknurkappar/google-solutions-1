@@ -212,6 +212,7 @@
 {
     padding: 10px 0;
     overflow: visible;
+    height: fit-content!important;
 }
 .select_category::-webkit-scrollbar, .select_city::-webkit-scrollbar
 {

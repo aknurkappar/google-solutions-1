@@ -12,11 +12,9 @@ import {AddPostFormService} from "../services/add-post-form.service";
 export class AddPostSecondStepComponent implements OnInit{
   public donations: any = [];
   public loaded: boolean;
-  public user : User
   public notSelectedMessage = "Please, choose one donation to which proceeds from this item will be donated."
   constructor(public firestore: Firestore, public storage: Storage, public addPostFormService: AddPostFormService) {
     this.loaded = false;
-    this.user = {} as User;
   }
   ngOnInit(): void {
     this.getData()
@@ -50,9 +48,9 @@ export class AddPostSecondStepComponent implements OnInit{
       })
       // @ts-ignore
       this.donations = this.donations.filter(x => x.visible)
-      // this.initialDonations = this.donations
+      // @ts-ignore
+      this.donations = this.donations.filter(x => x.ownerId != this.addPostFormService.user.userID)
       this.loaded = true;
-      // this.donations = this.donations.filter((value) => value.visible === true)
     }).catch( (err) => { alert(err.message) }
     ).finally( () => {
     })

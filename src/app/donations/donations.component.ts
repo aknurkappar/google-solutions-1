@@ -112,8 +112,17 @@ export class DonationsComponent implements OnInit {
       temp += 5;
     }
 
-    if(value.title == "" || value.reason == "" || !this.imageUploaded || !this.filesUploaded || appForm.querySelector('.input_requisites').value.length < 19 || value.name == "" || value.surname == "" || value.phone == "") {
-      console.log(appForm.querySelector('.input_requisites').value.length)
+    if(value.title == ""
+        || value.reason == ""
+        || !this.imageUploaded
+        || !this.filesUploaded
+        || appForm.querySelector('.input_requisites').value.length < 19
+        || value.name == ""
+        || value.surname == ""
+        || value.phone == ""
+        || value.amount == 0
+    ) {
+      // console.log(appForm.querySelector('.input_requisites').value.length)
       appForm.classList.add('occured');
       for(let i = 0; i < appForm.querySelectorAll('input').length; i++) {
         if(appForm.querySelectorAll('input')[i].value == "") {
@@ -124,6 +133,7 @@ export class DonationsComponent implements OnInit {
       if(appForm.querySelector('textarea').value == "") appForm.querySelector('textarea').style.borderColor = '#e81f1f';
       if(!this.imageUploaded) appForm.querySelector('.file label').style.borderColor = '#e81f1f';
       if(!this.filesUploaded) appForm.querySelector('.baska label').style.borderColor = '#e81f1f';
+      if(value.amount == 0) appForm.querySelector('donation-amount').style.borderColor = '#e81f1f';
       setTimeout(() => {
         for(let i = 0; i < appForm.querySelectorAll('input').length; i++) {
           appForm.querySelectorAll('input')[i].style.borderColor = '#E2E2E2';
@@ -131,6 +141,7 @@ export class DonationsComponent implements OnInit {
         appForm.querySelector('textarea').style.borderColor = '#E2E2E2';
         appForm.querySelector('.file label').style.borderColor = '#E2E2E2';
         appForm.querySelector('.baska label').style.borderColor = '#E2E2E2';
+        appForm.querySelector('.donation-amount').style.borderColor = '#E2E2E2';
         appForm.classList.remove('occured');
       }, 3000);
       return
