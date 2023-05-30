@@ -230,11 +230,12 @@ export class AccountComponent implements OnInit {
   }
 
   openCodeModal(e : any) {
-    e.composedPath()[2].children[3].classList.add("modal-active");
+    e.composedPath()[2].children[3].classList.add("modal-active")
+    document.body.classList.add("lock")
   }
-
   closeCodeModal(e : any) {
     e.composedPath()[0].classList.remove("modal-active")
+    document.body.classList.remove("lock")
   }
 
   uploadNewAccountImage1($event : any){

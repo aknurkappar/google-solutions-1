@@ -163,6 +163,9 @@ export class PostDetailsComponent implements OnInit {
     if(this.specialStatus) {
       return 'post-details-bottom-text special'
     }
+    if(this.post.price != undefined) {
+      return 'post-details-bottom-text special'
+    }
     if(this.post.ownerId == this.user.userID) {
       return 'post-details-bottom-text special'
     }
