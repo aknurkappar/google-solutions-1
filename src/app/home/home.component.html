@@ -1,32 +1,66 @@
 <app-carousel [images]="sliderImages" [autoSlide]="true" [slideInterval]="4000" class="app-carousel"></app-carousel>
 <div class="ad">
-    <div class="catalog">
-        <span>Catalog</span>
-        <ul class="catalog_item">
-            <li on-click="selectCategory($event, category)" *ngFor="let category of categories">
-                <div class="catalog_top main" (click)="filterByCategory($event)">
-                    <p>{{category.name}}</p>
-                    <img class ="sub_selector" [ngClass]="category.subCategories && category.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+
+    <div class="left-section">
+        <div class="catalog">
+            <span>Catalog</span>
+            <ul class="catalog_item">
+                <li on-click="selectCategory($event, category)" *ngFor="let category of categories">
+                    <div class="catalog_top main" (click)="filterByCategory($event)">
+                        <p>{{category.name}}</p>
+                        <img class ="sub_selector" [ngClass]="category.subCategories && category.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+                    </div>
+                    <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="sub_catalog">
+                        <li on-click="selectCategory($event, subCategory)" *ngFor="let subCategory of category.subCategories">
+                            <div class="catalog_top middle" (click)="filterByCategory($event)">
+                                <p>{{subCategory.name}}</p>
+                                <img class="sub_selector" [ngClass]="subCategory.subCategories && subCategory.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
+                            </div>
+                            <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="sub_sub_catalog">
+                                <li on-click="selectCategory($event, subCategorySub)" *ngFor="let subCategorySub of subCategory.subCategories">
+                                    <div class="catalog_top child" (click)="filterByCategory($event)">
+                                        <p>{{subCategorySub.name}}</p>
+                                        <img class="sub_selector" src="../../assets/arrow.svg"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+            <div class="leaderboard">
+                <div class="leaderboard-title">
+                    <img src="./assets/cup.png" alt="cup"/>
+
+                    <div>
+                        <p class="leaderboard-main-title">Giving Legends!</p>
+                        <p>Leaderboard of generous users in BeJomart</p>
+                    </div>
                 </div>
-                <ul *ngIf="category.subCategories && category.subCategories.length > 0" class="sub_catalog">
-                    <li on-click="selectCategory($event, subCategory)" *ngFor="let subCategory of category.subCategories">
-                        <div class="catalog_top middle" (click)="filterByCategory($event)">
-                            <p>{{subCategory.name}}</p>
-                            <img class="sub_selector" [ngClass]="subCategory.subCategories && subCategory.subCategories.length > 0 ? 'sub_selector have' : 'sub_selector'" src="../../assets/arrow.svg"/>
-                        </div>
-                        <ul *ngIf="subCategory.subCategories && subCategory.subCategories.length > 0" class="sub_sub_catalog">
-                            <li on-click="selectCategory($event, subCategorySub)" *ngFor="let subCategorySub of subCategory.subCategories">
-                                <div class="catalog_top child" (click)="filterByCategory($event)">
-                                    <p>{{subCategorySub.name}}</p>
-                                    <img class="sub_selector" src="../../assets/arrow.svg"/>
+
+                <div class="leaderboard-list">
+                    <div *ngFor="let userElement of leaderboard, let i = index">
+                        <div class="user_side"  *ngIf="userElement.baursaks > 0">
+                            <div class="link_to_profile">
+                                <img class="avatar"*ngIf="userElement.avatar" src="{{userElement.avatar}}" alt="">
+                                <div *ngIf="!userElement.avatar" class="no-avatar">
+                                    <img src="../assets/avatar.png" alt="">
                                 </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                                <img class="star" src="./assets/gold-star.png" *ngIf="i < 3"/>
+                                <img class="star" src="./assets/silver-star.png" *ngIf="i >= 3 && i < 6"/>
+                                <img class="star" src="./assets/bronze-star.png" *ngIf="i >= 6"/>
+                                <div class="user_names">
+                                    <span>{{userElement.fName}} {{userElement.lName.substring(0, 1)}}.</span>
+                                </div>
+                            </div>
+                            <div class="baursaks">{{userElement.baursaks}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
+
     <div class="main">
         <div class="filters">
             <div class="searching">
