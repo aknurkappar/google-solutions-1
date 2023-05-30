@@ -159,6 +159,19 @@ export class PostDetailsComponent implements OnInit {
     return 'get_buttons'
   }
 
+  ownerInfoExpression(): string {
+    if(this.specialStatus) {
+      return 'post-details-bottom-text special'
+    }
+    if(this.post.ownerId == this.user.userID) {
+      return 'post-details-bottom-text special'
+    }
+    if(this.post.takerID != null && this.post.takerID == this.user.uniqID) {
+      return 'post-details-bottom-text special'
+    }
+    return 'post-details-bottom-text'
+  }
+
   closeOTPModal(e : any) {
     if(e.composedPath()[0].classList[0] === "modal-background") {
       e.composedPath()[0].classList.toggle("modal-active");
