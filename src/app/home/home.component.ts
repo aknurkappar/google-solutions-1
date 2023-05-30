@@ -43,13 +43,8 @@ export class HomeComponent implements OnInit{
   public postCategory: any = [];
   public categories = categories;
   public user: User
-  public postImages: any = [];
   public loaded: boolean;
-
-  public isActive : boolean = true
-
-  startAt = new Subject()
-  endAt = new Subject()
+  public leaderboard : any[] = [];
 
   sliderImages = [
     {
@@ -81,11 +76,13 @@ export class HomeComponent implements OnInit{
               public modalConditionService: ModalConditionService
   ) {
     this.getData();
+    this.getLeaderboard()
     this.uploaded = false;
     this.loaded = false;
     this.user = {} as User;
     this.myFavorites = [] as any;
     this.ads = [] as any;
+    this.leaderboard = [] as any;
     this.initialPosts = [] as any;
   }
 
@@ -107,6 +104,8 @@ export class HomeComponent implements OnInit{
         })
       }
     });
+
+
   }
 
   getData() {
@@ -131,6 +130,22 @@ export class HomeComponent implements OnInit{
           return value.favorite.includes(this.user.userID)
         }
       }).map((value) => value.id);
+    })
+  }
+
+  getLeaderboard(){
+    const dbInstance = collection(this.firestore, 'users');
+    getDocs(dbInstance).then( (response) => {
+      this.leaderboard = [...response.docs.map( (item) => {
+        return { ...item.data(), id:item.id }})
+      ].sort((n1, n2) => { // @ts-ignore
+        return n2.baursaks - n1.baursaks;
+      })
+      // this.notifications = this.notifications.filter((value) =>  value.userID === this.user.userID)
+    }).catch( (err) => { alert(err.message) }
+    ).finally( () => {
+      this.leaderboard = this.leaderboard.slice(0, 10)
+      console.log(this.leaderboard)
     })
   }
 
