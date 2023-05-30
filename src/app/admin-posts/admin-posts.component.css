@@ -58,14 +58,20 @@
     flex-direction: column;
     justify-content: space-between;
 
+    max-width: 330px;
     padding: 5px 0;
 }
 .top_info div:first-child
 {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 600;
 
     margin-bottom: 7px;
+    max-width: 330px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .owner
 {
