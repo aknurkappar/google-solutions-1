@@ -23,6 +23,13 @@
                         <div class="details-content">
                             <p class="detail-title">Reason:</p>
                             <p>{{donation.reason}}</p>
+
+                            <p class="detail-title">Donation fund:</p>
+                            <p class="details-text">{{donation.donatedFunds}}₸ / {{donation.amount}}₸
+                            <span> ({{(donation.donatedFunds * 100 /donation.amount).toString().slice(0, 2)}}%)</span>
+                            </p>
+
+
                         </div>
 
                     </div>

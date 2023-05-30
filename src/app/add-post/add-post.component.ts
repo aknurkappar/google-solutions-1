@@ -53,10 +53,10 @@ export class AddPostComponent implements OnInit{
 
   closeModal(e: any) {
     if(e.composedPath()[0].className == "create_post_back") {
-      this.location.back(); document.body.classList.toggle('lock')
+      this.router.navigate(["/home"]); document.body.classList.toggle('lock')
     }
     if(e.composedPath()[1].className == "close_post") {
-      this.location.back(); document.body.classList.toggle('lock')
+      this.router.navigate(["/home"]); document.body.classList.toggle('lock')
     }
   }
   post(event : any) {

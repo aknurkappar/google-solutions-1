@@ -195,10 +195,18 @@
     display: flex;
 }
 
-.detail-title{
+.detail-title, .details-text{
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 3px;
+}
+
+.detail-title{
+    margin-top: 7px;
+}
+
+.details-text span{
+    font-weight: 500;
 }
 
 .triangle {
