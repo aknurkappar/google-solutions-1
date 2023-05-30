@@ -374,6 +374,8 @@
 
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+
+    cursor: pointer;
 }
 .loading
 {
@@ -644,45 +646,47 @@
 {
     display: block;
 }
-.city .options{
+.city .options
+{
     display: none;
 }
-
-.city:hover .options{
+.city:hover .options
+{
     display: block;
 }
-
 .city:hover.selector img
 {
     transform: rotate(0deg);
 }
 
-.leaderboard{
+.leaderboard
+{
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     width: 90%;
 }
-
-.leaderboard-title{
+.leaderboard-title
+{
     display: flex;
-    flex-direction: row;
+    align-items: center;
 }
-
-.leaderboard-title img{
+.leaderboard-title img
+{
     width: 70px;
-    margin-right: 7px;
+    margin-right: 12px;
 }
-
-.leaderboard-main-title{
-    font-size: 22px;
+.leaderboard-main-title
+{
+    font-size: 21px;
     font-weight: 600;
-}
 
-.leaderboard-list{
-    margin: 15px;
+    margin-bottom: 4px;
 }
-
+.leaderboard-list
+{
+    margin: 5px 15px;
+}
 .user_side
 {
     display: flex;

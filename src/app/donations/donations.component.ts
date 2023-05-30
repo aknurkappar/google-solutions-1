@@ -270,7 +270,7 @@ export class DonationsComponent implements OnInit {
 
   search(e: any){
     this.donations = this.initialDonations;
-    if(e.composedPath()[0].value && e.composedPath()[0].value.trim()){
+    if(e.composedPath()[0].value && e.composedPath()[0].value.trim()) {
       const res = this.donations.filter((x: { title: string; }) => {
         let selected = e.composedPath()[0].value.toLowerCase().trim();
         let target = x.title.toLowerCase().trim()
@@ -278,8 +278,20 @@ export class DonationsComponent implements OnInit {
         return target.match(reg)
       });
       this.donations = res
-    } else{
+    } else {
       this.donations = this.initialDonations
+    }
+  }
+
+  openImage(e: any) {
+    e.composedPath()[4].querySelector(".full_image").classList.add("show")
+    document.body.classList.add("lock")
+  }
+  closeImage(e: any) {
+    console.log(e.composedPath()[0].className)
+    if(e.composedPath()[0].className == "full_image show") {
+      e.composedPath()[0].classList.remove("show")
+      document.body.classList.remove("lock")
     }
   }
 

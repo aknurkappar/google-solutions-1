@@ -1,30 +1,49 @@
 <div class="admin-special-users-list">
     <div class="admin-special-user" *ngFor="let spuser of specialUsers">
-            <div class="admin-special-user-left-side">
-                <div class="admin-special-user-main-image">
-                    <img src="assets/donation-image.png"/>
-                </div>
-                <div>
-                    <p class="admin-special-user-name">{{spuser.fname}} {{spuser.lname}}</p>
-                    <p>{{spuser.time.toDate() | date:'HH:mm  dd.MM.yyyy'}}</p>
+        <div class="admin-special-user-left-side">
+            <div class="admin-special-user-main-image">
+                <img src="assets/donation-image.png" alt="">
+            </div>
+            <div>
+                <p class="admin-special-user-name">{{spuser.fname}} {{spuser.lname}}</p>
+                <div class="time">
+                    Sent on {{spuser.time.toDate() | date:'dd.MM.yyyy'}}
+                    at {{spuser.time.toDate() | date:'HH:mm'}}
                 </div>
             </div>
-
-            <div class="admin-special-user-right-side">
-                <img (click)="downloadDoc(spuser)" src="./assets/download.png"/>
-                <button class="accept-button" (click)="openContinueModal($event)">Accept</button>
-                <button class="reject-button" (click)="openContinueModal($event)">Reject</button>
-            </div>
-
+        </div>
+        <div class="admin-special-user-right-side">
+            <img (click)="downloadDoc(spuser)" src="./assets/download.png" alt="">
+            <button class="accept-button" (click)="openContinueModal($event)">Accept</button>
+            <button class="reject-button" (click)="openContinueModal($event)">Reject</button>
             <div class="modal-background">
                 <div class="continue-button">
                     <p>You won't be able to return this action. Continue?</p>
                     <div>
                         <button (click)="cancelAction($event)">Cancel</button>
-                        <button (click)="doAction($event, spuser)" >Yes</button>
+                        <button (click)="doAction($event, spuser, 'accept')">Yes</button>
                     </div>
                 </div>
             </div>
+            <div class="modal-background-cancel">
+                <div class="continue-button">
+                    <p>You won't be able to return this action. Continue?</p>
+                    <div>
+                        <button (click)="cancelAction($event)">Cancel</button>
+                        <button (click)="doAction($event, spuser, 'reject')">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        <div class="modal-background">-->
+<!--            <div class="continue-button">-->
+<!--                <p>You won't be able to return this action. Continue?</p>-->
+<!--                <div>-->
+<!--                    <button (click)="cancelAction($event)">Cancel</button>-->
+<!--                    <button (click)="doAction($event, spuser)" >Yes</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
 

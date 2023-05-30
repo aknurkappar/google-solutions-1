@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {addDoc, Firestore, collection, getDocs, updateDoc, doc, deleteDoc, arrayUnion, query, where, onSnapshot } from '@angular/fire/firestore'
-import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage'
+
+import { addDoc, Firestore, collection, getDocs, updateDoc, doc, deleteDoc, query, where, onSnapshot } from '@angular/fire/firestore'
+import { Storage } from '@angular/fire/storage'
 
 @Component({
   selector: 'app-admin-special-users',
@@ -8,7 +9,7 @@ import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fir
   styleUrls: ['./admin-special-users.component.css']
 })
 export class AdminSpecialUsersComponent {
-  currentAction : any;
+
   specialUsers: any[] | undefined;
 
   constructor(public firestore: Firestore, public storage: Storage) {
@@ -16,23 +17,30 @@ export class AdminSpecialUsersComponent {
   }
 
   openContinueModal(e : any){
-    e.composedPath()[2].children[2].style.display = "flex";
-    this.currentAction = e.target;
+    console.log(e.composedPath()[0])
+    if(e.composedPath()[0].innerHTML === 'Accept') {
+      e.composedPath()[1].childNodes[3].classList.add('open'); document.body.classList.add('lock');
+    }
+    if(e.composedPath()[0].innerHTML === 'Reject') {
+      e.composedPath()[1].childNodes[4].classList.add('open'); document.body.classList.add('lock');
+    }
   }
 
   cancelAction(e : any){
-    e.composedPath()[4].children[2].style.display = "none"
+    e.composedPath()[3].classList.remove('open');
+    document.body.classList.remove('lock');
   }
 
-  doAction(e : any, spuser: any){
-    if(this.currentAction.innerText === "Accept"){
+  doAction(e : any, spuser: any, chosen: string) {
+    if(chosen === "accept") {
       this.giveStatus(spuser, true)
       this.acceptPost(spuser.userID)
-      e.composedPath()[4].children[2].style.display = "none"
-    } else if(this.currentAction.innerText === "Reject"){
+      document.body.classList.remove('lock');
+    }
+    if(chosen === "reject") {
       this.giveStatus(spuser, false)
       this.rejectPost(spuser.userID)
-      e.composedPath()[4].children[2].style.display = "none"
+      document.body.classList.remove('lock');
     }
 
     const dataToDelete = doc(this.firestore, 'requestToStatus', `${spuser.id}`)
@@ -73,8 +81,7 @@ export class AdminSpecialUsersComponent {
     getDocs(dbInstance).then( (response) => {
       this.specialUsers = [...response.docs.map( (item) => {
         return { ...item.data(), id:item.id }})
-      ].sort((n1, n2) => {
-        // @ts-ignore
+      ].sort((n1, n2) => { // @ts-ignore
         return n2.time - n1.time
       } )
     }).catch( (err) => { alert(err.message) }

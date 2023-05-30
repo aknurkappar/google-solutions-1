@@ -50,8 +50,18 @@
                 <div class="block">
                     Photos
                     <div class="photos">
-                        <img src="{{post.mainIMG}}" alt="">
-                        <img *ngFor="let image of post.images" src="{{image}}" alt="">
+                        <div>
+                            <img class="poster_img" src="{{post.mainIMG}}" alt="" (click)="openImage($event)">
+                            <div class="full_image" (click)="closeImage($event)">
+                                <img src="{{post.mainIMG}}" alt="">
+                            </div>
+                        </div>
+                        <div *ngFor="let image of post.images">
+                            <img class="poster_img" src="{{image}}" alt="" (click)="openImage($event)">
+                            <div class="full_image" (click)="closeImage($event)">
+                                <img src="{{image}}" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="double_block">

@@ -187,7 +187,7 @@
     display: flex !important;
     margin-top: 8px;
 }
-.photos img
+.photos .poster_img
 {
     width: 150px;
     height: 150px;
@@ -196,6 +196,7 @@
     border-radius: 7px;
 
     margin-right: 8px;
+    cursor: pointer;
 }
 .category_type
 {
@@ -423,4 +424,31 @@ input[type=range]::-webkit-slider-runnable-track
 {
     border: 1px solid #3A47B9;
     color: #3A47B9;
+}
+
+.full_image
+{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+
+    background: rgba(0, 0, 0, .25);
+
+    width: 100%;
+    height: 100vh;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.full_image.show
+{
+    display: flex;
+}
+.full_image img
+{
+    max-width: 950px;
+    max-height: 650px;
+    object-fit: cover;
 }

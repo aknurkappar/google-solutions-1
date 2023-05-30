@@ -146,4 +146,16 @@ export class AdminDonationsComponent implements OnInit{
     }
   }
 
+  openImage(e: any) {
+    e.composedPath()[4].querySelector(".full_image").classList.add("show")
+    document.body.classList.add("lock")
+  }
+  closeImage(e: any) {
+    console.log(e.composedPath()[0].className)
+    if(e.composedPath()[0].className == "full_image show") {
+      e.composedPath()[0].classList.remove("show")
+      document.body.classList.remove("lock")
+    }
+  }
+
 }

@@ -70,9 +70,12 @@
     </div>
     <div *ngIf="loaded" class="list">
         <div *ngFor="let don of donations"  class="item_cont">
+            <div class="full_image" (click)="closeImage($event)">
+                <img src="{{don.file}}" alt="">
+            </div>
             <div class="item">
                 <div class="left">
-                    <div class="image">
+                    <div class="image" (click)="openImage($event)">
                         <img src="{{don.file}}" alt="">
                     </div>
                     <div class="info_ad">

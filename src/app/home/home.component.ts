@@ -69,12 +69,7 @@ export class HomeComponent implements OnInit{
     }
   ]
 
-  constructor(public firestore: Firestore,
-              public storage: Storage,
-              public router: Router,
-              public modalsCondition: ModalConditionService,
-              public modalConditionService: ModalConditionService
-  ) {
+  constructor(public firestore: Firestore, public storage: Storage, public router: Router) {
     this.getData();
     this.getLeaderboard()
     this.uploaded = false;
@@ -89,11 +84,10 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if(user) {
         const uid = user.uid;
         const dbInstance = collection(this.firestore, 'users');
         const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
-
         onSnapshot(userQuery, (data) => {
           this.user = new User(data.docs.map((item) => {
             return {...item.data(), uniqID: item.id}
@@ -104,8 +98,6 @@ export class HomeComponent implements OnInit{
         })
       }
     });
-
-
   }
 
   getData() {
@@ -113,8 +105,7 @@ export class HomeComponent implements OnInit{
     getDocs(dbInstance).then( (response) => {
         this.ads = [...response.docs.map( (item) => {
           return { ...item.data(), id:item.id }})
-        ].sort((n1, n2) => {
-          // @ts-ignore
+        ].sort((n1, n2) => { // @ts-ignore
           return n2.time - n1.time
         } )
         for(let i of this.ads){
@@ -124,7 +115,6 @@ export class HomeComponent implements OnInit{
         this.initialPosts = this.ads
       }).catch( (err) => { alert(err.message) }
     ).finally( () => {
-      console.log(this.ads)
       this.myFavorites = this.ads.filter( value => {
         if(value.favorite != undefined){
           return value.favorite.includes(this.user.userID)
@@ -133,7 +123,7 @@ export class HomeComponent implements OnInit{
     })
   }
 
-  getLeaderboard(){
+  getLeaderboard() {
     const dbInstance = collection(this.firestore, 'users');
     getDocs(dbInstance).then( (response) => {
       this.leaderboard = [...response.docs.map( (item) => {
@@ -141,7 +131,6 @@ export class HomeComponent implements OnInit{
       ].sort((n1, n2) => { // @ts-ignore
         return n2.baursaks - n1.baursaks;
       })
-      // this.notifications = this.notifications.filter((value) =>  value.userID === this.user.userID)
     }).catch( (err) => { alert(err.message) }
     ).finally( () => {
       this.leaderboard = this.leaderboard.slice(0, 10)
@@ -166,7 +155,6 @@ export class HomeComponent implements OnInit{
     }
     else this.ads = this.initialPosts;
   }
-
 
   changeLocation(e: any) {
     if(e.composedPath()[0].innerHTML.length > 6) {
@@ -256,6 +244,21 @@ export class HomeComponent implements OnInit{
   filterByCategory(e: any) {
     this.ads = this.initialPosts;
     this.ads = this.ads.filter(value => value.category.includes(e.composedPath()[0].childNodes[0].innerHTML))
+  }
+
+  sortBy(e: any) {
+    this.ads = this.initialPosts
+    if(e.composedPath()[0].value == "Top") {
+      this.ads.sort((a, b) => {
+        if(a.time > b.time) return -1
+        else return 1
+      })
+    } else {
+      this.ads.sort((a, b) => {
+        if(a.time < b.time) return -1
+        else return 1
+      })
+    }
   }
 
 }

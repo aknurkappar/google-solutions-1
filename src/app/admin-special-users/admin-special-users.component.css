@@ -1,4 +1,87 @@
-.modal-background{
+.admin-special-users-list
+{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+}
+.admin-special-user
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 100px;
+
+    border: 1px solid #E2E2E2;
+    border-radius: 15px;
+
+    padding: 0 20px;
+}
+.admin-special-user-left-side, .admin-special-user-right-side
+{
+    display: flex;
+    align-items: center;
+}
+.admin-special-user-main-image
+{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+
+    margin-right: 18px;
+}
+.admin-special-user-main-image img
+{
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+.admin-special-user-name
+{
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.time
+{
+    color: #6B6B6B;
+    font-size: 15px;
+}
+
+.admin-special-user-right-side img
+{
+    width: 21px;
+
+    background: #3A47B9;
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    margin-right: 10px;
+    padding: 7px;
+}
+.accept-button, .reject-button
+{
+    width: 100px;
+    height: 35px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 7px;
+    background: #ff5353;
+    color: #fff;
+}
+.accept-button
+{
+    margin-right: 10px;
+    background: #68b668;
+}
+
+
+.modal-background, .modal-background-cancel
+{
     display: none;
     position: fixed;
     left: 0;
@@ -6,130 +89,53 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
-
-.continue-button{
+.modal-background.open, .modal-background-cancel.open
+{
+    display: flex;
+}
+.continue-button
+{
     display: flex;
     flex-direction: column;
     position: absolute;
-    width: 450px;
-    height: 100px;
     background: #FFFFFF;
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: 18px;
+    padding: 38px 33px 28px;
     font-size: 15px;
 }
-
-.modal-background, .continue-button{
+.modal-background p
+{
+    font-size: 16px;
+}
+.modal-background, .continue-button, .modal-background-cancel
+{
     justify-content: center;
     align-items: center;
 }
-
-
-.continue-button div{
+.continue-button div
+{
     display: flex;
     margin-top: 20px;
 }
-
-.continue-button button{
-    width: 90px;
+.continue-button button
+{
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    border: 1px solid #DADADA;
-    border-radius: 10px;
-    margin-right: 10px;
+    border: 1px solid #e2e2e2;
+    border-radius: 7px;
+    margin: 4px;
     background: none;
-    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
 }
-
-.continue-button button:hover{
+.continue-button button:hover
+{
     border: 1px solid #3A47B9;
-}
-
-.admin-special-users-list{
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-}
-
-.admin-special-user{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: inherit;
-    background: white;
-    height: 100px;
-    border: 1px solid #E2E2E2;
-    border-radius: 25px;
-}
-
-.admin-special-user-name{
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.admin-special-user-left-side, .admin-special-user-right-side{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-
-.admin-special-user-right-side{
-    margin-right: 20px;
-}
-
-.admin-special-user-main-image{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin: 0px 20px 0px 25px;
-}
-
-.admin-special-user-main-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.accept-button, .reject-button{
-    width: 100px;
-    font-size: 16px;
-    color: white;
-    padding: 10px 20px 10px 20px;
-    margin-right: 10px;
-    border-radius: 10px;
-}
-
-.accept-button{
-    background: #6ABF8C;
-}
-
-.reject-button{
-    background: #A14444;
-}
-
-
-.accept-button:hover{
-    background: #60b082;
-}
-
-.reject-button:hover{
-    background: #933d3d;
-}
-
-.admin-special-user-right-side img{
-    width: 23px;
-    background: #3A47B9;
-    padding: 7.7px;
-    margin-right: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.admin-special-user-right-side img:hover{
-    background: #2d388d;
+    color: #3A47B9;
 }

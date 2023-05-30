@@ -43,23 +43,30 @@ class Category {
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+  public user: User;
+
   public isActive = false;
   public isAuthorized: boolean = false;
   public isLoading = false;
+
   public imageIsLoading = false;
-  public user: User;
   public IdenticalImages: any = [];
   public SocialImages: any = [];
-  public certificateGivenDate: number | undefined;
-  public accountImage : any =  "./assets/profile.jpg";
   public accountImageTemp : any = ""
+
+  public certificateGivenDate: number | undefined;
+
   public categories : Category[];
   public selectedCategory : String;
   public selectedCategoryPath : String;
+
   public myPost: any[] = [];
-  public BuyDonate: any[] = [];
+  public buyDonate: any[] = [];
+  public myBuyDonate: any[] = [];
   public initialPost: any
+
   public specialStatus: boolean = false
+
   ngOnInit(): void {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -82,12 +89,21 @@ export class AccountComponent implements OnInit {
             this.initialPost = this.myPost
           })
 
-          const q2 = query(collection(this.firestore, "B&D"), where("takerID", "==", this.user.uniqID));
+          const q2 = query(collection(this.firestore, "B&D"), where("ownerId", "==", this.user.userID));
           getDocs(q2).then( (data) => {
-            this.BuyDonate = [...data.docs.map( (item) => {
+            this.myPost.push(...[...data.docs.map( (item) => {
+              return { ...item.data(), id:item.id }})
+            ])
+            this.initialPost = this.myPost
+          })
+
+          const q3 = query(collection(this.firestore, "B&D"), where("takerID", "==", this.user.uniqID));
+          getDocs(q3).then( (data) => {
+            this.buyDonate = [...data.docs.map( (item) => {
               return { ...item.data(), id:item.id }})
             ]
           })
+
           const colUsers = collection(this.firestore, "users");
           const docRef = doc(colUsers, `${this.user.uniqID}`);
           onSnapshot(docRef, (doc) => { // @ts-ignore
@@ -292,9 +308,11 @@ export class AccountComponent implements OnInit {
   showOnly(e: any) {
     this.myPost = this.initialPost;
     if(e.composedPath()[0].value !== "all") { // @ts-ignore
-        if(e.composedPath()[0].value == "B&D"){
-          this.myPost = this.BuyDonate
-        } else{
+        if(e.composedPath()[0].value == "B&D") {
+          this.myPost = this.buyDonate
+        } else if(e.composedPath()[0].value == "sold") {
+          this.myPost = this.myPost.filter(x => x.visibility == 'B&D')
+        } else {
           this.myPost = this.myPost.filter(x => x.visibility == e.composedPath()[0].value)
         }
     }

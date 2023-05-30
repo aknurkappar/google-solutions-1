@@ -47,7 +47,7 @@ export class FavoritesComponent implements OnInit {
     ngOnInit(): void {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
-            if (user) {
+            if(user) {
                 const uid = user.uid;
                 const dbInstance = collection(this.firestore, 'users');
                 const userQuery = query(dbInstance, where("userID", "==", `${uid}`));
@@ -67,7 +67,6 @@ export class FavoritesComponent implements OnInit {
                     })
                     getDocs(q2).then((data)=> {
                         this.myFavorites.push(...[...data.docs.map( (item) => {
-                            console.log(item.data())
                             return { ...item.data(), id:item.id, donate: true}})
                         ])
                         this.initialMyFav = this.myFavorites;

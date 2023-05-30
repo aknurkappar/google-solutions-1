@@ -172,17 +172,16 @@
             <p (change)="showOnly($event)">Show only:
                 <select onChange=selectChange(this.value)>
                     <option value="all">All</option>
-                    <option value="B&D">B&D</option>
+                    <option *ngIf="!specialStatus" value="B&D">B&D</option>
                     <option value="inProgress">In progress</option>
                     <option value="rejected">Rejected</option>
+                    <option *ngIf="specialStatus" value="sold">Sold B&D</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
             </p>
         </div>
-
         <p class="account-checkbox"><input type="checkbox"/> Select all ads from the list to apply the same actions to them</p>
-
         <div class="account-posts-list-container" *ngFor="let post of myPost" [ngClass]="(post.visibility === 'active' || post.visibility === 'B&D') ? '' : 'inactive-post'">
             <div class="account-posts-list">
                 <a *ngIf="post.visibility === 'active'" href="/postdetails/{{post.id}}}" class="post-left-side">
@@ -251,7 +250,7 @@
                     </div>
                 </div>
             </div>
-            <div class="account-post-footer">
+            <div *ngIf="" class="account-post-footer">
                 <img src="assets/selector-gray.png" />
                 Available: {{post.time.toDate() | date:'dd.MM.yyyy'}} -  {{post.expiredDate.toDate() | date:'dd.MM.yyyy'}}
             </div>

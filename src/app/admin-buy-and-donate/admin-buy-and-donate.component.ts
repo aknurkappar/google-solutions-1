@@ -160,4 +160,16 @@ export class AdminBuyAndDonateComponent implements OnInit, AfterViewInit {
     return Math.floor(diffInMs / (60 * 60 * 24));
   }
 
+  openImage(e: any) {
+    e.composedPath()[1].querySelector(".full_image").classList.add("show")
+    document.body.classList.add("lock")
+  }
+  closeImage(e: any) {
+    console.log(e.composedPath()[0].className)
+    if(e.composedPath()[0].className == "full_image show") {
+      e.composedPath()[0].classList.remove("show")
+      document.body.classList.remove("lock")
+    }
+  }
+
 }
