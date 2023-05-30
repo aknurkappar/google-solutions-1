@@ -66,7 +66,7 @@
                     {{owner.fName}} {{owner.lName}}
                 </div>
             </div>
-            <div [ngClass]="specialStatus ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
+            <div [ngClass]="(specialStatus || this.user.uniqID == this.post.takerID || this.post.ownerId == this.user.userID) ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
                 <p id="subtitle">Owner contacts</p>
                 <p style="margin-bottom: 6px;">
                     <span class="material-symbols-outlined">call</span>
@@ -76,19 +76,11 @@
                     <span class="material-symbols-outlined">location_on</span>
                     Kazakhstan, {{post.location}}
                 </p>
-                <p class="post-location"></p>
             </div>
         </div>
-        <div class="post-details-bottom product_location" style="margin-top: 15px !important;">
+        <div [ngClass]="(specialStatus || this.user.uniqID == this.post.takerID || this.post.ownerId == this.user.userID) ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom" style="margin-top: 15px !important;">
             <p id="title2">Location</p>
             <p style="margin-top: 5px; margin-left: 0; margin-bottom: 18px">
-        <div [ngClass]="(specialStatus || this.user.uniqID == this.post.takerID) ? 'post-details-bottom-text special' : 'post-details-bottom-text'" class="post-details-bottom-text">
-            <p id="subtitle">Owner contacts</p>
-            <p style="margin-bottom: 6px;">
-                <span class="material-symbols-outlined">call</span>
-                {{post.phone}}
-            </p>
-            <p>
                 <span class="material-symbols-outlined">location_on</span>
                 Kazakhstan, {{post.location}}
             </p>

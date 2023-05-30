@@ -87,7 +87,6 @@ export class PostDetailsComponent implements OnInit {
 
         this.CorrectOTP = this.post.code
 
-
         this.sliderImages = []
         this.sliderImages.push({imageSrc: this.post.mainIMG, imageAlt: ''})
         for(let i = 0; i < this.post.images.length; i++) {
@@ -108,12 +107,12 @@ export class PostDetailsComponent implements OnInit {
       });
     }
 
-    this.classExpression()
-
     setTimeout(() => {
       this.initMap();
       this.geocodeAddress(this.post.location);
-    }, 1500)
+    }, 500)
+
+    this.classExpression()
   }
 
   initMap() {
