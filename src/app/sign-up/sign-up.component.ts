@@ -16,20 +16,17 @@ import {Location} from "@angular/common";
 export class SignUpComponent {
 
   auth = getAuth()
+  constructor(public firestore: Firestore, public storage: Storage, public router: Router, public modalCondition: ModalConditionService, private location: Location) { }
 
-  constructor(public firestore: Firestore,
-              public storage: Storage,
-              public router: Router,
-              public modalCondition: ModalConditionService,
-              private location: Location
-  ) { }
   closeModal(){
     this.router.navigate(['/home']).then()
     document.body.classList.remove('lock');
   }
+
   switchToSigIn(){
     this.router.navigate(['/home/sign-in']).then()
   }
+
   signUp(value: any, e: any) {
     const signUpForm = e.composedPath()[0];
 
@@ -86,6 +83,7 @@ export class SignUpComponent {
         value.userID = succes.user.uid;
         value.baursaks = 0;
         value.avatar = "";
+        value.donatedValue = 0;
         addDoc(dbInstance, value)
             .then(() => {
             })

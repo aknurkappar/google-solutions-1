@@ -22,8 +22,9 @@ import {onAuthStateChanged} from "@angular/fire/auth";
 })
 export class DonationsComponent implements OnInit {
 
-  public donations: any[] = [];
+  public donations: any[] = []
   public initialDonations: any = []
+  public leaderboard : any[] = []
 
   public files: any = [];
   public image: any = {};
@@ -34,6 +35,7 @@ export class DonationsComponent implements OnInit {
   public filesUploaded: boolean = false;
 
   public loaded: boolean;
+  public loaded2: boolean = false
 
   donateFunds = ""
   accepted = false
@@ -56,6 +58,7 @@ export class DonationsComponent implements OnInit {
       }
     });
     this.getData()
+    this.getLeaderboard()
   }
 
   constructor(public firestore: Firestore, public storage: Storage) {
@@ -238,6 +241,21 @@ export class DonationsComponent implements OnInit {
       // this.donations = this.donations.filter((value) => value.visible === true)
     }).catch( (err) => { alert(err.message) }
     ).finally( () => {
+    })
+  }
+
+  getLeaderboard() {
+    const dbInstance = collection(this.firestore, 'users');
+    getDocs(dbInstance).then( (response) => {
+      this.leaderboard = [...response.docs.map( (item) => {
+        return { ...item.data(), id:item.id }})
+      ].sort((n1, n2) => { // @ts-ignore
+        return n2.donatedValue - n1.donatedValue
+      })
+    }).catch( (err) => { alert(err.message) }
+    ).finally( () => {
+      this.leaderboard = this.leaderboard.slice(0, 10)
+      this.loaded2 = true
     })
   }
 

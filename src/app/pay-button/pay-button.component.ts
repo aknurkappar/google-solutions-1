@@ -75,6 +75,11 @@ export class PayButtonComponent implements OnInit{
       updateDoc(dataToUpdate, {
         donatedFunds: increment(this.credit.price)
       }).then(() => {
+      }).catch((err) => {})
+      const dataToUpdate2 = doc(this.firestore, "users", this.credit.takerID);
+      updateDoc(dataToUpdate2, {
+        donatedValue: increment(this.credit.price)
+      }).then(() => {
         location.reload()
       }).catch((err) => {})
     }

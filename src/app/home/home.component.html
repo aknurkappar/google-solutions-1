@@ -39,7 +39,7 @@
             </div>
             <div class="leaderboard-list">
                 <div *ngFor="let userElement of leaderboard, let i = index">
-                    <div class="user_side"  *ngIf="userElement.baursaks > 0">
+                    <div class="user_side" *ngIf="userElement.baursaks > 0">
                         <div class="link_to_profile">
                             <img class="avatar"*ngIf="userElement.avatar" src="{{userElement.avatar}}" alt="">
                             <div *ngIf="!userElement.avatar" class="no-avatar">

@@ -134,7 +134,6 @@ export class HomeComponent implements OnInit{
     }).catch( (err) => { alert(err.message) }
     ).finally( () => {
       this.leaderboard = this.leaderboard.slice(0, 10)
-      console.log(this.leaderboard)
     })
   }
 

@@ -1,4 +1,39 @@
-<div class="container">
+<div *ngIf="!loaded2" class="loading">
+    <img *ngIf="!loaded" src="../../assets/loading.gif" alt="">
+</div>
+<div *ngIf="loaded2" class="leaderboard">
+    <div class="leaderboard-title">
+        <img src="./assets/cup.png" alt="cup"/>
+        <div>
+            <p class="leaderboard-main-title">Donors Legends!</p>
+            <p class="leaderboard-main-subtitle">Leaderboard of generous donors in BeJomart</p>
+        </div>
+    </div>
+    <div class="leaderboard-list">
+        <div *ngFor="let userElement of leaderboard, let i = index" class="user_side_back">
+            <div class="user_side" *ngIf="userElement.donatedValue > 0">
+                <div class="link_to_profile">
+                    <img class="avatar"*ngIf="userElement.avatar" src="{{userElement.avatar}}" alt="">
+                    <div *ngIf="!userElement.avatar" class="no-avatar">
+                        <img src="../assets/avatar.png" alt="">
+                    </div>
+                    <img class="star" src="./assets/gold-star.png" *ngIf="i < 3"/>
+                    <img class="star" src="./assets/silver-star.png" *ngIf="i >= 3 && i < 6"/>
+                    <img class="star" src="./assets/bronze-star.png" *ngIf="i >= 6"/>
+                    <div class="user_names">
+                        <span>{{userElement.fName}} {{userElement.lName.substring(0, 1)}}.</span>
+                    </div>
+                </div>
+                <div *ngIf="userElement.donatedValue.toString().length == 3" class="baursaks">{{userElement.donatedValue.toString()}}₸</div>
+                <div *ngIf="userElement.donatedValue.toString().length == 4" class="baursaks">{{userElement.donatedValue.toString().substring(0, 1)}}K ₸</div>
+                <div *ngIf="userElement.donatedValue.toString().length == 5" class="baursaks">{{userElement.donatedValue.toString().substring(0, 2)}}K ₸</div>
+                <div *ngIf="userElement.donatedValue.toString().length == 6" class="baursaks">{{userElement.donatedValue.toString().substring(0, 3)}}K ₸</div>
+                <div *ngIf="userElement.donatedValue.toString().length == 7" class="baursaks">{{userElement.donatedValue.toString().substring(0, 3)}}M ₸</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loaded2" class="container">
     <div class="top">
         <div class="search_input">
             <input type="text" (keyup)="search($event)" placeholder="Search by title">
@@ -120,7 +155,7 @@
                         <div class="pay_by_google">
                             <input type="text" (keyup)="setDonateValue($event)" placeholder="Minimum 100₸">
                             <app-pay-button *ngIf="!accepted" [credit]="{price: '', donationID: '', postID: '', takerID: '', type: ''}"></app-pay-button>
-                            <app-pay-button *ngIf="accepted" [credit]="{price: donateFunds, donationID: don.id, postID: '', takerID: '', type: 'justDonation'}"></app-pay-button>
+                            <app-pay-button *ngIf="accepted" [credit]="{price: donateFunds, donationID: don.id, postID: '', takerID: this.user.uniqID, type: 'justDonation'}"></app-pay-button>
                         </div>
                     </div>
                 </div>

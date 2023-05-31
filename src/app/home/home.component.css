@@ -698,14 +698,11 @@
     border-radius: 25px;
     margin-top: 15px;
 }
-
 .link_to_profile
 {
     display: flex;
-    align-items: center;
     justify-content: center;
-
-    margin-right: 50px;
+    align-items: center;
 }
 .link_to_profile .avatar
 {
