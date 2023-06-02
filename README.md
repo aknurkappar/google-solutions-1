@@ -13,7 +13,7 @@ BeJomart
 ⠀  
 This project was generated with `Angular CLI version 15.2.0`
 
-### To create our project, we used
+#### To create our project, we used
 * Angular
 * Firebase
 * Google Maps Platform
