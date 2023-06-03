@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Category} from "../catalog";
 
 import { categories } from "../catalog";
@@ -25,12 +25,15 @@ import {getAuth} from "firebase/auth";
   templateUrl: './add-post-first-step.component.html',
   styleUrls: ['./add-post-first-step.component.css']
 })
-export class AddPostFirstStepComponent implements OnInit {
+export class AddPostFirstStepComponent implements OnInit, AfterViewInit {
 
   public postCategory: any = [];
   public categories = categories;
   public uploaded: boolean;
   public user : User
+
+  apiKey = "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"
+  apiUrl = "https://api.openai.com/v1/chat/completions"
 
   constructor(public firestore: Firestore, public storage: Storage, public router: Router, public addPostFormService: AddPostFormService) {
     this.uploaded = false
@@ -52,6 +55,9 @@ export class AddPostFirstStepComponent implements OnInit {
         })
       }
     });
+  }
+  ngAfterViewInit() {
+    this.generateDescription()
   }
 
   handlePostValidation(event : any){
@@ -104,6 +110,30 @@ export class AddPostFirstStepComponent implements OnInit {
         this.addPostFormService.categoryText += " / "
       }
     }
+  }
+
+  generateDescription() {
+    const generate = async () => {
+      try {
+        const response = await fetch(this.apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.apiKey}`
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{role: "user", content: "3 word sentence"}]
+          }) // `Generate me a product description based on the following data: Title - ${this.addPostFormService.post.title}, Category - ${this.addPostFormService.categoryText}`
+        });
+
+        const data = await response.json()
+        console.log(data.choices[0].message.content)
+      } catch(error) {
+
+      }
+    }  // @ts-ignore
+    document.querySelector(".generate_text").addEventListener("click", generate)
   }
 
 }

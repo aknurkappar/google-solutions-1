@@ -99,6 +99,10 @@
 
     margin-bottom: 18px;
 }
+.input_block.description_part
+{
+    position: relative;
+}
 .input_block label
 {
     display: flex;
@@ -609,4 +613,47 @@
 .select_category li ul li:hover .sub_sub_category
 {
     display: block;
+}
+
+
+.generate_text
+{
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    width: 100%;
+}
+.generate_text span
+{
+    color: #3A47B9;
+    font-size: 21px;
+
+    margin-bottom: -5px;
+    margin-left: 4px;
+}
+.generate_text div
+{
+    font-size: 14px;
+    font-weight: 400;
+    color: #5d5d5d;
+
+    display: flex;
+    gap: 4px;
+}
+.generate_text div p
+{
+    color: #000;
+    font-weight: 500;
+    font-size: 14px;
+}
+.generate_text div:hover p
+{
+    text-decoration: underline;
 }

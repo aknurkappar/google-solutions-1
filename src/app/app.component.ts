@@ -66,16 +66,14 @@ export class AppComponent implements OnInit {
     document.body.classList.remove('lock');
   }
 
-  logout(e : any) {
+  logout() {
     this.adminLogged = false
     this.isAuthorized = false
 
     const auth = getAuth();
     signOut(auth).then(() => {
-      this.userLoaded = 0
-    }).catch((error) => {
-      // An error happened.
-    });
+      this.userLoaded = 2
+    }).catch((error) => {});
     this.router.navigate(['/home']).then()
     document.body.classList.remove('lock')
   }

@@ -46,7 +46,7 @@ export class PostDetailsComponent implements OnInit {
 
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if(user) {
         const uid = user.uid;
         const dbInstance = collection(this.firestore, 'users');
         const userQuery = query(dbInstance, where("userID", "==", `${uid}`));

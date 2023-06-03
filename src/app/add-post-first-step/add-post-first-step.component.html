@@ -10,7 +10,6 @@
             <label>Selector</label>
             <div class="choose_block" (click)="chooseCategory($event)">
                 <input [(ngModel)]="addPostFormService.categoryText" type="text" placeholder="Choose category" disabled />
-
                 <img class="selected" src="../../assets/arrowcreatepost.svg" alt="">
                 <div>
                     <ul class="select_category">
@@ -64,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div class="input_block">
+    <div class="input_block description_part">
         <label>Description</label>
         <textarea [(ngModel)]="addPostFormService.post.description" placeholder="Write about your item"></textarea>
     </div>
