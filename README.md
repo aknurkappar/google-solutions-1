@@ -83,6 +83,17 @@ To `sign-in` to the system for Admins, you must enter the following email and pa
  
 ---
 
+HOW TO START CHAT
+-----------------
+!!!You can start a chat only by the seller of the product
+1. To start a chat with a user you have to go to his product page and click on `Start chat` (if you have already corresponded with him, there will be `Continue chat`)
+2. After that you will be redirected to the page with the chat
+
+HOW TO BOOK ITEM
+----------------
+
+---
+
 PROJECT TEAM
 ------------
 #### Our team members and their positions in the project:
