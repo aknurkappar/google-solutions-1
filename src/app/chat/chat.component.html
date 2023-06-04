@@ -5,7 +5,10 @@
     <div class="chats">
         <p class="title">Messages</p>
         <div class="divider"></div>
-        <div class="chats_container">
+        <div *ngIf="userChats.length == 0" class="chats_container zero">
+            Here will be your chats with BeJomart users.
+        </div>
+        <div *ngIf="userChats.length > 0" class="chats_container">
             <div *ngFor="let chat of userChats" (click)="chooseChat(chat)" [ngClass]="chat.id == activeChat.id ? 'chat selected' : 'chat'" class="chat">
                 <img *ngIf="chat.chatPic" src="{{chat.chatPic}}" alt="">
                 <div *ngIf="!chat.chatPic" class="no_avatar">

@@ -19,6 +19,11 @@
     height: calc(100% - 65px);
     overflow-y: auto;
 }
+.chats_container.zero
+{
+    padding: 20px;
+    font-size: 15px;
+}
 ::-webkit-scrollbar-thumb
 {
     background: #5b5b5b;

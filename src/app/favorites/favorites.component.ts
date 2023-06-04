@@ -96,20 +96,19 @@ export class FavoritesComponent implements OnInit {
 
     addToFav(e: any, post: any) {
         e.composedPath()[3].classList.add('chosen')
-        const dataToUpdate = doc(this.firestore, "posts", post.id);
+        const dataToUpdate = post.donate == false ? doc(this.firestore, "posts", post.id) : doc(this.firestore, "B&D", post.id)
         updateDoc(dataToUpdate, { favorite: arrayUnion(this.user.userID) }).then(() => { }).catch((err) => { alert(err.message) })
     }
 
     removeFromFav(e: any, post: any) {
         e.composedPath()[3].classList.remove('chosen')
-        const dataToUpdate = doc(this.firestore, "posts", post.id);
+        const dataToUpdate = post.donate == false ? doc(this.firestore, "posts", post.id) : doc(this.firestore, "B&D", post.id)
         updateDoc(dataToUpdate, { favorite: arrayRemove(this.user.userID) }).then(() => { }).catch((err) => { alert(err.message) }).finally( ()=> location.reload())
     }
 
     filterByCategory(e: any) {
         this.myFavorites = this.initialMyFav;
         this.myFavorites = this.myFavorites.filter(value => value.category.includes(e.composedPath()[0].childNodes[0].innerHTML))
-        console.log(e.composedPath()[0].childNodes[0].innerHTML);
     }
 
     getUrl1(id: string){

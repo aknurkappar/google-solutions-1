@@ -271,11 +271,8 @@ export class DonationsComponent implements OnInit {
   }
 
   openHelp(e: any) {
-    console.log(e.composedPath()[0])
-    console.log(e.composedPath()[0].className)
-    console.log(e.composedPath()[3].children[1])
     if(e.composedPath()[0].className == 'help') {
-      window.scrollTo({top: 0}); e.composedPath()[3].classList.add('open'); document.body.classList.add('lock');
+      e.composedPath()[3].classList.add('open'); document.body.classList.add('lock');
     }
     if(e.composedPath()[0].className == 'help_back') {
       e.composedPath()[1].classList.remove('open'); document.body.classList.remove('lock');

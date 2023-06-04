@@ -126,7 +126,7 @@
                     </a>
                     <div class="right">
                         <div class="count">{{ad.amount}}</div>
-                        <div *ngIf="ad.ownerId != this.user.userID" class="add_to_fav">
+                        <div *ngIf="ad.ownerId != this.user.userID && this.user.specialStatus" class="add_to_fav">
                             <img src="../../assets/favorite.svg" class="fav_1" on-click="forFavorite($event, ad)" alt="">
                             <img src="../../assets/favirte_choosed.svg" class="fav_2" on-click="forFavorite($event, ad)" alt="">
                         </div>
