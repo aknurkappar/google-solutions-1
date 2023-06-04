@@ -81,8 +81,6 @@ To `sign-in` to the system for Admins, you must enter the following email and pa
       Password: jomartBol  
   ⠀  
  
----
-
 HOW TO START CHAT
 -----------------
 !!!You can start a chat only by the seller of the product
@@ -91,6 +89,8 @@ HOW TO START CHAT
 
 HOW TO BOOK ITEM
 ----------------
+The product page has a `Booking` button. By clicking on it you can book the product. To remove the reservation, you need to click on the button `Cancel booking`.
+!!! A user can only book one item at a time
 
 ---
 
