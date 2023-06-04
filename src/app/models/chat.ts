@@ -13,6 +13,7 @@ export interface Chat {
 
     chatPic?: string
     chatName?: string
+    baursaksCount?: number
 }
 
 export interface Message {

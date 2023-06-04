@@ -35,11 +35,13 @@ export class ChatService {
       users: [
         {
           displayName: `${currentUser.fName} ${currentUser.lName}`,
-          avatar: currentUser.avatar
+          avatar: currentUser.avatar,
+          baursaks: currentUser.baursaks
         },
         {
           displayName: `${otherUser.fName} ${otherUser.lName}`,
-          avatar: otherUser.avatar
+          avatar: otherUser.avatar,
+          baursaks: otherUser.baursaks
         }
       ]
     }).then()
@@ -56,9 +58,10 @@ export class ChatService {
   addChatNameAndPic(currentUserId: string, chats: Chat[]): Chat[] {
     chats.forEach(chat => {
       const otherIndex = chat.userIds.indexOf(currentUserId) === 0 ? 1 : 0 // @ts-ignore
-      const { displayName, avatar } = chat.users[otherIndex]
+      const { displayName, avatar, baursaks } = chat.users[otherIndex]
       chat.chatName = displayName
       chat.chatPic = avatar
+      chat.baursaksCount = baursaks
     })
     return chats
   }

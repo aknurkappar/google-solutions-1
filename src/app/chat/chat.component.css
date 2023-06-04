@@ -146,9 +146,36 @@
     background: #d5d5d5;
 
     display: flex;
+    justify-content: space-between;
     align-items: center;
 
     padding: 0 20px;
+}
+.mess_left
+{
+    display: flex;
+    align-items: center;
+}
+.baursaks
+{
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    background: #F1C16F;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #fff;
+    cursor: default;
+
+    margin-right: 5px;
 }
 
 .messenger_chat

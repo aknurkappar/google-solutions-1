@@ -24,11 +24,14 @@
     </div>
     <div *ngIf="activeChat.id" class="messenger">
         <div class="messenger_header" *ngIf="activeChat">
-            <img *ngIf="activeChat.chatPic" src="{{activeChat.chatPic}}" alt="">
-            <div *ngIf="!activeChat.chatPic" class="no_avatar">
-                <img src="/assets/avatar.png" alt="">
+            <div class="mess_left">
+                <img *ngIf="activeChat.chatPic" src="{{activeChat.chatPic}}" alt="">
+                <div *ngIf="!activeChat.chatPic" class="no_avatar">
+                    <img src="/assets/avatar.png" alt="">
+                </div>
+                <p style="font-size: 17px">{{activeChat.chatName}}</p>
             </div>
-            <p style="font-size: 17px">{{activeChat.chatName}}</p>
+            <div *ngIf="activeChat.baursaksCount" class="baursaks">{{activeChat.baursaksCount}}</div>
         </div>
         <div class="messenger_chat">
             <div class="chat_container">
