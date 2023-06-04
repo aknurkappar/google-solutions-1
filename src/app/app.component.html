@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<footer *ngIf="userLoaded != 0">
+<footer *ngIf="userLoaded != 0 && !chatService.urlPath">
   <div class="line"></div>
   <div class="footer_container">
     <div class="foot_left">
@@ -115,3 +115,10 @@
     </div>
   </div>
 </footer>
+
+<div *ngIf="userLoaded != 2 && userLoaded != 0 && !adminLogged && !chatService.urlPath" class="chat_link" (click)="chatOptions(false)">
+  <span class="material-symbols-outlined">chat</span>
+</div>
+<div *ngIf="userLoaded != 2 && userLoaded != 0 && !adminLogged && chatService.urlPath" class="chat_link back" (click)="chatOptions(true)">
+  <span class="material-symbols-outlined">reply</span>
+</div>

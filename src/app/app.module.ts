@@ -10,7 +10,7 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HomeComponent } from './home/home.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AccountComponent } from './account/account.component';
@@ -32,6 +32,7 @@ import { AdminBuyAndDonateComponent } from './admin-buy-and-donate/admin-buy-and
 import { PayButtonComponent } from './pay-button/pay-button.component';
 import {GooglePayButtonModule} from "@google-pay/button-angular";
 import {AgmCoreModule} from "@agm/core";
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {AgmCoreModule} from "@agm/core";
         BuyAndDonateComponent,
         AdminBuyAndDonateComponent,
         PayButtonComponent,
+        ChatComponent,
     ],
     imports: [
         BrowserModule,
@@ -73,6 +75,8 @@ import {AgmCoreModule} from "@agm/core";
             apiKey: 'AIzaSyCvyJd83113PsK1sK98o8-I-JjrYKotLPU',
             libraries: ['places']
         }),
+        ReactiveFormsModule,
+
     ],
   providers: [
     ScreenTrackingService,UserTrackingService

@@ -17,6 +17,7 @@ import {BuyAndDonateComponent} from "./buy-and-donate/buy-and-donate.component";
 import {AdminBuyAndDonateComponent} from "./admin-buy-and-donate/admin-buy-and-donate.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
+import {ChatComponent} from "./chat/chat.component";
 
 const addPostRoutes : Routes = [
     { path : 'add-post', component : AddPostComponent, children : [
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'postdetails/:id', component: PostDetailsComponent },
   { path: 'buy-and-donate/:id', component: PostDetailsComponent },
   { path: 'buy-and-donate', component: BuyAndDonateComponent },
+  { path: 'chat', component: ChatComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

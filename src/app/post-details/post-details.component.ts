@@ -5,6 +5,8 @@ import { User } from "../models/user";
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "@angular/fire/auth";
 import {MapsAPILoader} from "@agm/core";
+import {ChatService} from "../services/chat.service";
+import {Chat} from "../models/chat";
 
 interface carouselImage {
   imageSrc: string;
@@ -25,6 +27,7 @@ export class PostDetailsComponent implements OnInit {
   public post: any
   public postId: String | undefined
   public specialStatus: boolean = false
+
   sliderImages: carouselImage[] = []
 
   CorrectOTP = ""
@@ -35,9 +38,10 @@ export class PostDetailsComponent implements OnInit {
   // @ts-ignore
   map: google.maps.Map;
 
-  private geoCoder: google.maps.Geocoder | undefined;
+  // @ts-ignore
+  myChats: Chat[] = []
 
-  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router, private mapsAPILoader: MapsAPILoader, private chatService: ChatService) {
     this.user = {} as User;
   }
 
@@ -55,6 +59,10 @@ export class PostDetailsComponent implements OnInit {
           this.user = new User(data.docs.map((item) => {
             return {...item.data(), uniqID: item.id}
           })[0]);
+
+          this.chatService.myChats(this.user).subscribe((chats) => {
+            this.myChats = chats
+          })
 
           const colUsers = collection(this.firestore, "users");
           const docRef = doc(colUsers, `${this.user.uniqID}`);
@@ -128,8 +136,6 @@ export class PostDetailsComponent implements OnInit {
       geocoder.geocode({ address }, (results, status) => {
         if(status === 'OK' && results[0]) {
           const location = results[0].geometry.location;
-          console.log('Latitude:', location.lat());
-          console.log('Longitude:', location.lng());
 
           // Update the map's center
           this.map.setCenter(location);
@@ -303,6 +309,26 @@ export class PostDetailsComponent implements OnInit {
 
   isFavorite() {
     return this.post.favorite.includes(this.user.userID)
+  }
+
+  chatWithUser(option: boolean) {
+    if(!option) {
+      this.chatService.createChat(this.user, this.owner as User)
+      this.chatService.urlPath = true
+      this.router.navigate(["/chat"]).then()
+    } else {
+      this.chatService.urlPath = true
+      this.router.navigate(["/chat"]).then()
+    }
+  }
+
+  chatContains(): boolean {
+    let cnt = 0
+    this.myChats.forEach((chat) => {
+      if(chat.userIds.includes(this.owner.uniqID)) cnt++
+    })
+    return cnt > 0;
+
   }
 
 }

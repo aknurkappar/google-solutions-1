@@ -9,6 +9,8 @@ import { Storage } from "@angular/fire/storage";
 
 import { User } from "./models/user";
 import {onAuthStateChanged, signOut} from "@angular/fire/auth";
+import {Location} from "@angular/common";
+import {ChatService} from "./services/chat.service";
 
 @Component({
   selector: 'app-root',
@@ -21,15 +23,16 @@ export class AppComponent implements OnInit {
 
   public data: any = []
 
-  isAuthorized: boolean = false;
-  adminLogged: boolean = false;
+  isAuthorized: boolean = false
+  adminLogged: boolean = false
   userLoaded = 0
   
-  constructor(public router: Router, public modalConditionService: ModalConditionService, public firestore: Firestore) {
+  constructor(public router: Router, public modalConditionService: ModalConditionService, public firestore: Firestore, private location: Location, public chatService: ChatService) {
     this.user = {} as User
   }
   
   ngOnInit() {
+    this.chatService.urlPath = !!location.pathname.includes("chat")
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if(user) {
@@ -76,6 +79,17 @@ export class AppComponent implements OnInit {
     }).catch((error) => {});
     this.router.navigate(['/home']).then()
     document.body.classList.remove('lock')
+  }
+
+  chatOptions(option: boolean) {
+    if(option) {
+      this.location.back()
+      this.chatService.urlPath = false
+    }
+    else {
+      this.router.navigate(["/chat"]).then()
+      this.chatService.urlPath = true
+    }
   }
   
 }

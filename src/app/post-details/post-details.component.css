@@ -496,3 +496,19 @@ button
     height: 230px;
     border-radius: 6px;
 }
+
+.chat_btn
+{
+    background: #F1C16F;
+    border-radius: 9px;
+
+    height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+
+    cursor: pointer;
+}

@@ -370,3 +370,34 @@ footer
 {
     color: #2d388d;
 }
+
+
+.chat_link
+{
+    width: 85px;
+    height: 85px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(58, 71, 185, 0.5);
+    background: #3A47B9;
+
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+
+    cursor: pointer;
+}
+.chat_link.back
+{
+    background: #F1C16F;
+    box-shadow: 0 0 20px rgba(241, 193, 111, 0.6);
+}
+.chat_link span
+{
+    font-size: 35px;
+    color: #fff;
+}

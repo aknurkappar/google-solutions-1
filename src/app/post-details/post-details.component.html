@@ -76,6 +76,8 @@
                     <span class="material-symbols-outlined">location_on</span>
                     Kazakhstan, {{post.location}}
                 </p>
+                <div *ngIf="chatContains()" class="chat_btn" (click)="chatWithUser(true)">Continue chat</div>
+                <div *ngIf="!chatContains()" class="chat_btn" (click)="chatWithUser(false)">Start chat</div>
             </div>
         </div>
         <div [ngClass]="ownerInfoExpression()" class="post-details-bottom" style="margin-top: 15px !important;">

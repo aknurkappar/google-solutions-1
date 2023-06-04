@@ -1,0 +1,57 @@
+<div *ngIf="!loaded" class="loading">
+    <img src="/assets/loading.gif" alt="loading gif">
+</div>
+<div *ngIf="loaded" class="container">
+    <div class="chats">
+        <p class="title">Messages</p>
+        <div class="divider"></div>
+        <div class="chats_container">
+            <div *ngFor="let chat of userChats" (click)="chooseChat(chat)" [ngClass]="chat.id == activeChat.id ? 'chat selected' : 'chat'" class="chat">
+                <img *ngIf="chat.chatPic" src="{{chat.chatPic}}" alt="">
+                <div *ngIf="!chat.chatPic" class="no_avatar">
+                    <img src="/assets/avatar.png" alt="">
+                </div>
+                <div class="chat_right">
+                    <div class="user_info">
+                        <p *ngIf="chat.chatName">{{chat.chatName.substring(0, chat.chatName.search(" ") + 2)}}.</p>
+                        <p *ngIf="chat.lastMessageDate" class="sent_date">{{chat.lastMessageDate.toDate() | date:'dd.MM.yy'}}, {{chat.lastMessageDate.toDate() | date:'HH:mm'}}</p>
+                    </div>
+                    <p *ngIf="chat.lastMessage && chat.lastMessageSenderId == user.uniqID" class="last_message">You: {{chat.lastMessage}}</p>
+                    <p *ngIf="chat.lastMessage && chat.lastMessageSenderId != user.uniqID" class="last_message">{{chat.lastMessage}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="activeChat.id" class="messenger">
+        <div class="messenger_header" *ngIf="activeChat">
+            <img *ngIf="activeChat.chatPic" src="{{activeChat.chatPic}}" alt="">
+            <div *ngIf="!activeChat.chatPic" class="no_avatar">
+                <img src="/assets/avatar.png" alt="">
+            </div>
+            <p style="font-size: 17px">{{activeChat.chatName}}</p>
+        </div>
+        <div class="messenger_chat">
+            <div class="chat_container">
+                <div *ngFor="let message of messages$ | async" [ngClass]="message.senderId == user.uniqID ? 'text_back sender' : 'text_back'" class="text_back">
+                    <div class="text">
+                        <p>{{message.text}}</p>
+                        <p class="sent_date">{{message.sentDate.toDate() | date:'dd.MM.yy'}}, {{message.sentDate.toDate() | date:'HH:mm'}}</p>
+                    </div>
+                </div>
+                <div #endOfChat id="end_of_chat"></div>
+            </div>
+        </div>
+        <div class="messenger_buttons">
+            <input type="text" [(ngModel)]="message" placeholder="Enter your message" (keydown.enter)="sendMessage()">
+            <button (click)="sendMessage()"><span class="material-symbols-outlined">send</span></button>
+        </div>
+    </div>
+    <div *ngIf="!activeChat.id" class="messenger empty">
+        <div class="greeting">
+            <img src="/assets/logo.png" alt="logo">
+            <p>CHAT</p>
+        </div>
+        <p style="margin-bottom: 15px">Now the choice of things has become even easier with our chat.</p>
+        <p>Communicate with the seller and find out everything about the thing you are interested in.</p>
+    </div>
+</div>

@@ -1,0 +1,293 @@
+.container
+{
+    display: flex;
+    height: calc(100vh - 120px);
+}
+
+.chats
+{
+    width: 350px;
+
+    background: #eaeaea;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .25);
+    border-top-left-radius: 20px;
+    border: 1px solid #E2E2E2;
+    border-right: 1px solid #efefef;
+}
+.chats_container
+{
+    height: calc(100% - 65px);
+    overflow-y: auto;
+}
+::-webkit-scrollbar-thumb
+{
+    background: #5b5b5b;
+    border-radius: 1.5px;
+}
+.title
+{
+    font-size: 20px;
+    font-weight: 600;
+
+    padding: 24px 20px 16px;
+    border-top-left-radius: 19px;
+    background: #d5d5d5;
+}
+.divider
+{
+    padding: 0 20px;
+    border-bottom: 1px solid #d5d5d5;
+}
+.chat
+{
+    display: flex;
+    align-items: center;
+
+    width: 350px;
+
+    box-sizing: border-box;
+
+    padding: 13px 20px;
+    margin-bottom: 1px;
+
+    cursor: pointer;
+}
+.chat.selected,
+.chat:hover
+{
+    background: rgba(255, 255, 255, 0.5);
+}
+.chat_right
+{
+    flex-grow: 1;
+}
+.chat img,
+.messenger_header img
+{
+    width: 44px;
+    height: 44px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+    background: #DEDEDE;
+
+    margin-right: 12px;
+}
+.no_avatar
+{
+    width: 44px;
+    height: 44px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+    background: #DEDEDE;
+
+    margin-right: 12px;
+
+    display: flex;
+    align-items: center;
+}
+.no_avatar img
+{
+    width: 25px;
+    height: 25px;
+
+    margin: 0 auto;
+}
+.chat_right .user_info
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 16.5px;
+}
+.user_info .sent_date
+{
+    font-size: 13.5px;
+    color: #494949;
+}
+.last_message
+{
+    max-width: 250px;
+    margin-top: 2px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    font-size: 14.5px;
+    color: #343434;
+}
+
+.messenger
+{
+    flex-grow: 1;
+
+    background: #fff;
+    border-top-right-radius: 20px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .25);
+    border: 1px solid #E2E2E2;
+    border-bottom: none;
+    border-left: none;
+}
+.messenger_header,
+.messenger_buttons
+{
+    padding: 0 20px;
+}
+.messenger_header
+{
+    height: 65px;
+
+    border-top-right-radius: 19px;
+    background: #d5d5d5;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+}
+
+.messenger_chat
+{
+    height: calc(100% - 125px);
+    overflow-y: auto;
+
+    box-sizing: border-box;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+.messenger_chat > :first-child
+{
+    margin-top: auto;
+}
+.text_back
+{
+    display: flex;
+}
+.text
+{
+    width: fit-content;
+    max-width: 55%;
+
+    background: #ececec;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    padding: 10px 15px;
+    margin-top: 8px;
+
+    font-size: 15px;
+}
+.text_back.sender
+{
+    justify-content: flex-end;
+}
+.text_back.sender .text
+{
+    background: #3A47B9;
+    font-weight: 400;
+    color: #fff;
+}
+.text_back.sender .text .sent_date
+{
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12.5px;
+}
+.text .sent_date
+{
+    font-size: 13px;
+    text-align: end;
+
+    padding-left: 25px;
+    margin-top: 4px;
+
+    color: #646464;
+}
+
+.messenger_buttons
+{
+    height: 60px;
+
+    background: #d5d5d5;
+
+    display: flex;
+    align-items: center;
+}
+.messenger_buttons input
+{
+    flex-grow: 1;
+    height: 41px;
+
+    background: #fff;
+    border: 1px solid #E2E2E2;
+    border-radius: 8px;
+
+    padding: 0 20px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+.messenger_buttons button
+{
+    height: 42px;
+    width: 42px;
+
+    background: #3A47B9;
+    border-radius: 8px;
+
+    margin-left: 10px;
+}
+.messenger_buttons button span
+{
+    color: #fff;
+    margin-bottom: -1px;
+    display: block;
+}
+
+
+.messenger.empty
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 80px;
+}
+.messenger.empty img
+{
+    width: 180px;
+}
+.greeting p
+{
+    font-size: 40px;
+    background: #2D2D2D;
+    color: #fff !important;
+    border-radius: 15px;
+    padding: 10px 20px;
+    width: auto;
+    margin: 7px auto 35px;
+}
+.messenger.empty p
+{
+    color: #3a3a3a;
+}
+
+
+.loading
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading img
+{
+    width: 35px;
+}
