@@ -85,12 +85,15 @@ HOW TO START CHAT
 -----------------
 !!!You can start a chat only by the seller of the product
 1. To start a chat with a user you have to go to his product page and click on `Start chat` (if you have already corresponded with him, there will be `Continue chat`)
+![Chat](https://github.com/aknurkappar/google-solutions-1/blob/main/image_2023-06-04_21-57-13.png)
 2. After that you will be redirected to the page with the chat
+![Chat2](https://github.com/aknurkappar/google-solutions-1/blob/main/image_2023-06-04_21-57-49.png)
 
 HOW TO BOOK ITEM
 ----------------
 The product page has a `Booking` button. By clicking on it you can book the product. To remove the reservation, you need to click on the button `Cancel booking`.
 !!! A user can only book one item at a time
+![Chat3](https://github.com/aknurkappar/google-solutions-1/blob/main/image_2023-06-04_21-55-53.png)
 
 ---
 
