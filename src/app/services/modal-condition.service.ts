@@ -8,11 +8,10 @@ export class ModalConditionService {
   signInCondition: boolean = false
   signUpCondition: boolean = false
 
+  postBooked = localStorage.getItem("postBooked")
+  bookedItemId = localStorage.getItem("bookedItemId")
+  bookedUserId = localStorage.getItem("bookedUserId")
+
   constructor() { }
-
-
-  // setSignUpCondition(condition: boolean) {
-  //   this.signUpCondition = condition
-  // }
 
 }

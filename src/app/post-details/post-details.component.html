@@ -46,9 +46,44 @@
                 </div>
                 <div class="text-bottom">
                     <p class="post-amount"><span>Amount:</span> {{post.amount}}</p>
-                    <div [ngClass]="classExpression()">
-                        <button (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
-                        <app-pay-button *ngIf="isDonate" [credit]="{price: post.price, donationID: post.donationID, postID: postId, takerID: this.user.uniqID, type: 'B&D'}"></app-pay-button>
+                    <div class="right-side-buttons">
+                        <div [ngClass]="bookingInfoExpression()">
+                            <button class="book-button" (click)="handleBookingModel($event)">Booking
+                                <p class="booked-message"> Unfortunately, this item already booked. </p>
+                                <p class="booked-message-one"> Unfortunately, you have already booked another item. </p>
+                            </button>
+                            <button class="cancel-book-button" (click)="cancelBookingModal($event)">Cancel booking</button>
+                            <div (click)="cancelBookingAction($event)" class="book-modal-background">
+                                <div class="book-modal">
+                                    <p>Your booking guarantees the availability of the item.</p>
+                                    <div class="important-message">
+                                        <div class="important-message-image">
+                                            <img src="assets/important.png" alt="important"/>
+                                        </div>
+                                        <p> Ensure timely communication with the owner and arrange getting.</p>
+                                    </div>
+                                    <div class="book-modal-buttons">
+                                        <button *ngIf="!loading" (click)="cancelBookingAction($event)">Cancel</button>
+                                        <button *ngIf="!loading" class="button-success" (click)="bookItem($event)">Book now</button>
+                                        <button *ngIf="loading" class="image-loader"> <img class="loading" src="assets/loading.png"/></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div (click)="cancelBookingAction($event)" class="book-modal-background">
+                                <div class="cancel-book-modal">
+                                    <p>Are you sure you want to cancel your booking? Please choose one of the following options:</p>
+                                    <div class="book-modal-buttons">
+                                        <button *ngIf="!loading" (click)="cancelBookingAction($event)">Keep</button>
+                                        <button *ngIf="!loading" class="button-success" (click)="cancelBookingItem()">Confirm cancellation</button>
+                                        <button *ngIf="loading" class="image-loader"> <img class="loading" src="assets/loading.png"/></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div [ngClass]="classExpression()">
+                            <button (click)="sendCodeToOwner($event)" class="post-details-get-button">Get it right now</button>
+                            <app-pay-button *ngIf="isDonate" [credit]="{price: post.price, donationID: post.donationID, postID: postId, takerID: this.user.uniqID, type: 'B&D'}"></app-pay-button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,8 +108,8 @@
                     {{post.phone}}
                 </p>
                 <p>
-                    <span class="material-symbols-outlined">reviews</span>
-                    {{owner.baursaks}} baursaks
+                    <span class="material-symbols-outlined">location_on</span>
+                    Kazakhstan, {{post.location}}
                 </p>
                 <div *ngIf="chatContains()" class="chat_btn" (click)="chatWithUser(true)">Continue chat</div>
                 <div *ngIf="!chatContains()" class="chat_btn" (click)="chatWithUser(false)">Start chat</div>

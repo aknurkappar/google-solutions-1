@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "@angular/fire/auth";
 import {MapsAPILoader} from "@agm/core";
 import {ChatService} from "../services/chat.service";
 import {Chat} from "../models/chat";
+import {ModalConditionService} from "../services/modal-condition.service";
 
 interface carouselImage {
   imageSrc: string;
@@ -40,9 +41,11 @@ export class PostDetailsComponent implements OnInit {
 
   // @ts-ignore
   myChats: Chat[] = []
+  loading : boolean
 
-  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router, private mapsAPILoader: MapsAPILoader, private chatService: ChatService) {
+  constructor(private route : ActivatedRoute, public firestore: Firestore, public router: Router, private mapsAPILoader: MapsAPILoader, private chatService: ChatService, private modalConditionService: ModalConditionService) {
     this.user = {} as User;
+    this.loading = false
   }
 
   ngOnInit(): void { // @ts-ignore
@@ -153,6 +156,9 @@ export class PostDetailsComponent implements OnInit {
   }
 
   classExpression(): string {
+    if(this.post.visibility == "booked" && this.post.bookedUserId != this.user.userID) {
+      return 'get_buttons item_booked'
+    }
     if(!this.post.takerID && !this.specialStatus && this.post.ownerId != this.user.userID) {
       return 'get_buttons not_bought'
     }
@@ -208,8 +214,8 @@ export class PostDetailsComponent implements OnInit {
   }
 
   sendCodeToOwner(e : any) {
-    e.composedPath()[5].children[0].classList.toggle("modal-active");
-    e.composedPath()[6].querySelector('.otp-first-input').focus();
+    e.composedPath()[6].children[0].classList.toggle("modal-active");
+    e.composedPath()[7].querySelector('.otp-first-input').focus();
     document.body.classList.add('lock');
   }
 
@@ -329,6 +335,80 @@ export class PostDetailsComponent implements OnInit {
     })
     return cnt > 0;
 
+  }
+
+  handleBookingModel(event : any){
+    if(this.post.visibility != "booked"){
+      event.composedPath()[1].children[2].classList.add("modal-open")
+      document.body.classList.add('lock');
+    }
+  }
+
+  cancelBookingAction(event : any){
+    if(event.composedPath()[1].classList[0] == "book-modal-buttons") {
+      event.composedPath()[3].classList.remove("modal-open")
+      } else if(event.composedPath()[0].classList[0] == "book-modal-background"){
+      event.composedPath()[0].classList.remove("modal-open")
+    }
+    document.body.classList.remove('lock');
+  }
+
+  bookItem(event : any){
+    this.loading = true
+    const dataToUpdate = doc(this.firestore, "posts", this.postId as string);
+    updateDoc(dataToUpdate, {
+      visibility: 'booked',
+      bookedUserId: this.user.userID
+    })
+        .then(() => {
+          this.loading = false
+          localStorage.setItem("postBooked", "true")
+          localStorage.setItem("bookedItemId", this.postId as string)
+          localStorage.setItem("bookedUserId", this.user.userID)
+          location.reload()
+        })
+        .catch((err) => {
+          alert(err.message)
+          location.reload()
+        })
+  }
+
+  cancelBookingModal(event : any){
+    event.composedPath()[1].children[3].classList.add("modal-open")
+    document.body.classList.add('lock');
+  }
+
+  cancelBookingItem(){
+    this.loading = true
+    const dataToUpdate = doc(this.firestore, "posts", this.postId as string);
+    updateDoc(dataToUpdate, {
+      visibility: 'active',
+      bookedUserId: ""
+    })
+        .then(() => {
+          this.loading = false
+          localStorage.removeItem("postBooked")
+          localStorage.removeItem("bookedItemId")
+          localStorage.removeItem("bookedUserId")
+          location.reload()
+        })
+        .catch((err) => {
+          alert(err.message)
+          location.reload()
+        })
+  }
+
+  bookingInfoExpression(): string {
+    if(!this.specialStatus || this.post.ownerId == this.user.userID) {
+      return 'post-booking-unavailable'
+    } else if(this.post.bookedUserId == this.user.userID) {
+      return 'post-booking-cancel'
+    } else if(this.post.visibility == "booked") {
+      return 'post-booking-already-booked'
+    } else if(this.modalConditionService.postBooked != null && this.modalConditionService.postBooked == "true") {
+      return 'your_booked_one'
+    }
+    return ''
   }
 
 }

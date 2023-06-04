@@ -213,6 +213,10 @@ button
 {
     display: block;
 }
+.get_buttons.item_booked .post-details-get-button
+{
+    display: none;
+}
 
 .post-details-bottom
 {
@@ -313,7 +317,7 @@ button
     color: #3A47B9;
 }
 
-.modal-background 
+.modal-background, .book-modal-background
 {
     display: none;
 
@@ -511,4 +515,188 @@ button
     margin-top: 20px;
 
     cursor: pointer;
+}
+
+.right-side-buttons{
+    display: flex;
+
+}
+
+.book-button, .cancel-book-button{
+    background: #F1C16F;
+    border-radius: 8px;
+    width: fit-content;
+    height: fit-content;
+    padding: 13px 25px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #000000;
+    transition: .2s;
+    margin-right: 10px;
+    /*display: none;*/
+}
+
+.book-modal-background, .book-modal, .cancel-book-modal{
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-open{
+    display: flex!important;
+}
+
+.book-modal, .cancel-book-modal {
+    position: absolute;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    border-radius: 20px;
+    padding:  25px 20px;
+}
+
+.cancel-book-modal{
+    width: 400px;
+}
+
+
+.book-modal p, .cancel-book-modal p{
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.important-message{
+    background: rgba(241, 193, 111, 0.44);
+    margin: 5px 5px 10px 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-items: center;
+    align-content: center;
+}
+
+.important-message-image{
+    background: #f1c16f;
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    width: 40px;
+    height: 50px;
+}
+
+.important-message-image img{
+    height: 40px;
+}
+
+.important-message p{
+    padding: 8px;
+    text-align: start;
+    margin-left: 8px;
+}
+
+.book-modal button, .cancel-book-modal button{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(229, 229, 229, 0.81);
+    border-radius: 9px !important;
+
+    color: rgba(0, 0, 0, 0.8);
+
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.book-modal button:hover, .cancel-book-modal button:hover{
+    background-color: rgba(218, 218, 218, 0.78);
+}
+
+.book-modal .button-success, .cancel-book-modal .button-success{
+    font-weight: bold;
+    /*color: #3A47B9;*/
+    margin-left: 6px;
+}
+
+.book-modal .button-success:hover, .cancel-book-modal .button-success:hover{
+    background: rgb(241, 193, 111);
+}
+
+.book-modal-buttons{
+    display: flex;
+    width: 98%;
+    margin: 5px;
+}
+
+.image-loader img{
+    width: 24px!important;
+    height: 24px!important;
+}
+
+.image-loader{
+    display: flex!important;
+    justify-content: center!important;
+}
+
+@keyframes loader {
+    from{
+        transform: rotate(0turn);
+    }
+    to{
+        transform: rotate(1turn)
+    }
+}
+
+.image-loader .loading{
+    display: flex!important;
+    animation: loader 1s infinite!important;
+}
+
+.post-booking-unavailable{
+    display: none;
+}
+
+.post-booking-already-booked .book-button{
+    background-color: rgba(218, 218, 218, 0.78);
+    cursor: not-allowed;
+}
+.your_booked_one .book-button{
+    background-color: rgba(218, 218, 218, 0.78);
+    cursor: not-allowed;
+}
+
+.booked-message,
+.booked-message-one
+{
+    display: none;
+    position: absolute;
+    font-size: 13px;
+    background-color: #fff;
+    padding: 7px;
+    border-radius: 10px;
+    transition: .2s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    margin-bottom: 83px;
+}
+
+.post-booking-already-booked .book-button:hover .booked-message{
+    display: flex;
+}
+.your_booked_one .book-button:hover .booked-message-one{
+    display: flex;
+}
+
+.cancel-book-button{
+    display: none;
+}
+
+.post-booking-cancel .cancel-book-button{
+    display: flex;
+}
+
+.post-booking-cancel .book-button{
+    display: none;
+}
+
+.cancel-book-modal{
+
 }

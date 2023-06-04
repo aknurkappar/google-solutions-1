@@ -122,3 +122,7 @@
 <div *ngIf="userLoaded != 2 && userLoaded != 0 && !adminLogged && chatService.urlPath" class="chat_link back" (click)="chatOptions(true)">
   <span class="material-symbols-outlined">reply</span>
 </div>
+
+<a *ngIf="userLoaded != 2 && userLoaded != 0 && !adminLogged && this.modalConditionService.postBooked != null && this.modalConditionService.bookedUserId != null && this.modalConditionService.bookedUserId == this.user.userID" href="/postdetails/{{this.modalConditionService.bookedItemId}}}" class="your_booking">
+  <span class="material-symbols-outlined">bookmark</span>
+</a>

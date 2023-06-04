@@ -41,6 +41,7 @@ export class AddPostFormService{
     this.post.images = []
     this.post.category = []
     this.post.amount = 1
+    this.post.bookedUserId = ""
 
     // B&D
     this.notSelectedMessageIsActive = false

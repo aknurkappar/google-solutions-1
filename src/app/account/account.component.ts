@@ -290,10 +290,6 @@ export class AccountComponent implements OnInit {
     })
   }
 
-  handleEditPost(e : any){
-    console.log(e.composedPath())
-  }
-
   closeEditPostModal(e : any){
     e.composedPath()[0].classList.remove("certificate-modal-background-active")
   }
@@ -316,14 +312,6 @@ export class AccountComponent implements OnInit {
         } else {
           this.myPost = this.myPost.filter(x => x.visibility == e.composedPath()[0].value)
         }
-    }
-  }
-
-  uploadPassport($event : any) {
-    this.IdenticalImages = []
-    console.log(this.IdenticalImages)
-    for(let i=0; i<$event.target.files.length; i++){
-      this.IdenticalImages.push($event.target.files[i])
     }
   }
 
